@@ -1,6 +1,6 @@
 <?php
 
-namespace Sirius\Forms;
+namespace Sirius;
 
 spl_autoload_register(function(
 	$class
