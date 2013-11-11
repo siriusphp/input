@@ -2,9 +2,7 @@
 
 namespace Sirius\Forms\Renderer\Widget;
 
-use Sirius\Forms\Renderer\Widget\Base;
-
-class Text extends Base {
+class Text extends Input {
 	protected $tag = 'input';
 	protected $isSelfClosing = true;
 	

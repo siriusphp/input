@@ -4,7 +4,7 @@ namespace Sirius\Forms\Renderer\Widget;
 
 abstract class Base extends \Sirius\Forms\Html\Element {
 	/**
-	 * The HTML tag vaue
+	 * The HTML tag
 	 * @var string
 	 */
 	protected $tag = 'input';
@@ -22,12 +22,16 @@ abstract class Base extends \Sirius\Forms\Html\Element {
 	 */
 	protected $name;
 	
-	/** Value of the input field
+	protected $before = array();
+	
+	protected $after = array();
+	
+	/**
+	 * Factory method to allow for chaning since setters return the same object
 	 * 
-	 * @var mixed
+	 * @param array $options
+	 * @return \Sirius\Forms\Renderer\Widget\Base
 	 */
-	protected $value;
-
 	static function factory($options = array()) {
 		return new static($options);
 	}
@@ -38,35 +42,20 @@ abstract class Base extends \Sirius\Forms\Html\Element {
 		} else {
 			parent::__construct();
 		}
-		if (isset($options['name'])) {
-			$this->name = $name;
-			$this->attr('name', $options['name']);
-		}
-		if (isset($options['value'])) {
-			$this->value($options['value']);
-		}
 		if (isset($options['data'])) {
 			$this->data($options['data']);
 		}
-	}
-	
-	function value($val = null) {
-		if (count(func_get_args()) === 0) {
-			return $this->getValue();
-		} else {
-			return $this->setValue($val);
+		if (isset($options['text'])) {
+			$this->text($options['text']);
 		}
 	}
 	
-	protected function setValue($val) {
-		$this->value = $val;
-		return $this;
-	}
-	
-	protected function getValue() {
-		return $this->value;
-	}
-	
+	/**
+	 * Return the attributes as a string for HTML output
+	 * example: title="Click here to delete" class="remove"
+	 * 
+	 * @return string
+	 */
 	protected function getAttributesString() {
 		$result = array();
 		$attrs = $this->attr();
@@ -78,16 +67,40 @@ abstract class Base extends \Sirius\Forms\Html\Element {
 		}
 		return implode(' ', $result);
 	}
+
+	
+	function before($stringOrObject) {
+	    array_unshift($this->before, $stringOrObject);
+	    return $this;
+	}
+	
+	function after($stringOrObject) {
+	    array_push($this->after, $stringOrObject);
+	    return $this;
+	}
+	
+	function wrap($before, $after) {
+	    return $this->before($before)
+	                 ->after($after);
+	}
 	
 	function __toString() {
-		if ($this->isSelfClosing) {
-			$template = "<{$this->tag} %s value=\"%s\">";
-			$value = htmlspecialchars($this->value, ENT_COMPAT);
-		} else {
-			$template = "<{$this->tag} %s>%s</{$this->tag}>";
-			$value = $this->value;
-		}
-		return sprintf($template, $this->getAttributesString(), $value);
+	    $before = '';
+	    foreach ($this->before as $item) {
+	        $before .= (string)$item;
+	    }
+		$after = '';
+	    foreach ($this->after as $item) {
+	        $after .= (string)$item;
+	    }
+	    if ($this->isSelfClosing) {
+	        $template = "<{$this->tag} %s>";
+	        $element = sprintf($template, $this->getAttributesString());
+	    } else {
+	        $template = "<{$this->tag} %s>%s</{$this->tag}>";
+	        $element = sprintf($template, $this->getAttributesString(), $this->text());
+	    }
+	    return $before . $element . $after;
 	}
 }
 

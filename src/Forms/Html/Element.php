@@ -13,8 +13,8 @@ class Element {
 		}
 	}
 	
-	function attr($name, $value = null) {
-		if (count(func_get_args()) == 0) {
+	function attr($name = null, $value = null) {
+		if (count(func_get_args()) == 0 || $name === null) {
 			return $this->getAttr();
 		}
 		if (is_array($name)) {
@@ -50,8 +50,8 @@ class Element {
 		return $this;
 	}
 	
-	protected function getAttr($name) {
-		if (count(func_get_args()) === 0) {
+	protected function getAttr($name = null) {
+		if (count(func_get_args()) === 0 || $name === null) {
 			return $this->attrs;
 		}
 		if (is_array($name)) {
@@ -115,8 +115,8 @@ class Element {
 	 * @param mixed $value
 	 * @return array|mixed
 	 */
-	function data($name, $value = null) {
-		if (count(func_get_args()) == 0) {
+	function data($name = null, $value = null) {
+		if (count(func_get_args()) == 0 || $name === null) {
 			return $this->getData();
 		}
 		if (is_array($name)) {
@@ -136,16 +136,16 @@ class Element {
 		throw new \InvalidArgumentException('The data() method did not receive the proper arguments');
 	}
 	
-	protected function getData($key) {
-		if (is_string($key)) {
-			if (isset($this->data[$key])) {
-				return $this->data[$key];
+	protected function getData($name = null) {
+		if (is_string($name)) {
+			if (isset($this->data[$name])) {
+				return $this->data[$name];
 			} else {
 				return null;
 			}
-		} elseif (is_array($key)) {
+		} elseif (is_array($name)) {
 			$data = array();
-			foreach ($key as $k) {
+			foreach ($name as $k) {
 				if (isset($this->data[$k])) {
 					$data[$k] = $this->data[$k];
 				} else {
@@ -157,7 +157,7 @@ class Element {
 		return $this->data;
 	}
 	
-	protected function setData($name, $value = null) {
+	protected function setData($name = null, $value = null) {
 		if (is_array($name)) {
 			foreach ($name as $k => $v) {
 				$this->data[$k] = $v;

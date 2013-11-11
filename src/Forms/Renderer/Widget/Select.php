@@ -2,9 +2,7 @@
 
 namespace Sirius\Forms\Renderer\Widget;
 
-use Sirius\Forms\Renderer\Widget\Base;
-
-class Select extends Base {
+class Select extends Input {
 	protected $tag = 'select';
 	protected $isSelfClosing = false;
 
