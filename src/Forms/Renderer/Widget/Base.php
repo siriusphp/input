@@ -39,7 +39,7 @@ abstract class Base extends \Sirius\Forms\Html\Element {
 			parent::__construct();
 		}
 		if (isset($options['name'])) {
-			$this->name = $name;
+			$this->name = $options['name'];
 			$this->attr('name', $options['name']);
 		}
 		if (isset($options['value'])) {
