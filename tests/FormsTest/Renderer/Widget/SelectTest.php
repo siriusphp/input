@@ -27,6 +27,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase {
 
 	function testRender() {
 		$result = (string) $this->input;
+		$this->assertTrue(strpos($result, '<select class="dropdown"') !== false);
 		$this->assertTrue(strpos($result, '<option value="maybe" selected="selected">Maybe</option>') !== false);
 		$this->assertTrue(strpos($result, '<option value="yes" >Yes</option>') !== false);
 	}

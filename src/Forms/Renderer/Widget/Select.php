@@ -6,6 +6,11 @@ class Select extends Input {
 	protected $tag = 'select';
 	protected $isSelfClosing = false;
 
+	/**
+	 * Generates the string with the list of the <OPTIONS> elements
+	 * 
+	 * @return string
+	 */
 	protected function getOptionsString() {
 		$value = $this->value();
 		$options = '';
@@ -23,8 +28,8 @@ class Select extends Input {
 		return $options;
 	}
 	
-	function __toString() {
-		$template = '<select %s>%s</select>';
+	protected function renderSelf() {
+		$template = '<select%s>%s</select>';
 		return sprintf($template, $this->getAttributesString(), $this->getOptionsString());
 	}
 }

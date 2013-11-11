@@ -2,6 +2,12 @@
 
 namespace Sirius\Forms\Renderer\Widget;
 
+/**
+ * Base class for input elements.
+ * Besides a regular HTML element input elements have a name and a value.
+ * 
+ * @see \Sirius\Forms\Renderer\Widget\Base
+ */
 abstract class Input extends Base {
     /** Value of the input field
      *
@@ -20,6 +26,12 @@ abstract class Input extends Base {
 		}
     }
     
+	/**
+	 * Getter/Setter method for the value of the input field
+	 * 
+	 * @param string $val
+	 * @return string|\Sirius\Forms\Renderer\Widget\Input
+	 */
 	function value($val = null) {
 		if (count(func_get_args()) === 0) {
 			return $this->getValue();
@@ -28,23 +40,24 @@ abstract class Input extends Base {
 		}
 	}
 	
+	/**
+	 * Set value of the input element
+	 * 
+	 * @param string $val
+	 * @return \Sirius\Forms\Renderer\Widget\Input
+	 */
 	protected function setValue($val) {
 		$this->value = $val;
 		return $this;
 	}
 	
+	/**
+	 * Get value of the input element
+	 * 
+	 * @return string
+	 */
 	protected function getValue() {
 		return $this->value;
 	}
 	
-	function __toString() {
-		if ($this->isSelfClosing) {
-			$template = "<{$this->tag} %s value=\"%s\">";
-			$value = htmlspecialchars($this->value, ENT_COMPAT);
-		} else {
-			$template = "<{$this->tag} %s>%s</{$this->tag}>";
-			$value = $this->value;
-		}
-		return sprintf($template, $this->getAttributesString(), $value);
-	}
 }

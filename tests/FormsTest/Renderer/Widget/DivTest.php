@@ -28,6 +28,7 @@ class DivTest extends \PHPUnit_Framework_TestCase {
 
     function testRender() {
         $this->assertEquals('<div class="container">Lorem ipsum...</div>', (string)$this->input);
+        $this->assertEquals('<div class="container">Lorem ipsum...</div>', $this->input->render());
     }
 
     function testWrap() {
