@@ -1,6 +1,6 @@
 <?php 
 
-namespace Sirius\Forms\Renderer\Widget;
+namespace Sirius\Forms\Html;
 
 /**
  * Base class for building HTML elements.
@@ -12,18 +12,18 @@ namespace Sirius\Forms\Renderer\Widget;
  * - addClass(), removeClass(), toggleClass(): manipulate the element's classes
  * - data(): set/get miscelaneous data to the element
  */
-abstract class Base extends \Sirius\Forms\Html\Element {
+class Tag extends Element {
     /**
      * The HTML tag
      * @var string
      */
-    protected $tag = 'input';
+    protected $tag = 'div';
 
     /**
      * Is the element self enclosing
      * @var bool
      */
-    protected $isSelfClosing = true;
+    protected $isSelfClosing = false;
 
     /**
      * Name of the input element / label
@@ -37,12 +37,12 @@ abstract class Base extends \Sirius\Forms\Html\Element {
     protected $after = array();
     
     /**
-     * Factory method to allow for chaning since setters return the same object
+     * Factory method to allow for chaining since setters return the same object
      * 
      * @param array $options
-     * @return \Sirius\Forms\Renderer\Widget\Base
+     * @return \Sirius\Forms\Html\Tag
      */
-    static function factory($options = array(), $tag = null, $isSelfClosing = false) {
+    static function create($options = array(), $tag = null, $isSelfClosing = false) {
         $widget = new static($options);
         if ($tag && is_string($tag)) {
             $widget->tag = $tag;

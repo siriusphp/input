@@ -2,13 +2,18 @@
 
 namespace Sirius\Forms\Renderer\Widget;
 
+use Sirius\Forms\Html\Tag;
+
 /**
  * Base class for input elements.
  * Besides a regular HTML element input elements have a name and a value.
  * 
  * @see \Sirius\Forms\Renderer\Widget\Base
  */
-abstract class Input extends Base {
+abstract class Input extends Tag {
+    protected $tag             = 'input';
+    protected $isSelfClosing   = true;
+    
     /** Value of the input field
      *
      * @var mixed

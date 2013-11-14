@@ -1,16 +1,16 @@
 <?php
 
-namespace Sirius\FormsTest\Renderer\Widget;
+namespace Sirius\FormsTest\Html;
 
 
-use Sirius\Forms\Renderer\Widget\Base;
+use Sirius\Forms\Html\Tag;
 
-class Div extends Base {
+class Div extends Tag {
     protected $tag = 'div';
     protected $isSelfClosing = false;
 }
 
-class Hr extends Base {
+class Hr extends Tag {
     protected $tag = 'hr';
     protected $isSelfClosing = true;
 }

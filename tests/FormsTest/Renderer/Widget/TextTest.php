@@ -19,12 +19,12 @@ class TextTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	function testFactoryMethod() {
-		$input = Text::factory();
+		$input = Text::create();
 		$this->assertTrue($input instanceOf Text);
 	}
 	
 	function testFactoryOfCustomElement() {
-		$input = Text::factory(array(), 'em', false);
+		$input = Text::create(array(), 'em', false);
 		$this->assertEquals('<em></em>', (string)$input);
 	}
 	
