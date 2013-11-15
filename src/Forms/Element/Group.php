@@ -1,9 +1,9 @@
 <?php
 namespace Sirius\Forms\Element;
 
-use Sirius\Forms\Html\Element as HtmlElement;
+use Sirius\Forms\Element as Element;
 
-class Group extends HtmlElement {
+class Group extends Element {
 
 	function getChildren () {
 		return $this
