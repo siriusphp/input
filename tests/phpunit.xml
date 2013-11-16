@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit bootstrap="bootstrap.php" colors="false">
-    <testsuites>
-        <testsuite name="Sirius Forms Test Suite">
-            <directory>./FormsTest/</directory>
-        </testsuite>
-    </testsuites>
+	<testsuites>
+		<testsuite name="Sirius Forms Test Suite">
+			<directory>./FormsTest/</directory>
+		</testsuite>
+	</testsuites>
 </phpunit>

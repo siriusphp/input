@@ -3,7 +3,7 @@ namespace Sirius\Forms\Element;
 
 use \Sirius\Forms\Element;
 
-class Collection extends Element
+class Set extends Element
 {
 
     protected $children = array();

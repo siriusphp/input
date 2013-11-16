@@ -1,7 +1,6 @@
 <?php
+namespace\Sirius\Forms\Renderer;
 
-namespace \Sirius\Forms\Renderer;
-
-class Basic {
-    
+class Basic
+{
 }

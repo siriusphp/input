@@ -13,7 +13,8 @@ $form = new Form(array(
 
 $form->add('credentials', array(
 	'priority' => 0,
-	'type' => 'Fieldset',
+	'type' => 'Group',
+	'widget' => 'Fieldset',
 	'label' => 'Log in details',
 ));
 

@@ -1,3 +1,2 @@
 <?php
-
-require_once('../src/autoloader.php');
+require_once ('../src/autoloader.php');

@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 namespace Sirius\Forms\Html;
 
 /**
@@ -12,37 +11,42 @@ namespace Sirius\Forms\Html;
  * - addClass(), removeClass(), toggleClass(): manipulate the element's classes
  * - data(): set/get miscelaneous data to the element
  */
-class Tag extends Element {
+class Tag extends Element
+{
+
     /**
      * The HTML tag
+     * 
      * @var string
      */
     protected $tag = 'div';
 
     /**
      * Is the element self enclosing
+     * 
      * @var bool
      */
     protected $isSelfClosing = false;
 
     /**
      * Name of the input element / label
-     * 
+     *
      * @var string
      */
     protected $name;
-    
+
     protected $before = array();
-    
+
     protected $after = array();
-    
+
     /**
      * Factory method to allow for chaining since setters return the same object
-     * 
-     * @param array $options
+     *
+     * @param array $options            
      * @return \Sirius\Forms\Html\Tag
      */
-    static function create($options = array(), $tag = null, $isSelfClosing = false) {
+    static function create($options = array(), $tag = null, $isSelfClosing = false)
+    {
         $widget = new static($options);
         if ($tag && is_string($tag)) {
             $widget->tag = $tag;
@@ -50,8 +54,9 @@ class Tag extends Element {
         }
         return $widget;
     }
-    
-    function __construct($options = array()) {
+
+    function __construct($options = array())
+    {
         if (isset($options['attrs'])) {
             parent::__construct($options['attrs']);
         } else {
@@ -64,22 +69,23 @@ class Tag extends Element {
             $this->text($options['text']);
         }
     }
-    
+
     /**
      * Return the attributes as a string for HTML output
      * example: title="Click here to delete" class="remove"
-     * 
+     *
      * @return string
      */
-    protected function getAttributesString() {
+    protected function getAttributesString()
+    {
         $result = array();
         $attrs = $this->attr();
         ksort($attrs);
         foreach ($attrs as $k => $v) {
             if ($v !== true) {
-                $result[] = $k . '="' . htmlspecialchars((string)$v, ENT_COMPAT) . '"';
+                $result[] = $k . '="' . htmlspecialchars((string) $v, ENT_COMPAT) . '"';
             } else {
-            	$result[] = $k;
+                $result[] = $k;
             }
         }
         $attrs = implode(' ', $result);
@@ -89,65 +95,68 @@ class Tag extends Element {
         return $attrs;
     }
 
-    
     /**
      * Add a string or a stringifiable object immediately before the element
-     *  
-     * @param string|object $stringOrObject
+     *
+     * @param string|object $stringOrObject            
      * @return \Sirius\Forms\Renderer\Widget\Base
      */
-    function before($stringOrObject) {
+    function before($stringOrObject)
+    {
         array_unshift($this->before, $stringOrObject);
         return $this;
     }
-    
+
     /**
      * Add a string or a stringifiable object immediately after the element
-     * 
-     * @param string|object $stringOrObject
+     *
+     * @param string|object $stringOrObject            
      * @return \Sirius\Forms\Renderer\Widget\Base
      */
-    function after($stringOrObject) {
+    function after($stringOrObject)
+    {
         array_push($this->after, $stringOrObject);
         return $this;
     }
-    
+
     /**
      * Add something before and after the element.
      * Proxy for calling before() and after() simoultaneously
-     * 
-     * @param string|object $before
-     * @param string|object $after
+     *
+     * @param string|object $before            
+     * @param string|object $after            
      * @return \Sirius\Forms\Renderer\Widget\Base
      */
-    function wrap($before, $after) {
-        return $this->before($before)
-                     ->after($after);
+    function wrap($before, $after)
+    {
+        return $this->before($before)->after($after);
     }
-    
+
     /**
      * Render the element
-     * 
+     *
      * @return string
      */
-    function render() {
+    function render()
+    {
         $before = '';
         foreach ($this->before as $item) {
-            $before .= (string)$item;
+            $before .= (string) $item;
         }
         $after = '';
         foreach ($this->after as $item) {
-            $after .= (string)$item;
+            $after .= (string) $item;
         }
         return $before . $this->renderSelf() . $after;
     }
-    
+
     /**
      * Render only the element (without before/after)
-     * 
+     *
      * @return string
      */
-    protected function renderSelf() {
+    protected function renderSelf()
+    {
         if ($this->isSelfClosing) {
             $template = "<{$this->tag}%s>";
             $element = sprintf($template, $this->getAttributesString());
@@ -157,8 +166,9 @@ class Tag extends Element {
         }
         return $element;
     }
-    
-    function __toString() {
+
+    function __toString()
+    {
         return $this->render();
     }
 }
