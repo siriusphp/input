@@ -3,13 +3,11 @@ namespace Sirius\Forms\Html;
 
 /**
  * Base class for building HTML elements.
- * It offers an interface similar to jQuery's DOM handling functionality
+ * 
+ * It offers an interface similar to jQuery's DOM handling functionality 
+ * (besides the Element's class functionality)
  * - before(): add something bofore the element
  * - after(): add something after the element;
- * - attr(): set/get the element's attributes
- * - text(): set/get the element's innerHTML
- * - addClass(), removeClass(), toggleClass(): manipulate the element's classes
- * - data(): set/get miscelaneous data to the element
  */
 class Tag extends Element
 {
@@ -35,8 +33,18 @@ class Tag extends Element
      */
     protected $name;
 
+    /**
+     * Items (strings) to be added before the element 
+     * 
+     * @var array
+     */
     protected $before = array();
 
+    /**
+     * Items (strings) to be added after the element
+     * 
+     * @var array
+     */
     protected $after = array();
 
     /**

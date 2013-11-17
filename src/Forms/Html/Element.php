@@ -1,6 +1,14 @@
 <?php
 namespace Sirius\Forms\Html;
 
+/**
+ * Base class for building form elements
+ * 
+ * - attr(): set/get the element's attributes
+ * - text(): set/get the element's innerHTML
+ * - addClass(), removeClass(), toggleClass(): manipulate the element's classes
+ * - data(): set/get miscelaneous data to the element
+ */
 class Element
 {
 
@@ -17,6 +25,22 @@ class Element
         }
     }
 
+    /**
+     * Get/Set an attribute on the element
+     * 
+     * @example
+     * $element->attr();                  // get all attributes
+     * $element->attr(array('name', 'class')); //get some attributes
+     * $element->attr('class');           // get the 'class' attribute
+     * $element->attr('class', 'active'); // set the 'class' attribute
+     * $element->attr($associativeArray); // set a bunch of attributes at once
+     * $element->attr('class', null);     // remove the 'class' attribute
+     * 
+     * @param string $name
+     * @param string $value
+     * @throws \IntvalidArgumentException
+     * @return self|mixed
+     */
     function attr($name = null, $value = null)
     {
         if (count(func_get_args()) == 0 || $name === null) {
@@ -70,6 +94,12 @@ class Element
         return isset($this->attrs[$name]) ? $this->attrs[$name] : null;
     }
 
+    /**
+     * Add a class to the element's class list
+     * 
+     * @param string $class
+     * @return self
+     */
     function addClass($class)
     {
         if (! $this->hasClass($class)) {
@@ -78,6 +108,12 @@ class Element
         return $this;
     }
 
+    /**
+     * Remove a class from the element's class list
+     * 
+     * @param string $class
+     * @return self
+     */
     function removeClass($class)
     {
         $classes = $this->attr('class');
@@ -88,6 +124,12 @@ class Element
         return $this;
     }
 
+    /**
+     * Toggles a class on the element
+     * 
+     * @param string $class
+     * @return self
+     */
     function toggleClass($class)
     {
         if ($this->hasClass($class)) {
@@ -96,12 +138,23 @@ class Element
         return $this->addClass($class);
     }
 
+    /**
+     * Checks if the element has a specific class
+     * 
+     * @param string $class
+     * @return boolean
+     */
     function hasClass($class)
     {
         $classes = $this->getAttr('class');
         return $classes && ((bool) preg_match('/(^| ){1}' . $class . '( |$){1}/i', $classes));
     }
 
+    /**
+     * Get/Set the innerHTML of the element
+     * 
+     * @param string $text
+     */
     function text($text = null)
     {
         if (count(func_get_args()) === 0) {
