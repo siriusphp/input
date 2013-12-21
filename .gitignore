@@ -4,3 +4,6 @@ README.txt
 demos/
 extras/documentation
 tests/report
+/.settings
+/.buildpath
+/.project
