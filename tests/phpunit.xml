@@ -2,7 +2,11 @@
 <phpunit bootstrap="bootstrap.php" colors="false">
 	<testsuites>
 		<testsuite name="Sirius Forms Test Suite">
-			<directory>./FormsTest/</directory>
+			<directory>./src/Element/</directory>
 		</testsuite>
 	</testsuites>
+	<logging>
+        <log type="coverage-clover" target="../build/logs/clover.xml"/>
+        <log type="coverage-html" target="../build/coverage/"/>
+    </logging>
 </phpunit>

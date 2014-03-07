@@ -1,0 +1,40 @@
+{
+    "name": "siriusphp/forms",
+    "description": "Form handling library that",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "form",
+        "validation",
+        "upload",
+        "security",
+        "interface",
+        "user experience",
+        "ux",
+        "user interface",
+        "ui"
+    ],
+    "authors": [
+        {
+            "name": "Adrian Miu",
+            "email": "adrian@adrianmiu.ro"
+        }
+    ],
+    "version": "dev-master",
+    "minimum-stability": "dev",
+    "require": {
+        "siriusphp/validation" => ">=1.0.0",
+        "siriusphp/filtration" => ">=1.0.0",
+        "siriusphp/upload" => ">=1.0.0",
+        "php": ">=5.4"
+    },
+    "require-dev": {
+    	"phpunit/phpunit": "dev-master",
+        "satooshi/php-coveralls": "dev-master"
+    },
+    "autoload": {
+        "files": [
+            "autoload.php"
+        ]
+    }
+}
