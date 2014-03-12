@@ -82,11 +82,25 @@ class Specs extends \ArrayObject {
 		throw new \BadMethodCallException("Method {$method}() does not exist for class " . __CLASS__);
 	}
 
+	/**
+	 * Inflector helper method to be used by the __call() method to determine the appropriate target
+	 * 
+	 * @param string $string
+	 * @return string
+	 */
 	protected function inflectCameCaseToUnderscore($string) {
 		$string = preg_replace('/([A-Z])/', '_\1', $string);
 		return trim(strtolower($string), '_');
 	}
 
+    /**
+     * Adds a class on an attribute container
+     * $this['attributes'], $this['label_attributes'], $this['hint_attributes'])
+     * 
+     * @param string $target
+     * @param string $className
+     * @return \Sirius\Forms\Element\Specs
+     */
     protected function addClassFor($target, $className) {
     	$class = $this->getAttributeFor($target, 'class') ?: '';
     	if (!in_array($className, explode(' ', $class))) {
@@ -96,6 +110,14 @@ class Specs extends \ArrayObject {
     	return $this;
     }
 
+    /**
+     * Remove a class from an attribute container
+     * ex: $this['attributes'], $this['label_attributes'], $this['hint_attributes'])
+     * 
+     * @param string $target (ex: NULL, label, hint etc)
+     * @param string $className
+     * @return \Sirius\Forms\Element\Specs
+     */
     protected function removeClassFor($target, $className) {
     	$class = $this->getAttributeFor($target, 'class') ?: '';
     	$classesList = explode(' ', $class);
@@ -106,6 +128,14 @@ class Specs extends \ArrayObject {
     	return $this;
     }
 
+    /**
+     * Toggles a class on an attribute container
+     * $this['attributes'], $this['label_attributes'], $this['hint_attributes'])
+     * 
+     * @param string $target (ex: NULL, label, hint etc)
+     * @param string $className
+     * @return \Sirius\Forms\Element\Specs
+     */
     protected function toggleClassFor($target, $className) {
     	$class = $this->getAttributeFor($target, 'class') ?: '';
     	$classesList = explode(' ', $class);
@@ -118,13 +148,28 @@ class Specs extends \ArrayObject {
     	return $this;
     }
 
-    protected function setAttributesFor($target, $attributes) {
+    /**
+     * Set attributes on to an attribute container
+     * ex: $this['attributes'], $this['label_attributes'], $this['hint_attributes'])
+     * 
+     * @param string $target (ex: NULL, label, hint etc)
+     * @param array $attributes
+     * @return \Sirius\Forms\Element\Specs
+     */
+    protected function setAttributesFor($target, array $attributes) {
     	foreach ($attributes as $attribute => $value) {
     		$this->setAttributeFor($target, $attribute, $value);
     	}
     	return $this;
     }
 
+    /**
+     * Retrieve attributes from an attribute container
+     * ex: $this['attributes'], $this['label_attributes'], $this['hint_attributes'])
+     * 
+     * @param string $target (ex: NULL, label, hint etc)
+     * @return mixed
+     */
     protected function getAttributesFor($target) {
     	$target = strtolower($target);
    		$key = 'attributes';
@@ -138,6 +183,15 @@ class Specs extends \ArrayObject {
     	return $this[$key];
     }
 
+    /**
+     * Sets a single attribute on an attribute container
+     * ex: $this['attributes'], $this['label_attributes'], $this['hint_attributes'])
+     * 
+     * @param string $target (ex: NULL, label, hint etc)
+     * @param string $attribute (ex: id, class, disabled)
+     * @param mixed $value
+     * @return \Sirius\Forms\Element\Specs
+     */
     protected function setAttributeFor($target, $attribute, $value = null) {
     	$target = strtolower($target);
    		$key = 'attributes';
@@ -155,6 +209,14 @@ class Specs extends \ArrayObject {
     	return $this;
     }
 
+    /**
+     * Get a single attribute from an attribute container
+     * ex: $this['attributes'], $this['label_attributes'], $this['hint_attributes'])
+     * 
+     * @param string $target (ex: NULL, label, hint etc)
+     * @param string $attribute (ex: id, class, disabled)
+     * @return mixed|NULL
+     */
     protected function getAttributeFor($target, $attribute) {
     	$attrs = $this->getAttributesFor($target);
     	if (isset($attrs[$attribute])) {

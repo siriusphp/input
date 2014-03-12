@@ -1,6 +1,5 @@
 <?php
 namespace Sirius\Forms;
 
-class ElementFactory
-{
+class ElementFactory {
 }

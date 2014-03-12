@@ -31,7 +31,7 @@ class Form extends HtmlElement
      */
     protected $filtrator;
 
-    function __construct($name, $attrs = array())
+    function __construct($elementFactory, $validator, $filtrator)
     {
         parent::__construct($attrs);
         $this->name = $name;
@@ -47,17 +47,6 @@ class Form extends HtmlElement
 
     /**
      *
-     * @param ElementFactory $elementFactory            
-     * @return \Sirius\Form
-     */
-    function setElementFactory(ElementFactory $elementFactory)
-    {
-        $this->elementFactory = $elementFactory;
-        return $this;
-    }
-
-    /**
-     *
      * @return ElementFactory
      */
     function getElementFactory()
@@ -68,7 +57,7 @@ class Form extends HtmlElement
         return $this->elementFactory;
     }
 
-    function set($name, $specsOrElement)
+    function add($name, $specsOrElement)
     {}
 
     function get($name)

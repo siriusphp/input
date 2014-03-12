@@ -33,7 +33,7 @@ use Sirius\Forms\Form;
  * @method \Sirius\Forms\Element removeContainerClass($class) Removes a CSS class from the container
  * @method \Sirius\Forms\Element toggleContainerClass($class) Toggles a class on the container
  */
-class Element extends Element\Specs
+abstract class Element extends Element\Specs
 {
     /**
      * Constants to be used by setSpec(), getXXX(), setXXX()
@@ -42,13 +42,24 @@ class Element extends Element\Specs
     const LABEL = 'label';
     const LABEL_ATTRIBUTES = 'label_attributes';
     const PRIORITY = 'priority';
-    const PARENT = 'parent';
+    const GROUP = 'group';
     const CONTAINER_ATTRIBUTES = 'container_attributes';
     const HINT = '';
     const HINT_ATTRIBUTES = 'hint_attributes';
     const VALIDATION_RULES = 'validation_rules';
     const FILTERS = 'filters';
     const WIDGET = 'widget';
+    const ELEMENT_TYPE = 'element_type';
+    
+    /**
+     * Default specifications for the element. 
+     * They are merged with the actual specs.
+     * 
+     * @var array
+     */
+    protected $defaultSpecs = array(
+    	Element::ELEMENT_TYPE => 'input',
+    );
 
     /**
      *
@@ -77,17 +88,11 @@ class Element extends Element\Specs
      */
     function __construct($name, $specs = array())
     {
-        parent::__construct($specs);
+        parent::__construct(array_merge($this->defaultSpecs, $specs));
         $this->name = $name;
     }
 
-    function __call($method, $args) {
-        call_user_func_array(array($this->specs, $method), $args);
-        return $this;
-    }
-
-    function setForm(\Sirius\Forms\Form $form)
-    {
+    function setForm(\Sirius\Forms\Form $form) {
         $this->form = $form;
         return $this;
     }
@@ -96,24 +101,45 @@ class Element extends Element\Specs
      *
      * @return \Sirius\Forms\Form;
      */
-    function getForm()
-    {
+    function getForm() {
         return $this->form;
     }
 
+    protected function getName() {
+    	return $this->name;
+    }
+    
     protected function setValue($value)
-    {}
+    {
+    	if ($this->form) {
+    		$this->form->setValue($this->getName(), $value);
+    	} else {
+    		$this->value = $value;
+    	}
+    	return $this;
+    }
 
-    protected function getValue()
-    {}
+    protected function getValue() {
+    	if ($this->form) {
+    		return $this->form->getValue($this->getName());
+    	} 
+    	return $this->value;
+    }
 
-    protected function getRawValue()
-    {}
+    protected function getRawValue() {
+    	if ($this->form) {
+    		return $this->form->getRawValue($this->getName());
+    	} 
+    	return $this->value;
+    }
 
-    protected function setError($error)
-    {}
+    protected function setError($error) {
+    	return $this->name;
+    }
 
-    protected function getError()
-    {}
+    protected function getError() {
+    	return $this->name;
+    }
 
+    
 }
