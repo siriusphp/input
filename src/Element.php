@@ -49,18 +49,7 @@ abstract class Element extends Element\Specs
     const VALIDATION_RULES = 'validation_rules';
     const FILTERS = 'filters';
     const WIDGET = 'widget';
-    const ELEMENT_TYPE = 'element_type';
     
-    /**
-     * Default specifications for the element. 
-     * They are merged with the actual specs.
-     * 
-     * @var array
-     */
-    protected $defaultSpecs = array(
-    	Element::ELEMENT_TYPE => 'input',
-    );
-
     /**
      *
      * @var \Sirius\Forms\Form
@@ -75,9 +64,6 @@ abstract class Element extends Element\Specs
 
     protected $value;
 
-    protected $specs;
-
-    protected $error;
 
     /**
      *
@@ -88,8 +74,12 @@ abstract class Element extends Element\Specs
      */
     function __construct($name, $specs = array())
     {
-        parent::__construct(array_merge($this->defaultSpecs, $specs));
+        parent::__construct(array_merge($this->getDefaultSpecs(), $specs));
         $this->name = $name;
+    }
+    
+    protected function getDefaultSpecs() {
+        return array();
     }
 
     function setForm(\Sirius\Forms\Form $form) {
@@ -132,14 +122,5 @@ abstract class Element extends Element\Specs
     	} 
     	return $this->value;
     }
-
-    protected function setError($error) {
-    	return $this->name;
-    }
-
-    protected function getError() {
-    	return $this->name;
-    }
-
     
 }
