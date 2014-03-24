@@ -33,6 +33,16 @@ use Sirius\Forms\Element as FormElement;
  * @method \Sirius\Forms\Element\Specs addContainerClass($class) Add a CSS class to the container
  * @method \Sirius\Forms\Element\Specs removeContainerClass($class) Removes a CSS class from the container
  * @method \Sirius\Forms\Element\Specs toggleContainerClass($class) Toggles a class on the container
+ * @method \Sirius\Forms\Element getOptions() Get list of options for SELECTS, radio or checkbox groups
+ * @method \Sirius\Forms\Element setOptions(array $options) Set list of options for SELECTs, radio or checkbox groups
+ * @method \Sirius\Forms\Element getFirstOption() Get the first/empty option for SELECT 
+ * @method \Sirius\Forms\Element setFirstOption($option) Set the first/empty option for SELECT
+ * @method \Sirius\Forms\Element getUploadContainer() Get the upload container for the element
+ * @method \Sirius\Forms\Element setUploadContainer($container) Set the upload container for the element
+ * @method \Sirius\Forms\Element getUploadOptions() Get the upload options for the container
+ * @method \Sirius\Forms\Element setUploadOptions(array $options) Set the upload options for the container
+ * @method \Sirius\Forms\Element getUploadRules() Get the upload validation rules
+ * @method \Sirius\Forms\Element setUploadRules(array $rules) Set the upload validation rules
  */
 class Specs extends \ArrayObject {
 

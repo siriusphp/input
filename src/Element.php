@@ -50,6 +50,11 @@ abstract class Element extends Element\Specs
     const FILTERS = 'filters';
     const WIDGET = 'widget';
     const ELEMENT_TYPE = 'element_type';
+    const OPTIONS = 'options';
+    const FIRST_OPTION = 'first_option';
+    const UPLOAD_CONTAINER = 'upload_container';
+    const UPLOAD_OPTIONS = 'upload_options';
+    const UPLOAD_RULES = 'upload_rules';
     
     /**
      * Default specifications for the element. 
@@ -72,12 +77,6 @@ abstract class Element extends Element\Specs
      * @var string
      */
     protected $name;
-
-    protected $value;
-
-    protected $specs;
-
-    protected $error;
 
     /**
      *
@@ -109,32 +108,18 @@ abstract class Element extends Element\Specs
     	return $this->name;
     }
     
-    protected function setValue($value)
-    {
-    	if ($this->form) {
-    		$this->form->setValue($this->getName(), $value);
-    	} else {
-    		$this->value = $value;
-    	}
-    	return $this;
-    }
-
     protected function getValue() {
     	if ($this->form) {
     		return $this->form->getValue($this->getName());
     	} 
-    	return $this->value;
+    	return null;
     }
 
     protected function getRawValue() {
     	if ($this->form) {
     		return $this->form->getRawValue($this->getName());
     	} 
-    	return $this->value;
-    }
-
-    protected function setError($error) {
-    	return $this->name;
+    	return null;
     }
 
     protected function getError() {
