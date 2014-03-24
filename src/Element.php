@@ -57,16 +57,6 @@ abstract class Element extends Element\Specs
     const UPLOAD_RULES = 'upload_rules';
     
     /**
-     * Default specifications for the element. 
-     * They are merged with the actual specs.
-     * 
-     * @var array
-     */
-    protected $defaultSpecs = array(
-    	Element::ELEMENT_TYPE => 'input',
-    );
-
-    /**
      *
      * @var \Sirius\Forms\Form
      */
@@ -78,6 +68,8 @@ abstract class Element extends Element\Specs
      */
     protected $name;
 
+    protected $value;
+
     /**
      *
      * @param string $name
@@ -87,8 +79,12 @@ abstract class Element extends Element\Specs
      */
     function __construct($name, $specs = array())
     {
-        parent::__construct(array_merge($this->defaultSpecs, $specs));
+        parent::__construct(array_merge($this->getDefaultSpecs(), $specs));
         $this->name = $name;
+    }
+    
+    protected function getDefaultSpecs() {
+        return array();
     }
 
     function setForm(\Sirius\Forms\Form $form) {
@@ -112,18 +108,14 @@ abstract class Element extends Element\Specs
     	if ($this->form) {
     		return $this->form->getValue($this->getName());
     	} 
-    	return null;
+    	return $this->value;    	
     }
 
     protected function getRawValue() {
     	if ($this->form) {
     		return $this->form->getRawValue($this->getName());
     	} 
-    	return null;
-    }
-
-    protected function getError() {
-    	return $this->name;
+    	return $this->value;
     }
 
     
