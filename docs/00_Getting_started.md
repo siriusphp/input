@@ -6,13 +6,13 @@ Before learning how to create forms using **Sirius\Forms** there are a couple of
 
 One important thing about **Sirius\Forms** is that its doesn't approach the construction of elements as fully-functional objects that can have a life of their own. For example, Zend Framework's form elements are attached to an input object which has validators and filters. This gives you the "chance" to test a "full featured" form element.
 
-IMO, this is an overengineered solution because filtering and validation happens at the form level. If you only need one input field that you need to filter and validate, that's an easy task to accomplish with only a couple of helper classes. Since you need to validate and filter input data as a set, not and invididual value, that functionality is left to the responsibility of a validator object. For this purpose Sirius\Forms uses [Sirius\Validaton](http://github.com/siriusphp/validation) and [Sirius\Filtration](http://github.com/siriusphp/filtration). For processing uploads we use [Sirius\Upload](http://github.com/siriusphp/upload)
+IMO, this is an overengineered solution because filtering and validation happens at the form level. If you only need one input field that you need to filter and validate, that's an easy task to accomplish with only a couple of helper classes. Since you need to validate and filter input data as a set, not and invididual values, that functionality is left to the responsibility of a validator object. For this purpose Sirius\Forms uses [Sirius\Validaton](http://github.com/siriusphp/validation) and [Sirius\Filtration](http://github.com/siriusphp/filtration). For processing uploads we use [Sirius\Upload](http://github.com/siriusphp/upload)
 
-Since data handling (filtering, upload, validation) is delegated to other object there is no need for form elements to be anything else but a collection of specifications (objects with properties but no "life).
+Since data handling (filtering, upload, validation) is delegated to other object there is no need for form elements to be anything else but a collection of specifications (objects with properties but no "life").
 
 ## Data received through the form is not what your app needs
 
-This goes without saying but there are few areas where this idea has effects: file uploads, localization, special form widgets
+This goes without saying but there are few areas special attention is needed: file uploads, localization, complex form widgets
 
 ### Uploads need special treatment
 
@@ -26,11 +26,9 @@ This is exactly the approach **Sirius\Forms** uses when handling file uploads; a
 
 Your user may send you his/her birth date as `01.25.1995` but your app needs to have it normalized to `1995-01-25`. For this you need to use filters. Again, no need to construct complex objects that know how to normalize/localize data. At the view layer, the form renderer object must be able to construct widgets that can localize variables.
 
-### Special widgets need filters too
+### Complex widgets may require filtering
 
-A date field may be rendered as a set of 3 input fields (day,month,year). To converted from an array to a single value you need filters for the incoming data. At the view level the widgets will take care of retrieving its 3 pieces of data from the single value.
-
-### 
+A date field may be rendered as a set of 3 input fields (day,month,year). To convert it from an array to a single value you need filters for the incoming data. At the view level the widgets will take care of retrieving its 3 pieces of data from the single value. Since form elements are just specs, this reponsabilities are delegated to the filtrator object and the renderer.
 
 ## A forms life-cycle
 

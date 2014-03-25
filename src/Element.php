@@ -4,17 +4,11 @@ namespace Sirius\Forms;
 use Sirius\Forms\Form;
 
 /**
- * @method \Sirius\Forms\Element getAttributes() Get the attributes for the input field
- * @method \Sirius\Forms\Element setAttributes(array $attributes) Set attributes for the input field
- * @method \Sirius\Forms\Element setAttribute($attr, $value) Set attribute for the input field
- * @method \Sirius\Forms\Element addClass($class) Add a CSS class  for the input field
- * @method \Sirius\Forms\Element removeClass($class) Removes a CSS class for the input field
- * @method \Sirius\Forms\Element toggleClass($class) Toggles a class  for the input field
  * @method \Sirius\Forms\Element getLabel() Get the label text
  * @method \Sirius\Forms\Element setLabel($label) Set label text
  * @method \Sirius\Forms\Element getLabelAttributes() Get the attributes for the label
  * @method \Sirius\Forms\Element setLabelAttributes(array $attributes) Set label attributes
- * @method \Sirius\Forms\Element setLabelAttribute($attr, $value) Set label attribute
+ * @method \Sirius\Forms\Element setLabelAttribute($attr, $value = null) Set/Unset label attribute
  * @method \Sirius\Forms\Element addLabelClass($class) Add a CSS class to the label
  * @method \Sirius\Forms\Element removeLabelClass($class) Removes a CSS class from the label
  * @method \Sirius\Forms\Element toggleLabelClass($class) Toggles a class on the label
@@ -22,16 +16,26 @@ use Sirius\Forms\Form;
  * @method \Sirius\Forms\Element setHint($label) Set hint text
  * @method \Sirius\Forms\Element getHintAttributes() Get the attributes for the hint
  * @method \Sirius\Forms\Element setHintAttributes(array $attributes) Set hint attributes
- * @method \Sirius\Forms\Element setHintAttribute($attr, $value) Set hint attribute
+ * @method \Sirius\Forms\Element setHintAttribute($attr, $value = null) Set/Unset hint attribute
  * @method \Sirius\Forms\Element addHintClass($class) Add a CSS class to the hint
  * @method \Sirius\Forms\Element removeHintClass($class) Removes a CSS class from the hint
  * @method \Sirius\Forms\Element toggleHintClass($class) Toggles a class on the hint
  * @method \Sirius\Forms\Element getContainerAttributes() Get the attributes for the container
  * @method \Sirius\Forms\Element setContainerAttributes(array $attributes) Set container attributes
- * @method \Sirius\Forms\Element setContainerAttribute($attr, $value) Set container attribute
+ * @method \Sirius\Forms\Element setContainerAttribute($attr, $value = null) Set/Unset container attribute
  * @method \Sirius\Forms\Element addContainerClass($class) Add a CSS class to the container
  * @method \Sirius\Forms\Element removeContainerClass($class) Removes a CSS class from the container
  * @method \Sirius\Forms\Element toggleContainerClass($class) Toggles a class on the container
+ * @method \Sirius\Forms\Element getOptions() Get list of options for SELECTS, radio or checkbox groups
+ * @method \Sirius\Forms\Element setOptions(array $options) Set list of options for SELECTs, radio or checkbox groups
+ * @method \Sirius\Forms\Element getFirstOption() Get the first/empty option for SELECT 
+ * @method \Sirius\Forms\Element setFirstOption($option) Set the first/empty option for SELECT
+ * @method \Sirius\Forms\Element getUploadContainer() Get the upload container for the element
+ * @method \Sirius\Forms\Element setUploadContainer($container) Set the upload container for the element
+ * @method \Sirius\Forms\Element getUploadOptions() Get the upload options for the container
+ * @method \Sirius\Forms\Element setUploadOptions(array $options) Set the upload options for the container
+ * @method \Sirius\Forms\Element getUploadRules() Get the upload validation rules
+ * @method \Sirius\Forms\Element setUploadRules(array $rules) Set the upload validation rules
  */
 abstract class Element extends Element\Specs
 {
