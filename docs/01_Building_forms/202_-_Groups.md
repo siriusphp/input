@@ -1,4 +1,4 @@
-# Form element groups
+# Groups
 
 Groups are visual containers of elements. You can add it to the form through an array:
 

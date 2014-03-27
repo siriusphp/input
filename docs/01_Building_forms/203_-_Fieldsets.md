@@ -14,7 +14,7 @@ $form->add('credentials', array(
 ));
 
 // or add the children later
-$fielset->get('credentials');
+$fielset = $form->get('credentials');
 
 $fielset->add('email', array(
 	Element::LABEL => 'Email'
