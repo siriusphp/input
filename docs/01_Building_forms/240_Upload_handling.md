@@ -4,7 +4,7 @@ The **Sirius\Forms** library uses the [Sirius\Upload](http://github.com/siriusph
 
 For each element that is of type `file` the library will construct an __"upload handler"__. For that the element specs need to contain:
 
-- the `upload_container`
+- the container
 - upload options
 - upload validation rules
 
