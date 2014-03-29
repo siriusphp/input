@@ -1,7 +1,7 @@
 <?php
 namespace Sirius\FormsTest\Html;
 
-use Sirius\Forms\Html\Tag;
+use Sirius\Forms\Html\ExtendedTag as Tag;
 
 class Div extends Tag
 {

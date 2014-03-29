@@ -87,40 +87,31 @@ abstract class Element extends Element\Specs
         $this->name = $name;
     }
     
+    /**
+     * Returns the default element specifications
+     * To be used for easily extending objects
+     * 
+     * @return array
+     */
     protected function getDefaultSpecs() {
         return array();
     }
 
-    function setForm(\Sirius\Forms\Form $form) {
-        $this->form = $form;
-        return $this;
-    }
-
     /**
-     *
-     * @return \Sirius\Forms\Form;
+     * Retrieve the name of the form's element as registered within the form
+     * 
+     * @return string
      */
-    function getForm() {
-        return $this->form;
-    }
-
-    protected function getName() {
+    function getName() {
     	return $this->name;
     }
     
-    protected function getValue() {
-    	if ($this->form) {
-    		return $this->form->getValue($this->getName());
-    	} 
+    function getValue() {
     	return $this->value;    	
     }
 
-    protected function getRawValue() {
-    	if ($this->form) {
-    		return $this->form->getRawValue($this->getName());
-    	} 
-    	return $this->value;
+    function setValue($value) {
+    	$this->value = $value;
+    	return $this;
     }
-
-    
 }

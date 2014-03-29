@@ -1,12 +1,14 @@
 <?php
 namespace Sirius\Forms\Element;
 
-class Input extends Element
+use Sirius\Forms\Element as BaseElement;
+
+class Input extends BaseElement
 {  
     protected function getDefaultSpecs() {
         return array(
-            Element::WIDGET => 'text',
-            Element::ATTRIBUTES => array(
+            BaseElement::WIDGET => 'text',
+            BaseElement::ATTRIBUTES => array(
             	'type' => 'text'
             )
         );

@@ -1,10 +1,10 @@
 <?php
 namespace Sirius\Forms\Html;
 
-class Label extends ExtendedTag
+class Paragraph extends ExtendedTag
 {
 
-    protected $tag = 'label';
+    protected $tag = 'p';
 
     protected $isSelfClosing = false;
 }

@@ -24,3 +24,7 @@ $form->add('name', array(
 ));
 
 ```
+
+[Learn more about Sirius\Validation](http://github.com/siriusphp/validation). 
+
+One thing to keep in mind when looking over the **Sirius\Validation** documentation is that it works with validation rules assigned to selectors which are constructed by the **Sirius\Forms** library from the element's name. That's why, when defining the element's validation rules you only need to pass only a 3 parameters.

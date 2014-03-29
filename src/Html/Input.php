@@ -1,15 +1,13 @@
 <?php
 namespace Sirius\Forms\Html;
 
-use Sirius\Forms\Html\Tag;
-
 /**
  * Base class for input elements.
  * Besides a regular HTML element input elements have a name and a value.
  *
  * @see \Sirius\Forms\Renderer\Widget\Base
  */
-abstract class Input extends Tag
+class Input extends ExtendedTag
 {
 
     protected $tag = 'input';

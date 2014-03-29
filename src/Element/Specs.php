@@ -2,8 +2,6 @@
 
 namespace Sirius\Forms\Element;
 
-use Sirius\Forms\Element as FormElement;
-
 /**
  * @method \Sirius\Forms\Element\Specs getAttributes() Get the attributes for the input field
  * @method \Sirius\Forms\Element\Specs setAttributes(array $attributes) Set attributes for the input field
@@ -173,14 +171,16 @@ class Specs extends \ArrayObject {
     protected function setAttributeFor($target, $attribute, $value = null) {
     	$target = strtolower($target);
    		$key = 'attributes';
-    	if ('' !== $target) {
+    	if ($target) {
     		$key = $target . '_attributes';
     	}
     	if (!isset($this[$key]) || !is_array($this[$key])) {
     		$this[$key] = array();
     	}
     	if ($value === null) {
-    		unset($this[$key][$attribute]);
+    	    $container = $this[$key];
+    		unset($container[$attribute]);
+    		$this[$key] = $container;
     		return $this;
     	}
     	$this[$key][$attribute] = $value;

@@ -21,3 +21,5 @@ $form->add('date', array(
 ));
 
 ```
+
+[Learn more about Sirius\Filtration](http://github.com/siriusphp/filtration)

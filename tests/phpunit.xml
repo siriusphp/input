@@ -2,7 +2,7 @@
 <phpunit bootstrap="bootstrap.php" colors="false">
 	<testsuites>
 		<testsuite name="Sirius Forms Test Suite">
-			<directory>./src/Element/</directory>
+			<directory>./src/</directory>
 		</testsuite>
 	</testsuites>
 	<logging>

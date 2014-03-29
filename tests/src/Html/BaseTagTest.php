@@ -1,19 +1,19 @@
 <?php
 namespace Sirius\FormsTest\Html;
 
-use Sirius\Forms\Html\Element;
+use Sirius\Forms\Html\BaseTag;
 
-class ElementTest extends \PHPUnit_Framework_TestCase
+class BaseTagTest extends \PHPUnit_Framework_TestCase
 {
 
     function setUp()
     {
-        $this->element = new Element();
+        $this->element = new BaseTag();
     }
 
     function testConstructor()
     {
-        $element = new Element(array(
+        $element = new BaseTag(array(
             'name' => 'email'
         ));
         $this->assertEquals('email', $element->attr('name'));

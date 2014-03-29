@@ -1,4 +1,4 @@
-# Introduction to rendering
+# Introduction to form rendering
 
 When it comes to the rendering of a form the **Sirius\Forms** library's goals is to do that in one line
 

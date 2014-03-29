@@ -92,4 +92,8 @@ class SpecsTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals('', $this->specs['attributes']['class']);
 	}
 
+	function testExceptionThrownOnBadMethodCall() {
+	    $this->setExpectedException('\BadMethodCallException');
+	    $this->specs->undoAttributes48795();
+	}
 }

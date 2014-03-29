@@ -22,7 +22,7 @@ $form->add('email', $element);
 
 The element factory converts the element's definition (an array) into an element object. The element factory allows you to register new element types. Although the **Sirius\Forms*** library comes already packed with lots of elements you will definetely need your own even if only for reducing the code you write. For example you may define an address fieldset as a generic fieldset with a list of children or extend the generic fieldset to include the children; this way if you need the address fieldset in different forms you can reuse it.
 
-[Learn about the ElementFactory](250_-_ElementFactory.md)
+[Learn about the ElementFactory](../10_API/ElementFactory.md)
 
 ## Element types
 
@@ -32,7 +32,7 @@ Ther **Sirius\Forms** library contains a few base elements that can be extended 
 
 These are the usual form elements that you use in a form (text fields, textareas, selects, buttons etc). 
 
-[Learn about input elements](201_Input_fields.md)
+[Learn about input elements](201_-_Input_fields.md)
 
 ### 2. Groups
 
@@ -41,7 +41,7 @@ Inputs that belong to a group must have their `group` property set as the name o
 
 Groups can contain inputs, groups, fieldsets and collections. 
 
-[Learn more about groups](202_-_Groups.md)
+[Learn more about groups](202_-_-_Groups.md)
 
 ### 3. Fieldsets
 
@@ -51,7 +51,7 @@ While the library allows you to define a form element of type input with the nam
 
 A fielset may contain input, groups, fieldsets and collections. You can move an input from a fieldset to a group inside that fieldset but not outside it.
 
-[Learn more about fieldsets](203_Fieldsets.md)
+[Learn more about fieldsets](203_-_Fieldsets.md)
 
 ### 4. Collections
 
@@ -59,5 +59,5 @@ This is a type of element that contains a repeatable set of elements. An example
 
 Just like in the case of fielsets you can move around elements inside a collection but not outside it.
 
-[Learn more about fieldsets](204_Collections.md)
+[Learn more about fieldsets](204_-_Collections.md)
 

@@ -20,11 +20,9 @@
             "email": "adrian@adrianmiu.ro"
         }
     ],
-    "version": "dev-master",
-    "minimum-stability": "dev",
     "require": {
-        "siriusphp/validation" => ">=1.0.0",
-        "siriusphp/filtration" => ">=1.0.0",
+        "siriusphp/validation" => ">=1.1.0",
+        "siriusphp/filtration" => ">=1.2.2",
         "siriusphp/upload" => ">=1.0.0",
         "php": ">=5.4"
     },

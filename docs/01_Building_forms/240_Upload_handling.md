@@ -25,3 +25,5 @@ $form->add('picture', array(
 ));
 
 ```
+
+[Learn more about Sirius\Upload](http://github.com/siriusphp/upload)

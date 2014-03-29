@@ -2,14 +2,14 @@
 namespace Sirius\Forms\Html;
 
 /**
- * Base class for building form elements
+ * Base class for building HTML elements
  * 
  * - attr(): set/get the element's attributes
  * - text(): set/get the element's innerHTML
  * - addClass(), removeClass(), toggleClass(): manipulate the element's classes
  * - data(): set/get miscelaneous data to the element
  */
-class Element
+class BaseTag
 {
 
     protected $attrs = array();

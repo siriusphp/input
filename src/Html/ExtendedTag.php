@@ -9,7 +9,7 @@ namespace Sirius\Forms\Html;
  * - before(): add something bofore the element
  * - after(): add something after the element;
  */
-class Tag extends Element
+class ExtendedTag extends BaseTag
 {
 
     /**

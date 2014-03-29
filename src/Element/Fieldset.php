@@ -2,6 +2,7 @@
 namespace Sirius\Forms\Element;
 
 use \Sirius\Forms\Element;
+use \Sirius\Forms\ElementContainer;
 use \Sirius\Forms\ElementFactory;
 use \Sirius\Forms\ElementFactoryAwareInterface;
 
@@ -12,14 +13,26 @@ use \Sirius\Forms\ElementFactoryAwareInterface;
  * Children will be rendered as `address[street_name]`, `address[city]` etc
  */
 class Fieldset extends Element implements ElementFactoryAwareInterface {
-	protected $defaultSpecs = array(
-		Element::WIDGET => 'fieldset'
-	);
-	
+    use ElementContainer;
+    
+	/**
+	 * @var \Sirius\Form\ElementFactory
+	 */
 	protected $elementFactory;
 	
-    protected $children = array();
 
+	protected function getDefaultSpecs() {
+	    return 	$defaultSpecs = array(
+    		Element::WIDGET => 'fieldset'
+    	);
+	}
+	
+	/**
+     * Generate the namespaced field name of an element inside the  fielset
+     * 
+     * @param string $name
+     * @return string
+     */
     protected function getFullChildName($name) {
     	$firstOpenBracket = strpos($name, '[');
     	// the name is already at least 2 levels deep like street[name]
@@ -27,22 +40,6 @@ class Fieldset extends Element implements ElementFactoryAwareInterface {
     		return $this->getName . '[' . str_replace('[', '][', $name, 1);
     	}
     	return $this->getName() . '[' . $name . ']';
-    }
-    
-    protected function childComparator($childA, $childB) {
-    	if ($childA['priority'] < $childB['priority']) {
-    		return -1;
-    	}
-        if ($childA['priority'] > $childB['priority']) {
-    		return 1;
-    	}
-    	if ($childA['index'] < $childB['index']) {
-    		return -1;
-    	}
-        if ($childA['index'] > $childB['index']) {
-    		return 1;
-    	}
-    	return 0;
     }
     
     /**
@@ -57,46 +54,70 @@ class Fieldset extends Element implements ElementFactoryAwareInterface {
         return $this;
     }
 
-    protected function createChildElementFromSpecs(array $specs) {
-   		// index will be used for sorting
-   		// if 2 elements are added with the same priority the index will determine the position
-   		$specs['index'] = count($this->children);
-   		$element = $this->elementFactory->create($this->getFullChildName($name), $specs);
-   		$element->setForm($this);
-		return $element;
+    /**
+     * Add an element to the fielset
+     *
+     * @param string $name
+     * @param \Sirius\Forms\Element|array $specsOrElement
+     * @throws \RuntimeException
+     * @return \Sirius\Forms\Form
+     */
+    function add($name, $specsOrElement)
+    {
+        if ($this->getForm()->isPrepared()) {
+            throw new \RuntimeException('You cannot add elements after the form has been prepared');
+        }
+        $name = $this->getFullChildName($name);
+        $element = $specsOrElement;
+        if (is_array($specsOrElement)) {
+            $element = $this->getElementFactory()->createFromSpecs($name, $specsOrElement);
+            $element->setForm($this);
+        }
+        if (!$element instanceof \Sirius\Forms\Element) {
+            throw new \RuntimeException('Cannot create a form element based on the data provided');
+        }
+        return $this->addToElementContainer($name, $element);
     }
     
-    function add($name, $elementOrSpecs) {
-    	if (!$this->elementFactory && !$elementOrSpecs instanceof Element) {
-    		thrown new \RuntimeException('A fieldset must have an element factory in order to be able to construct elements');
-    	}
-
-    	$element = ($elementOrSpecs instanceof Element)
-    			? $elementOrSpecs
-    			: $this->createChildElementFromSpecs($elementOrSpecs);
-    	
-    	$this->children[$name] = $element;
-    	return $this;
+    /**
+     * Retrieve an element by name
+     *
+     * @param string $name
+     * @return \Sirius\Forms\Element
+     */
+    function get($name)
+    {
+        $name = $this->getFullChildName($name);
+        return $this->getFromElementContainer($name);
     }
     
-    function get($name) {
-    	return $this->has($name) ? $this->children[$name] : null;
+    /**
+     * Removes an element from the fielset
+     *
+     * @param string $name
+     * @throws \RuntimeException
+     * @return \Sirius\Forms\Form
+     */
+    function remove($name)
+    {
+        if ($this->getForm()->isPrepared()) {
+            throw new \RuntimeException('You cannot remove elements after the form has been prepared');
+        }
+        $name = $this->getFullChildName($name);
+        return $this->removeFromElementContainer($name);
     }
     
-    function has($name) {
-    	return isset($this->children[$name]);
+    /**
+     * Returns whether an element exist in the fielset
+     *
+     * @param string $name
+     * @return boolean
+     */
+    function has($name)
+    {
+        $name = $this->getFullChildName($name);
+        return false !== $this->get($name);
     }
     
-    function remove($name) {
-    	if ($this->has($name)) {
-    		unset($this->children[$name]);
-    	}
-    	return $this;
-    }
     
-    function getChildren() {
-    	// first sort the children so they are retrieved by priority
-    	uasort($this->children, array($this, 'childComparator'));
-    	return $this->children;
-    }
 }
