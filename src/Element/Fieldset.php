@@ -42,12 +42,6 @@ class Fieldset extends Element implements ElementFactoryAwareInterface {
     	return $this->getName() . '[' . $name . ']';
     }
     
-    /**
-     * Sets the element factory
-     * 
-     * @param ElementFactory $elementFactory            
-     * @return self
-     */
     function setElementFactory(ElementFactory $elementFactory)
     {
         $this->elementFactory = $elementFactory;

@@ -9,7 +9,7 @@ class WidgetFactory {
 		
 	}
 
-	function createFormControl($formElement) {
+	function createFormWidget($formElement) {
 		
 	}
 }
