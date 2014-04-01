@@ -18,7 +18,6 @@ abstract class AbstractDecorator {
 		return isset($this->options[$name]) ? $this->options[$name] : null;
 	}
 	
-	abstract function decorate($widget) {
-	}
+	abstract function decorate($widget);
 	
 }

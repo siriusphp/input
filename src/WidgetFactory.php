@@ -5,11 +5,11 @@ namespace Sirius\Forms;
 class WidgetFactory {
 	protected $widgetTypes = [];
 	
-	function registerWidgetType($name, $classOrClosure) {
+	function registerType($type, $classOrClosure) {
 		
 	}
 
-	function createFormControl($formElement) {
+	function createFromElement(\Sirius\Forms\Specs $formElement) {
 		
 	}
 }

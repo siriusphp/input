@@ -62,6 +62,7 @@ class ElementFactory
             $element = new $class($name, $specs);
         }
         
+        // if the element is a fieldset/collection type, inject the element factory
         if ($element instanceof \Sirius\Forms\ElementFactoryAwareInterface) {
             $element->setElementFactory($this);
         }

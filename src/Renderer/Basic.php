@@ -3,14 +3,17 @@ namespace Sirius\Forms\Renderer;
 
 class Basic
 {
-	protected $widgetFactory ;
+	protected $widgetFactories = array() ;
 	protected $decorators = array();
 	
-	function __construct(\Sirius\Forms\WidgetFactory $widgetFactory = null) {
-		
+	function __construct(\Sirius\Forms\WidgetFactory $defaulWidgetFactory = null) {
 	}
-	
-	function addDecorator($name, $decorator, $priority) {
+
+	function addWidgetFactory($widgetFactory, $priority = 0) {
+
+	}
+
+	function addDecorator($name, $decorator, $priority = 0) {
 		
 	}
 	

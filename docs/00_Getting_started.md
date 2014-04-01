@@ -34,9 +34,9 @@ Since data handling (filtering, upload, validation) is delegated to other object
 
 ## Data you get is not the data you need
 
-This goes without saying but there are few areas special attention is needed: file uploads, localization, complex form widgets
+This goes without saying but there are few areas special attention is needed: 
 
-### Uploads need special treatment
+### 1. File uploads
 
 Anybody who ever build a complex form knows this simple truth. Take the example of a profile form where you need to allow the user to upload its profile picture. You will get a $_FILES['picture'] from the client but what you really want is pass the uploaded file name to an user's model `picture` property. If you were to have an AJAX uploader you would get the result of the AJAX upload as a string that you would use to populate a `<input type="hidden" name="picture">` field.
 
@@ -45,7 +45,7 @@ This is exactly the approach **Sirius\Forms** uses when handling file uploads; a
 **Sirius\Forms** treats the processing of file uploads as a standalone operation. The processing of uploaded files consists of sanitizing the file names, validating the files against the upload rules and moving the valid uploads to their destination. All is done automatically through a set of _UploadHandlers_ provided by the **Sirius\Upload** library. 
 
 
-### Locatization == filtration
+### 2. Localized inputs
 
 Your user may send you his/her birth date as `01.25.1995` but your app needs to have it normalized to `1995-01-25`. For this you need to use filters. The process is like this
 
@@ -57,7 +57,7 @@ Your user may send you his/her birth date as `01.25.1995` but your app needs to 
 
 Again, no need to construct complex objects that know how to normalize/localize data. Your form elements must be specify the normalization filters to be applied to the incoming data and your rendered widgets must be able to localize variables.
 
-### Complex widgets may require filtering
+### 3. Multi-part input fields
 
 A date field may be rendered as a set of 3 input fields (day,month,year). To convert it from an array to a single value you need filters for the incoming data. At the view level the widgets will take care of retrieving its 3 pieces of data from the single value. Since form elements are just specs, this reponsabilities are delegated to the filtrator object and the renderer.
 
@@ -76,7 +76,7 @@ At this point the form is prepared to accept data. The form's validator object i
 
 You can extend this method to alter the form in whatever way you want (add new elements, change elements, add custom validation rules etc).
 
-**Note!** You cannot add fields to a form once the preparation was executed.
+**Important! While you can add/change/remove fields from a form after the preparation you must be aware that these changes might not propagate to the form's depedencies (filtrator/validator/upload handlers)
 
 ### 4. Receiving data
 The `setData()` method is how the gets data (_POST and _FILE) which is filtered, validated and processed and processed (in the case of uploads). 
