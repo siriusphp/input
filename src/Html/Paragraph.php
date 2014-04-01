@@ -1,7 +1,7 @@
 <?php
 namespace Sirius\Forms\Html;
 
-class Paragraph extends ExtendedTag
+class Paragraph extends Div
 {
 
     protected $tag = 'p';

@@ -2,7 +2,7 @@
 namespace Sirius\Forms\Html;
 
 /**
- * Base class for building HTML elements.
+ * Extended class for building HTML elements.
  * 
  * It offers an interface similar to jQuery's DOM handling functionality 
  * (besides the Element's class functionality)
