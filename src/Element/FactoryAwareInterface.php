@@ -1,10 +1,10 @@
 <?php
 
-namespace Sirius\Forms;
+namespace Sirius\Forms\Element;
 
-use \Sirius\Forms\ElementFactory;
+use \Sirius\Forms\Element\Factory as ElementFactory;
 
-interface ElementFactoryAwareInterface {
+interface FactoryAwareInterface {
 	
     /**
      * Sets the element factory

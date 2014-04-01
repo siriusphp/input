@@ -3,8 +3,6 @@
 namespace Sirius\Renderer\Widget;
 
 use Sirius\Forms\Html\ExtendedTag;
-use Sirius\Forms\Html\Label;
-use Sirius\Forms\Html\Label;
 
 class Base extends ExtendedTag {
     protected $label;

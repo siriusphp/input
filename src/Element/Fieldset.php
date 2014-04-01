@@ -1,10 +1,9 @@
 <?php
 namespace Sirius\Forms\Element;
 
-use \Sirius\Forms\Element;
 use \Sirius\Forms\ElementContainerTrait;
-use \Sirius\Forms\ElementFactory;
-use \Sirius\Forms\ElementFactoryAwareInterface;
+use \Sirius\Forms\Element\Factory as ElementFactory;
+use \Sirius\Forms\Element\Factory as ElementFactoryAwareInterface;
 
 /**
  * A fielset is a special kind of form element that has a namespace
@@ -12,7 +11,7 @@ use \Sirius\Forms\ElementFactoryAwareInterface;
  * children like `street_name`, `city`, `zip_code` etc.
  * Children will be rendered as `address[street_name]`, `address[city]` etc
  */
-class Fieldset extends Element implements ElementFactoryAwareInterface {
+class Fieldset extends Input implements ElementFactoryAwareInterface {
     use ElementContainerTrait;
     
 	/**
@@ -23,7 +22,7 @@ class Fieldset extends Element implements ElementFactoryAwareInterface {
 
 	protected function getDefaultSpecs() {
 	    return 	$defaultSpecs = array(
-    		Element::WIDGET => 'fieldset'
+    		Input::WIDGET => 'fieldset'
     	);
 	}
 	

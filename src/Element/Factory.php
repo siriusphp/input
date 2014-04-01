@@ -1,9 +1,7 @@
 <?php
-namespace Sirius\Forms;
+namespace Sirius\Forms\Element;
 
-use Sirius\Forms\Element;
-
-class ElementFactory
+class Factory
 {
 
     protected $types = array(
@@ -31,8 +29,8 @@ class ElementFactory
         if (! class_exists($classOrClosure)) {
             throw new \RuntimeException(sprintf('Class %s does not exist', $classOrClosure));
         }
-        if (! is_subclass_of($classOrClosure, '\Sirius\Forms\Element')) {
-            throw new \RuntimeException(sprintf('Class %s must extend the \Sirius\Forms\Element class', $classOrClosure));
+        if (! is_subclass_of($classOrClosure, '\Sirius\Forms\Element\Input')) {
+            throw new \RuntimeException(sprintf('Class %s must extend the \Sirius\Forms\Element\Input class', $classOrClosure));
         }
         $this->types[$type] = $classOrClosure;
         return $this;
@@ -48,9 +46,9 @@ class ElementFactory
     function createFromSpecs($name, $specs = array())
     {
         $type = 'text';
-        if (isset($specs[Element::ELEMENT_TYPE]) && isset($this->types[$specs[Element::ELEMENT_TYPE]])) {
-            $type = $specs[Element::ELEMENT_TYPE];
-            unset($specs[Element::ELEMENT_TYPE]);
+        if (isset($specs[Input::ELEMENT_TYPE]) && isset($this->types[$specs[Input::ELEMENT_TYPE]])) {
+            $type = $specs[Input::ELEMENT_TYPE];
+            unset($specs[Input::ELEMENT_TYPE]);
         }
         if (! isset($this->types[$type])) {
             throw new \RuntimeException('The ElementFactory does not have a default way to create elements');

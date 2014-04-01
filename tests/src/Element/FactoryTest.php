@@ -1,11 +1,11 @@
 <?php
 
-namespace Sirius\Forms;
+namespace Sirius\Forms\Element;
 
-class ElementFactoryTest extends \PHPUnit_Framework_TestCase {
+class FactoryTest extends \PHPUnit_Framework_TestCase {
     
     function setUp() {
-        $this->factory = new ElementFactory();
+        $this->factory = new Factory();
     }
     
     function testExceptionThrownForMissingClasses() {

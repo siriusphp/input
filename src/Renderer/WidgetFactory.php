@@ -1,6 +1,6 @@
 <?php
 
-namespace Sirius\Forms;
+namespace Sirius\Forms\Renderer;
 
 class WidgetFactory {
 	protected $widgetTypes = [];

@@ -1,8 +1,8 @@
 <?php
 
-namespace Sirius\Forms;
+namespace Sirius\Forms\Element;
 
-trait ElementContainerTrait {
+trait ContainerTrait {
     protected $elements = array();
     
     /**
