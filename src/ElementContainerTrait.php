@@ -2,7 +2,7 @@
 
 namespace Sirius\Forms;
 
-trait ElementContainer {
+trait ElementContainerTrait {
     protected $elements = array();
     
     /**

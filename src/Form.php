@@ -8,7 +8,7 @@ use Sirius\Filtration\FiltratorInterface;
 
 class Form extends Specs
 {
-    use ElementContainer;
+    use ElementContainerTrait;
 
     /**
      *

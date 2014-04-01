@@ -32,5 +32,7 @@ $formRenderer->registerDecorator(new \MyApplication\FormDecorators\Autocomplete)
 echo $formRenderer->render($form);
 ```
 
-The **Sirius\Forms** library comes with a form renderer that has a widget factory that uses Twitter's Bootstrap format for the widgets it generates and comes with a bunch of decorators.
-
+The **Sirius\Forms** library comes with:
+1. a basic form renderer 
+2. a widget factory that uses Twitter's Bootstrap format for the widgets it generates 
+3. a bunch of widget decorators.

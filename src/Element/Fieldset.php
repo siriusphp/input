@@ -2,7 +2,7 @@
 namespace Sirius\Forms\Element;
 
 use \Sirius\Forms\Element;
-use \Sirius\Forms\ElementContainer;
+use \Sirius\Forms\ElementContainerTrait;
 use \Sirius\Forms\ElementFactory;
 use \Sirius\Forms\ElementFactoryAwareInterface;
 
@@ -13,7 +13,7 @@ use \Sirius\Forms\ElementFactoryAwareInterface;
  * Children will be rendered as `address[street_name]`, `address[city]` etc
  */
 class Fieldset extends Element implements ElementFactoryAwareInterface {
-    use ElementContainer;
+    use ElementContainerTrait;
     
 	/**
 	 * @var \Sirius\Form\ElementFactory

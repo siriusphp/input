@@ -12,7 +12,10 @@ use Sirius\Forms\Element as Element;
  */
 class Group extends Element{
 
-    function getChildren() {
-        return $this->getForm()->getElementsForGroup($this->name);
+    protected function getDefaultSpecs()
+    {
+        return array(
+            Element::WIDGET => 'group'
+        );
     }
 }
