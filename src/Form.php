@@ -2,7 +2,8 @@
 namespace Sirius\Forms;
 
 use Sirius\Forms\Element\Specs;
-use Sirius\Forms\ElementFactory;
+use Sirius\Forms\Element\ContainerTrait as ElementContainerTrait;
+use Sirius\Forms\Element\Factory as ElementFactory;
 use Sirius\Validation\ValidatorInterface;
 use Sirius\Filtration\FiltratorInterface;
 

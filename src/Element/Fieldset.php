@@ -1,9 +1,9 @@
 <?php
 namespace Sirius\Forms\Element;
 
-use \Sirius\Forms\ElementContainerTrait;
+use \Sirius\Forms\Element\ContainerTrait as ElementContainerTrait;
 use \Sirius\Forms\Element\Factory as ElementFactory;
-use \Sirius\Forms\Element\Factory as ElementFactoryAwareInterface;
+use \Sirius\Forms\Element\FactoryAwareInterface as ElementFactoryAwareInterface;
 
 /**
  * A fielset is a special kind of form element that has a namespace

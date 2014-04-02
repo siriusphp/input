@@ -8,6 +8,7 @@ class Factory
         'text' => '\Sirius\Forms\Element\Input\Text',
         'textarea' => '\Sirius\Forms\Element\Input\Textarea',
         'select' => '\Sirius\Forms\Element\Input\Select',
+        'multiselect' => '\Sirius\Forms\Element\Input\MultiSelect',
         'checkbox' => '\Sirius\Forms\Element\Input\Checkbox',
         'checkboxset' => '\Sirius\Forms\Element\Input\CheckboxSet',
         'radio' => '\Sirius\Forms\Element\Input\Radio',
