@@ -29,6 +29,10 @@ namespace Sirius\Forms\Element;
  * @method \Sirius\Forms\Element setOptions(array $options) Set list of options for SELECTs, radio or checkbox groups
  * @method \Sirius\Forms\Element getFirstOption() Get the first/empty option for SELECT
  * @method \Sirius\Forms\Element setFirstOption($option) Set the first/empty option for SELECT
+ * @method \Sirius\Forms\Element getValidationRules() Get list of validation rules
+ * @method \Sirius\Forms\Element setValidationRules(array $rules) Set list of validation rules
+ * @method \Sirius\Forms\Element getFilters() Get list of data filters
+ * @method \Sirius\Forms\Element setFilters(array $filters) Set list of filters
  * @method \Sirius\Forms\Element getUploadContainer() Get the upload container for the element
  * @method \Sirius\Forms\Element setUploadContainer($container) Set the upload container for the element
  * @method \Sirius\Forms\Element getUploadOptions() Get the upload options for the container
@@ -75,12 +79,6 @@ abstract class Input extends Specs
     const UPLOAD_OPTIONS = 'upload_options';
 
     const UPLOAD_RULES = 'upload_rules';
-
-    /**
-     *
-     * @var \Sirius\Forms\Form
-     */
-    protected $form;
 
     /**
      * Name of the field (identifier of the element in the form's child list)
@@ -139,5 +137,44 @@ abstract class Input extends Specs
     {
         $this->value = $value;
         return $this;
+    }
+    
+    function prepareForm(\Sirius\Forms\Form $form) {
+        $this->prepareFormValidation($form);
+        $this->prepareFormFiltration($form);
+        $this->prepareFormUploadHandling($form);
+    }
+    
+    protected function prepareFormFiltration(\Sirius\Forms\Form $form) {
+        $filters = $this->getFilters();
+        if (!$filters || !is_array($filters)) {
+            return;
+        }
+        $filtrator = $form->getFiltrator();
+        foreach ($filters as $filter) {
+            $params = is_array($filter) ? $filter : array($filter);
+            if (isset($params[0])) {
+                $filtrator->add($this->getName(), $params[0], @$params[1], @$params[2], @$params[3]);
+            }
+        }
+    }
+    
+    protected function prepareFormValidation(\Sirius\Forms\Form $form) {
+        $validationRules = $this->getValidationRules();
+        if (!$validationRules || !is_array($validationRules)) {
+            return;
+        }
+        $validator = $form->getValidator();
+        foreach ($validationRules as $rule) {
+            $params = is_array($rule) ? $rule : array($rule);
+            if (isset($params[0])) {
+                $validator->add($this->getName(), $params[0], @$params[1], @$params[2], $this->getLabel());
+            }
+        }
+        
+    }
+    
+    protected function prepareFormUploadHandling(\Sirius\Forms\Form $form) {
+        
     }
 }

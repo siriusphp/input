@@ -12,7 +12,7 @@ trait ContainerTrait {
      * @param \Sirius\Forms\Element $element
      * @return \Sirius\Forms\ElementContainer
      */
-    protected function addToElementContainer($name, \Sirius\Forms\Element $element) {
+    protected function addToElementContainer($name, \Sirius\Forms\Element\Input $element) {
         $this->elements[$name] = $element;
         return $this;
     }
@@ -57,13 +57,8 @@ trait ContainerTrait {
         if ($childA['priority'] > $childB['priority']) {
             return 1;
         }
-        if ($childA['index'] < $childB['index']) {
-            return -1;
-        }
-        if ($childA['index'] > $childB['index']) {
-            return 1;
-        }
-        return 0;
+        // if the priority is the same, childB is first
+        return 1;
     }
     
     /**

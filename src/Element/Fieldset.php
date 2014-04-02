@@ -35,8 +35,8 @@ class Fieldset extends Input implements ElementFactoryAwareInterface {
     protected function getFullChildName($name) {
     	$firstOpenBracket = strpos($name, '[');
     	// the name is already at least 2 levels deep like street[name]
-    	if ($firstOpenBracket !== -1) {
-    		return $this->getName . '[' . str_replace('[', '][', $name, 1);
+    	if ($firstOpenBracket !== false) {
+    	    $name = substr($name, 0, $firstOpenBracket) . '][' . substr($name, $firstOpenBracket + 1, -1);
     	}
     	return $this->getName() . '[' . $name . ']';
     }
@@ -57,17 +57,11 @@ class Fieldset extends Input implements ElementFactoryAwareInterface {
      */
     function add($name, $specsOrElement)
     {
-        if ($this->getForm()->isPrepared()) {
-            throw new \RuntimeException('You cannot add elements after the form has been prepared');
-        }
         $name = $this->getFullChildName($name);
         $element = $specsOrElement;
         if (is_array($specsOrElement)) {
-            $element = $this->getElementFactory()->createFromSpecs($name, $specsOrElement);
+            $element = $this->elementFactory->createFromSpecs($name, $specsOrElement);
             $element->setForm($this);
-        }
-        if (!$element instanceof \Sirius\Forms\Element) {
-            throw new \RuntimeException('Cannot create a form element based on the data provided');
         }
         return $this->addToElementContainer($name, $element);
     }
@@ -93,9 +87,6 @@ class Fieldset extends Input implements ElementFactoryAwareInterface {
      */
     function remove($name)
     {
-        if ($this->getForm()->isPrepared()) {
-            throw new \RuntimeException('You cannot remove elements after the form has been prepared');
-        }
         $name = $this->getFullChildName($name);
         return $this->removeFromElementContainer($name);
     }
@@ -108,9 +99,13 @@ class Fieldset extends Input implements ElementFactoryAwareInterface {
      */
     function has($name)
     {
-        $name = $this->getFullChildName($name);
         return false !== $this->get($name);
     }
     
-    
+    function prepareForm(\Sirius\Forms\Form $form) {
+        parent::prepareForm($form);
+        foreach ($this->getChildren() as $element) {
+            $element->prepareForm($form);
+        }
+    }
 }

@@ -61,6 +61,10 @@ class Factory
             $element = new $class($name, $specs);
         }
         
+        if (!$element instanceof \Sirius\Forms\Element\Input) {
+            throw new \RuntimeException('Cannot create a valid form element based on the data provided');
+        }
+        
         // if the element is a fieldset/collection type, inject the element factory
         if ($element instanceof \Sirius\Forms\ElementFactoryAwareInterface) {
             $element->setElementFactory($this);

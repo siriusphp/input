@@ -112,9 +112,6 @@ class Form extends Specs
             $element = $this->getElementFactory()->createFromSpecs($name, $specsOrElement);
             $element->setForm($this);
         }
-        if (!$element instanceof \Sirius\Forms\Element) {
-            throw new \RuntimeException('Cannot create a form element based on the data provided');
-        }
         return $this->addToElementContainer($name, $element);
     }
 
@@ -170,13 +167,15 @@ class Form extends Specs
         if (! $this->isInitialized()) {
             throw new \RuntimeException('Form was not properly initialized');
         }
-        $this->prepareValidator();
-        $this->prepareFiltrator();
-        $this->prepareUploadHandlers();
+        foreach ($this->getElements() as $element) {
+            if (method_exists($element, 'prepareForm')) {
+                $element->prepareForm($form);
+            }
+        }
         $this->isPrepared = true;
         return $this;
     }
-
+    
     /**
      * Return whether the form is prepared or not
      *
@@ -186,15 +185,6 @@ class Form extends Specs
     {
         return $this->isPrepared;
     }
-
-    protected function prepareValidator()
-    {}
-
-    protected function prepareFiltrator()
-    {}
-
-    protected function prepareUploadHandlers()
-    {}
 
     /**
      * Returns the form's validator object
