@@ -31,7 +31,7 @@ abstract class AbstractDecorator implements DecoratorInterface {
 		return isset($this->options[$name]) ? $this->options[$name] : null;
 	}
 	
-	function decorate($widget) {
+	function decorate(\Sirius\Forms\Html\ExtendedTag $widget) {
 	    return $widget;
 	}
 	

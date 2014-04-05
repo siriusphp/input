@@ -7,8 +7,8 @@ interface DecoratorInterface {
     /**
      * Decorates a form widget
      * 
-     * @param string|Sirius\Forms\Widget\Base $widget
-     * @return string|Sirius\Forms\Wdiget\Base
+     * @param \Sirius\Forms\Html\ExtendedTag $widget
+     * @return \Sirius\Forms\Html\ExtendedTag
      */
-    function decorate($widget);
+    function decorate(\Sirius\Forms\Html\ExtendedTag $widget);
 }

@@ -8,8 +8,8 @@ interface FactoryInterface {
      * Create a widget from a form element
      * 
      * @param \Sirius\Forms\Form $form
-     * @param \Sirius\Forms\Specs $formElement
+     * @param string $elementName
      * @return false|\Sirius\Form\Renderer\Widget\WidgetInterface
      */
-    function createFormElement(\Sirius\Forms\Form $form, \Sirius\Forms\Specs $formElement);
+    function createFormElement(\Sirius\Forms\Form $form, $elementName);
 }
