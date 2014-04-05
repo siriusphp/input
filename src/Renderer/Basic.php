@@ -1,27 +1,56 @@
 <?php
 namespace Sirius\Forms\Renderer;
 
+use \Sirius\Forms\Form;
+use \Sirius\Forms\WidgetFactory\FactoryInterface;
+use \Sirius\Forms\WidgetFactory\Base as BaseFactory;
+use \Sirius\Forms\Decorator\AbstractDecorator;
+use \Sirius\Forms\Utils\PriorityList;
+
 class Basic
 {
-	protected $widgetFactories = array() ;
-	protected $decorators = array();
+	protected $widgetFactoriesList;
+	protected $decoratorsList;
 	
-	function __construct(\Sirius\Forms\WidgetFactory $defaulWidgetFactory = null) {
+	function __construct(FactoryInterface $defaulWidgetFactory = null) {
+	    if (!$defaulWidgetFactory) {
+	        $defaulWidgetFactory = new BaseFactory();
+	    }
+	    $this->addWidgetFactory($defaulWidgetFactory, 9999);
 	}
 
-	function addWidgetFactory($widgetFactory, $priority = 0) {
-
+    /**
+     * Add a widget factory to the factory stack
+     * 
+     * @param FactoryInterface $widgetFactory            
+     * @param number $priority            
+     * @return \Sirius\Forms\Renderer\Basic
+     */
+    function addWidgetFactory(FactoryInterface $widgetFactory, $priority = 0) {
+        if (!$this->widgetFactoriesList) {
+            $this->widgetFactoriesList = new PriorityList;
+        }
+        $this->widgetFactoriesList->add($widgetFactory, $priority);
+        return $this;
 	}
-
-	function addDecorator($name, $decorator, $priority = 0) {
+	
+	/**
+	 * Add a decorator to the stack
+	 * 
+	 * @param AbstractDecorator $decorator
+	 * @param number $priority
+	 */
+	function addDecorator(AbstractDecorator $decorator, $priority = 0) {
+	    if (!$this->decoratorsList) {
+	        $this->decoratorsList = new PriorityList;
+	    }
+	    $this->decoratorsList->add($decorator, $priority);
+	    return $this;
+	}
+	
+	function render(Form $form) {
 		
 	}
 	
-	function removeDecorator($name) {
-		
-	}
 	
-	function render(\Sirius\Forms\Form $form) {
-		
-	}
 }

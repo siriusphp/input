@@ -21,13 +21,14 @@
         }
     ],
     "require": {
-        "siriusphp/validation" => ">=1.1.0",
-        "siriusphp/filtration" => ">=1.2.2",
-        "siriusphp/upload" => ">=1.0.0",
+        "siriusphp/validation": ">=1.1.0",
+        "siriusphp/filtration": ">=1.2.2",
+        "siriusphp/upload": ">=1.0.0",
         "php": ">=5.4"
     },
     "require-dev": {
-    	"phpunit/phpunit": "dev-master",
+    	"phpunit/phpunit": "3.7",
+    	"mockery/mockery": "0.9",
         "satooshi/php-coveralls": "dev-master"
     },
     "autoload": {

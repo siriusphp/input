@@ -44,7 +44,7 @@ class Form extends Specs
     function __construct(ElementFactory $elementFactory = null, ValidatorInterface $validator = null, FiltratorInterface $filtrator = null)
     {
         if (! $elementFactory) {
-            $elementFactory = new \Sirius\Forms\ElementFactory();
+            $elementFactory = new ElementFactory();
         }
         $this->elementFactory = $elementFactory;
         
@@ -105,7 +105,7 @@ class Form extends Specs
     function add($name, $specsOrElement)
     {
         if ($this->isPrepared()) {
-            throw new \RuntimeException('You cannot add elements after the form has been prepared');
+            throw new \LogicException('You cannot add elements after the form has been prepared');
         }
         $element = $specsOrElement;
         if (is_array($specsOrElement)) {
@@ -136,7 +136,7 @@ class Form extends Specs
     function remove($name)
     {
         if ($this->isPrepared()) {
-            throw new \RuntimeException('You cannot remove elements after the form has been prepared');
+            throw new \LogicException('You cannot remove elements after the form has been prepared');
         }
         return $this->removeFromElementContainer($name);
     }
@@ -165,11 +165,11 @@ class Form extends Specs
         }
         $this->init();
         if (! $this->isInitialized()) {
-            throw new \RuntimeException('Form was not properly initialized');
+            throw new \LogicException('Form was not properly initialized');
         }
-        foreach ($this->getElements() as $element) {
+        foreach ($this->getChildren() as $element) {
             if (method_exists($element, 'prepareForm')) {
-                $element->prepareForm($form);
+                $element->prepareForm($this);
             }
         }
         $this->isPrepared = true;
@@ -215,7 +215,7 @@ class Form extends Specs
     {
         $this->prepare();
         if (! $this->isPrepared()) {
-            throw new \RuntimeException('Form is not prepared and cannot receive data');
+            throw new \LogicException('Form is not prepared and cannot receive data');
         }
     }
 

@@ -90,19 +90,20 @@ class Fieldset extends Input implements ElementFactoryAwareInterface {
         $name = $this->getFullChildName($name);
         return $this->removeFromElementContainer($name);
     }
-    
+
     /**
      * Returns whether an element exist in the fielset
      *
-     * @param string $name
+     * @param string $name            
      * @return boolean
      */
     function has($name)
     {
         return false !== $this->get($name);
     }
-    
-    function prepareForm(\Sirius\Forms\Form $form) {
+
+    function prepareForm(\Sirius\Forms\Form $form)
+    {
         parent::prepareForm($form);
         foreach ($this->getChildren() as $element) {
             $element->prepareForm($form);
