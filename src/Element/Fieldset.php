@@ -61,7 +61,6 @@ class Fieldset extends Input implements ElementFactoryAwareInterface {
         $element = $specsOrElement;
         if (is_array($specsOrElement)) {
             $element = $this->elementFactory->createFromSpecs($name, $specsOrElement);
-            $element->setForm($this);
         }
         return $this->addToElementContainer($name, $element);
     }

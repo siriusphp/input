@@ -13,11 +13,12 @@ class Form extends ExtendedTag
     protected $tag = 'form';
 
     function render() {
-        $content = '';
+        $children = '';
         foreach ($this->children as $child) {
-            $content .= $child;
+            $children .= $child;
         }
-        $this->text($content);
+        $hint = $this->getHint() && $this->getHint()->text() ? $this->getHint() : '';
+        $this->text("{$hint}{$children}");
         return parent::render();
     }
 }

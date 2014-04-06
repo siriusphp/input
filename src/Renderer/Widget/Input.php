@@ -14,9 +14,9 @@ class Input extends ExtendedTag
     {
         $error = $this->getError() && $this->getError()->text() ? $this->getError() : '';
         $label = $this->getLabel() && $this->getLabel()->text() ? $this->getLabel() : '';
-        $hint = $this->getHint() && $this->getHint()->text() ? $this->getError() : '';
+        $hint = $this->getHint() && $this->getHint()->text() ? $this->getHint() : '';
         $input = $this->getInput();
-        $this->setText("{$error}{$label}{$input}{$hint}");
+        $this->text("{$error}{$label}{$input}{$hint}");
         return parent::render();
     }
 }

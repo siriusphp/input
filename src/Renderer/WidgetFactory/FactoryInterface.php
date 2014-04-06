@@ -11,5 +11,5 @@ interface FactoryInterface {
      * @param string $elementName
      * @return false|\Sirius\Form\Renderer\Widget\WidgetInterface
      */
-    function createFormElement(\Sirius\Forms\Form $form, $elementName);
+    function createWidget(\Sirius\Forms\Element\ContainerTrait $form, $elementName = null);
 }

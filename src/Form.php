@@ -186,6 +186,7 @@ class Form extends Specs
         return $this->isPrepared;
     }
 
+    
     /**
      * Returns the form's validator object
      *
