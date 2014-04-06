@@ -15,12 +15,12 @@ class Select extends Input
      */
     protected function getOptionsString()
     {
-        $value = $this->value();
+        $value = $this->getValue();
         $options = '';
-        if ($this->data('first_option')) {
-            $options .= sprintf('<option value="">%s</option>', $this->data('first_option'));
+        if ($this->getData('first_option')) {
+            $options .= sprintf('<option value="">%s</option>', $this->getData('first_option'));
         }
-        foreach ($this->data('options') as $k => $v) {
+        foreach ($this->getData('options') as $k => $v) {
             $selected = '';
             if ((is_string($value) && $k == $value) || (is_array($value) && in_array($k, $value))) {
                 $selected = 'selected="selected"';
@@ -30,7 +30,7 @@ class Select extends Input
         return $options;
     }
 
-    protected function renderSelf()
+    function render()
     {
         $template = '<select%s>%s</select>';
         return sprintf($template, $this->getAttributesString(), $this->getOptionsString());

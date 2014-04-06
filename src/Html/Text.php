@@ -8,9 +8,9 @@ class Text extends Input
 
     protected $isSelfClosing = true;
 
-    protected function renderSelf()
+    function render()
     {
-        $this->attr('value', $this->value());
-        return parent::renderSelf();
+        $this->setAttribute('value', $this->getValue());
+        return parent::render();
     }
 }

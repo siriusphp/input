@@ -10,9 +10,9 @@ class Textarea extends Input
 
     protected $isSelfClosing = false;
 
-    protected function renderSelf()
+    function render()
     {
-        $this->text($this->value());
-        return parent::renderSelf();
+        $this->setText($this->getValue());
+        return parent::render();
     }
 }

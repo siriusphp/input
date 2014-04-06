@@ -4,9 +4,9 @@ namespace Sirius\Forms\Html;
 class File extends Input
 {
 
-    protected function renderSelf()
+    function render()
     {
-        $this->attr('type', 'file');
-        return parent::renderSelf();
+        $this->setAttribute('type', 'file');
+        return parent::render();
     }
 }

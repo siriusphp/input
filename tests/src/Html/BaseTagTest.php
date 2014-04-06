@@ -16,27 +16,27 @@ class BaseTagTest extends \PHPUnit_Framework_TestCase
         $element = new BaseTag(array(
             'name' => 'email'
         ));
-        $this->assertEquals('email', $element->attr('name'));
+        $this->assertEquals('email', $element->getAttribute('name'));
     }
 
     function testAttributeIsSet()
     {
-        $this->element->attr('name', 'email');
-        $this->assertEquals('email', $this->element->attr('name'));
+        $this->element->setAttribute('name', 'email');
+        $this->assertEquals('email', $this->element->getAttribute('name'));
     }
 
-    function testAttributeListAreRetrieved()
+    function testAttributeListIsRetrieved()
     {
         $attrs = array(
             'name' => 'email',
             'value' => 'me@domain.com',
             'id' => 'form-email'
         );
-        $this->element->attr($attrs);
+        $this->element->setAttributes($attrs);
         $this->assertEquals(array(
             'name' => 'email',
             'value' => 'me@domain.com'
-        ), $this->element->attr(array(
+        ), $this->element->getAttributes(array(
             'name',
             'value'
         )));
@@ -48,8 +48,8 @@ class BaseTagTest extends \PHPUnit_Framework_TestCase
             'name' => 'email',
             'value' => 'me@domain.com'
         );
-        $this->element->attr($attrs);
-        $this->assertEquals($attrs, $this->element->attr());
+        $this->element->setAttributes($attrs);
+        $this->assertEquals($attrs, $this->element->getAttributes());
     }
 
     function testAttributeIsUnset()
@@ -58,31 +58,25 @@ class BaseTagTest extends \PHPUnit_Framework_TestCase
             'name' => 'email',
             'value' => 'me@domain.com'
         );
-        $this->element->attr($attrs);
-        $this->element->attr('value', null);
+        $this->element->setAttributes($attrs);
+        $this->element->setAttribute('value', null);
         $this->assertEquals(array(
             'name' => 'email'
-        ), $this->element->attr());
-    }
-
-    function testExceptionWhenAttrReceivesWrongArguments()
-    {
-        $this->setExpectedException('InvalidArgumentException');
-        $this->element->attr(true);
+        ), $this->element->getAttributes());
     }
 
     function testAddClass()
     {
         $this->element->addClass('active');
-        $this->assertEquals('active', $this->element->attr('class'));
+        $this->assertEquals('active', $this->element->getAttribute('class'));
         
         $this->element->addClass('disabled');
-        $this->assertEquals('active disabled', $this->element->attr('class'));
+        $this->assertEquals('active disabled', $this->element->getAttribute('class'));
     }
 
     function testHasClass()
     {
-        $this->element->attr('class', 'active disabled even');
+        $this->element->setAttribute('class', 'active disabled even');
         $this->assertTrue($this->element->hasClass('active'));
         $this->assertTrue($this->element->hasClass('disabled'));
         $this->assertTrue($this->element->hasClass('even'));
@@ -91,7 +85,7 @@ class BaseTagTest extends \PHPUnit_Framework_TestCase
 
     function testRemoveClass()
     {
-        $this->element->attr('class', 'active disabled even');
+        $this->element->setAttribute('class', 'active disabled even');
         $this->element->removeClass('disabled');
         $this->assertFalse($this->element->hasClass('disabled'));
     }
@@ -107,24 +101,24 @@ class BaseTagTest extends \PHPUnit_Framework_TestCase
 
     function testTextIsSet()
     {
-        $this->assertNull($this->element->text());
-        $this->element->text('cool');
-        $this->assertEquals('cool', $this->element->text());
+        $this->assertNull($this->element->getText());
+        $this->element->setText('cool');
+        $this->assertEquals('cool', $this->element->getText());
     }
 
     function testDataIsSet()
     {
         // no data at the begining
-        $this->assertEquals(array(), $this->element->data());
-        $this->element->data('string', 'cool');
-        $this->assertEquals('cool', $this->element->data('string'));
+        $this->assertEquals(array(), $this->element->getData());
+        $this->element->setData('string', 'cool');
+        $this->assertEquals('cool', $this->element->getData('string'));
     }
 
     function testDataIsUnset()
     {
-        $this->element->data('string', 'cool');
-        $this->element->data('string', null);
-        $this->assertNull($this->element->data('string'));
+        $this->element->setData('string', 'cool');
+        $this->element->setData('string', null);
+        $this->assertNull($this->element->getData('string'));
     }
 
     function testBulkDataIsSet()
@@ -133,8 +127,8 @@ class BaseTagTest extends \PHPUnit_Framework_TestCase
             'k1' => 'v1',
             'k2' => 'v2'
         );
-        $this->element->data($data);
-        $this->assertEquals($data, $this->element->data());
+        $this->element->setData($data);
+        $this->assertEquals($data, $this->element->getData());
     }
 
     function testDataListIsRetrieved()
@@ -144,21 +138,16 @@ class BaseTagTest extends \PHPUnit_Framework_TestCase
             'k2' => 'v2',
             'k3' => 'v3'
         );
-        $this->element->data($data);
+        $this->element->setData($data);
         $this->assertEquals(array(
             'k1' => 'v1',
             'k3' => 'v3',
             'k4' => null
-        ), $this->element->data(array(
+        ), $this->element->getData(array(
             'k1',
             'k3',
             'k4'
         )));
     }
 
-    function testExceptionThrownWhenDataReceivesWrongArgs()
-    {
-        $this->setExpectedException('InvalidArgumentException');
-        $this->element->data(new \stdClass());
-    }
 }

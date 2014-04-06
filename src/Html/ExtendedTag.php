@@ -71,36 +71,11 @@ class ExtendedTag extends BaseTag
             parent::__construct();
         }
         if (isset($options['data'])) {
-            $this->data($options['data']);
+            $this->setData($options['data']);
         }
         if (isset($options['text'])) {
-            $this->text($options['text']);
+            $this->setText($options['text']);
         }
-    }
-
-    /**
-     * Return the attributes as a string for HTML output
-     * example: title="Click here to delete" class="remove"
-     *
-     * @return string
-     */
-    protected function getAttributesString()
-    {
-        $result = array();
-        $attrs = $this->attr();
-        ksort($attrs);
-        foreach ($attrs as $k => $v) {
-            if ($v !== true) {
-                $result[] = $k . '="' . htmlspecialchars((string) $v, ENT_COMPAT) . '"';
-            } else {
-                $result[] = $k;
-            }
-        }
-        $attrs = implode(' ', $result);
-        if ($attrs) {
-            $attrs = ' ' . $attrs;
-        }
-        return $attrs;
     }
 
     /**
@@ -139,7 +114,7 @@ class ExtendedTag extends BaseTag
     {
         return $this->before($before)->after($after);
     }
-
+    
     /**
      * Render the element
      *
@@ -155,29 +130,9 @@ class ExtendedTag extends BaseTag
         foreach ($this->after as $item) {
             $after .= (string) $item;
         }
-        return $before . $this->renderSelf() . $after;
+        return $before . parent::render() . $after;
     }
+    
 
-    /**
-     * Render only the element (without before/after)
-     *
-     * @return string
-     */
-    protected function renderSelf()
-    {
-        if ($this->isSelfClosing) {
-            $template = "<{$this->tag}%s>";
-            $element = sprintf($template, $this->getAttributesString());
-        } else {
-            $template = "<{$this->tag}%s>%s</{$this->tag}>";
-            $element = sprintf($template, $this->getAttributesString(), $this->text());
-        }
-        return $element;
-    }
-
-    function __toString()
-    {
-        return $this->render();
-    }
 }
 

@@ -15,12 +15,12 @@ class MultiSelect extends Select
      */
     protected function getOptionsString()
     {
-        $value = $this->value();
+        $value = $this->getValue();
         $options = '';
-        if ($this->data('first_option')) {
-            $options .= sprintf('<option value="">%s</option>', $this->data('first_option'));
+        if ($this->getData('first_option')) {
+            $options .= sprintf('<option value="">%s</option>', $this->getData('first_option'));
         }
-        foreach ($this->data('options') as $k => $v) {
+        foreach ($this->getData('options') as $k => $v) {
             $selected = '';
             // be flexible, accept a non-array value
             if ((is_string($value) && $k == $value) || (is_array($value) && in_array($k, $value))) {
@@ -31,12 +31,12 @@ class MultiSelect extends Select
         return $options;
     }
 
-    protected function renderSelf()
+    function render()
     {
-        $name = $this->attr('name');
+        $name = $this->getAttribute('name');
         if (substr($name, -2) != '[]') {
-            $this->attr('name', $name . '[]');
+            $this->setAttribute('name', $name . '[]');
         }
-        return parent::renderSelf();
+        return parent::render();
     }
 }

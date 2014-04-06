@@ -4,16 +4,16 @@ namespace Sirius\Forms\Html;
 class Checkbox extends Input
 {
 
-    protected function renderSelf()
+    function render()
     {
         $checked = null;
-        if (is_array($this->value()) && in_array($this->attr('value'), $this->value())) {
+        if (is_array($this->getValue()) && in_array($this->getAttribute('value'), $this->getValue())) {
             $checked = 'checked';
-        } elseif ($this->attr('value') == $this->value()) {
+        } elseif ($this->getAttribute('value') == $this->getValue()) {
             $checked = 'checked';
         }
-        $this->attr('checked', $checked);
-        $this->attr('type', 'checkbox');
-        return parent::renderSelf();
+        $this->setAttribute('checked', $checked);
+        $this->setAttribute('type', 'checkbox');
+        return parent::render();
     }
 }

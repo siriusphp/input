@@ -32,8 +32,8 @@ class TextTest extends \PHPUnit_Framework_TestCase
 
     function testAttributes()
     {
-        $this->assertEquals('siriusforms', $this->input->value());
-        $this->assertEquals('username', $this->input->attr('name'));
+        $this->assertEquals('siriusforms', $this->input->getValue());
+        $this->assertEquals('username', $this->input->getAttribute('name'));
         $this->assertTrue($this->input->hasClass('not-valid'));
     }
 

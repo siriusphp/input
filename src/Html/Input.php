@@ -25,26 +25,11 @@ class Input extends ExtendedTag
     {
         parent::__construct($options);
         if (isset($options['value'])) {
-            $this->value($options['value']);
+            $this->setValue($options['value']);
         }
         if (isset($options['name'])) {
             $this->name = $options['name'];
-            $this->attr('name', $options['name']);
-        }
-    }
-
-    /**
-     * Getter/Setter method for the value of the input field
-     *
-     * @param string $val            
-     * @return string \Sirius\Forms\Renderer\Widget\Input
-     */
-    function value($val = null)
-    {
-        if (count(func_get_args()) === 0) {
-            return $this->getValue();
-        } else {
-            return $this->setValue($val);
+            $this->setAttribute('name', $options['name']);
         }
     }
 
@@ -54,7 +39,7 @@ class Input extends ExtendedTag
      * @param string $val            
      * @return \Sirius\Forms\Renderer\Widget\Input
      */
-    protected function setValue($val)
+    function setValue($val)
     {
         $this->value = $val;
         return $this;
@@ -65,7 +50,7 @@ class Input extends ExtendedTag
      *
      * @return string
      */
-    protected function getValue()
+    function getValue()
     {
         return $this->value;
     }
