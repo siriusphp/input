@@ -7,8 +7,8 @@ use \Sirius\Forms\Form\Element\Specs;
 
 class Form extends ExtendedTag
 {
-    use\Sirius\Forms\Renderer\WidgetTrait\HasHintTrait;
-    use\Sirius\Forms\Renderer\WidgetTrait\HasChildrenTrait;
+    use \Sirius\Forms\Widget\Traits\HasHintTrait;
+    use \Sirius\Forms\Widget\Traits\HasChildrenTrait;
     
     protected $tag = 'form';
 

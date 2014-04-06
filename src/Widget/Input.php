@@ -5,10 +5,10 @@ use Sirius\Forms\Html\ExtendedTag;
 
 class Input extends ExtendedTag
 {
-    use\Sirius\Forms\Renderer\WidgetTrait\HasLabelTrait;
-    use\Sirius\Forms\Renderer\WidgetTrait\HasHintTrait;
-    use\Sirius\Forms\Renderer\WidgetTrait\HasErrorTrait;
-    use\Sirius\Forms\Renderer\WidgetTrait\HasInputTrait;
+    use \Sirius\Forms\Widget\Traits\HasLabelTrait;
+    use \Sirius\Forms\Widget\Traits\HasHintTrait;
+    use \Sirius\Forms\Widget\Traits\HasErrorTrait;
+    use \Sirius\Forms\Widget\Traits\HasInputTrait;
 
     function render()
     {

@@ -1,5 +1,5 @@
 <?php
-namespace Sirius\Forms\Renderer\WidgetTrait;
+namespace Sirius\Forms\Widget\Traits;
 
 use Sirius\Forms\Html\ExtendedTag;
 
