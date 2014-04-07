@@ -12,9 +12,9 @@ class PriorityListTest extends \PHPUnit_Framework_TestCase
     }
     
     function testAddItems() {
-        $this->list->add('item_3', 100);
-        $this->list->add('item_1'); // priority 0
-        $this->list->add('item_2');// priority 0
+        $this->list->add('item_2'); // priority 0
+        $this->list->add('item_3'); // priority 0
+        $this->list->add('item_1', 100);
         
         $items = $this->list->getIterator();
         $this->assertEquals('item_1', $items[0]);

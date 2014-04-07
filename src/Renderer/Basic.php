@@ -28,6 +28,7 @@ class Basic
             $widgetFactory = new BaseFactory();
         }
         $this->widgetFactory = $widgetFactory;
+        $this->decoratorsList = new PriorityList();
     }
 
     /**
@@ -38,35 +39,64 @@ class Basic
      */
     function addDecorator(DecoratorInterface $decorator, $priority = 0)
     {
-        if (! $this->decoratorsList) {
-            $this->decoratorsList = new PriorityList();
-        }
         $this->decoratorsList->add($decorator, $priority);
         return $this;
     }
 
+    /**
+     *
+     * @param Form $form            
+     * @return Ambigous <\Sirius\Forms\WidgetFactory\false, \Sirius\Form\Renderer\Widget\WidgetInterface>
+     */
     function render(Form $form)
     {
         return $this->getFormWidget($form);
     }
 
+    /**
+     * Returns the widget associated with the form
+     *
+     * @param Form $form            
+     * @return NULL \Sirius\Forms\Html\ExtendedTag
+     */
     function getFormWidget(Form $form)
     {
-    	$widget = $this->widgetFactory->createWidget($form);
-    	$this->decorateWidget($widget);
-    	return $widget;
+        $widget = $this->widgetFactory->createWidget($form);
+        $this->decorateWidget($widget);
+        return $widget;
     }
 
+    /**
+     * Returns the widget associated with an element from the form
+     *
+     * @param Form $form            
+     * @param string $elementName            
+     * @throws \RuntimeException
+     * @return NULL \Sirius\Forms\Html\ExtendedTag
+     */
     function renderElement(Form $form, $elementName)
     {
-
-        $widget = $this->widgetFactory->createWidget($form, $elementName);
-    	$this->decorateWidget($widget);
-    	return $widget;
+        $element = $form->get($elementName);
+        if (! $element) {
+            throw new \RuntimeException(sprintf('Element "%s" is not registered to this form'));
+        }
+        $widget = $this->widgetFactory->createWidget($form, $element);
+        $this->decorateWidget($widget);
+        return $widget;
     }
 
+    /**
+     * Applies the decorators to the widget
+     *
+     * @param \Sirius\Forms\Html\ExtendedTag $widget            
+     * @throws \LogicException
+     * @return \Sirius\Forms\Html\ExtendedTag
+     */
     protected function decorateWidget($widget)
     {
+        if (! $widget instanceof \Sirius\Forms\Html\ExtendedTag) {
+            return $widget;
+        }
         /* @var $decorator \Sirius\Forms\Decorator\DecoratorInterface */
         foreach ($this->decoratorsList->getIterator() as $decorator) {
             $decoratedWidget = $decorator->decorate($widget);

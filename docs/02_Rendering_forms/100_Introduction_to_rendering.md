@@ -10,7 +10,7 @@ To reach this goal the render process works like this:
 
 1. The renderer object contains a `WidgetFactory` which take a form element and generates an widget. 
 2. The widget created by the factory is a DOM-like object that has a string representation (through `__toString()`) and contains other DOM-like objects (the label, the input, the error message etc). The form itself is a widget that contains other widgets as its children. The widgets have a [very simple interface](../10_API/Widget.md).
-3. The form renderer has a collection of `Decorators` which receive the widgets for manipulation. A decorator can potentially return a different widget than the one it received it is capable of creating one so the decorators give you absolute flexibility on the end result of the rendering process.
+3. The form renderer has a collection of `Decorators` which receive the widgets for manipulation. 
 
 The `Decorators` and `WidgetFactories` are independent. Theoretically you can have decorators that can work with widgets produced by other widget factories.
 

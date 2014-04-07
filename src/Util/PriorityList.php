@@ -39,9 +39,9 @@ class PriorityList implements \IteratorAggregate {
 	 */
 	protected function compareEntries($e1, $e2) {
 	    // first check the user provided priority
-        if ($e1['priority'] < $e2['priority']) {
+        if ($e1['priority'] > $e2['priority']) {
             return -1;
-        } elseif ($e1['priority'] > $e2['priority']) {
+        } elseif ($e1['priority'] < $e2['priority']) {
             return 1;
         }
         // then check the automaticly assigned index

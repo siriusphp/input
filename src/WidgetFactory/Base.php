@@ -1,59 +1,58 @@
 <?php
-
-namespace Sirius\Forms\Renderer\WidgetFactory;
+namespace Sirius\Forms\WidgetFactory;
 
 use Sirius\Forms\WidgetFactory\FactoryInterface;
+use Sirius\Forms\WidgetFactory\Task;
 
-class Base implements FactoryInterface{
-	protected $widgetTypes = array();
-	
-	protected $typeToMethodMap = array(
-		'text' => 'createTextWidget',
-		'textarea' => 'createTextareaWidget',
-		'hidden' => 'createHiddenWidget',
-		'checkbox' => 'createCheckboxWidget',
-	);
-	
-	function __construct() {
-	    foreach ($this->typeToMethodMap as $type => $method) {
-	        $this->registerWidgetTypeConstructor($type, array($this, $method), 9999);
-	    }
-	}
-	
+class Base implements FactoryInterface
+{
+
     /**
-     * Register a constructor for a widget type
-     * 
-     * @param string $type type of the widget that it handles
-     * @param closure $callable the closure that will be used to generate the widget type
+     *
+     * @var \Sirius\Forms\Util\PriorityList
+     */
+    protected $workers;
+
+    function __construct()
+    {
+        $this->workers = new \Sirius\Forms\Util\PriorityList();
+    }
+
+    /**
+     * Adds a worker on the list of workers that will process tasks
+     *
+     * @param WorkerInterface $worker            
+     * @param number $priority            
      * @return self
      */
-	function registerWidgetTypeConstructor($type, $callable, $priority = 0) {
-		if ($callable instanceof \Closure) {
-		    if (!$this->widgetTypes[$type]) {
-		        $this->widgetTypes[$type] = new \Sirius\Forms\Util\PriorityList();
-		    }
-		    $this->widgetTypes[$type]->add($callable, $priority);
-		    return $this;
-		}
-		throw new \LogicException(sprintf('The widget constructor for %s type must be a class or a closure'));
-	}
+    function addWorker(WorkerInterface $worker, $priority = 0)
+    {
+        $this->workers->add($worker, $priority);
+        return $this;
+    }
+    
+    /*
+     * (non-PHPdoc) @see \Sirius\Forms\WidgetFactory\FactoryInterface::createWidget()
+     */
+    function createWidget(\Sirius\Forms\Form $form,\Sirius\Forms\Element\Specs $element = null)
+    {
+        $task = $this->createTask($form, $element);
+        foreach ($this->workers as $worker) {
+            /* @var $worker \Sirius\Forms\WidgetFactory\WorkerInterface */
+            $worker->processTask($task);
+        }
+        return $task->getResult();
+    }
 
-	function createWidget(\Sirius\Forms\Element\ContainerTrait $form, $elementName = null)
-	{
-	    if ($elementName == null) {
-	        return $this->createFormWidget($form);
-	    }
-	    
-	    if (!$form->has($elementName)) {
-	        return null;
-	    }
-	    
-	    if (!)
-	}
-	
-	protected function createFormWidget(\Sirius\Forms\Element\ContainerTrait $form) {
-	    
-	}
-	
-	
+    /**
+     * Composes a task that is be passed to workers for processing
+     *
+     * @param \Sirius\Forms\Form $form            
+     * @param \Sirius\Forms\Element\Specs $element            
+     * @return \Sirius\Forms\WidgetFactory\Task
+     */
+    protected function createTask(\Sirius\Forms\Form $form, \Sirius\Forms\Element\Specs $element = null)
+    {
+        return new Task($this, $form, $element);
+    }
 }
