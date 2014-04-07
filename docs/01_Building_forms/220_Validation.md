@@ -13,7 +13,7 @@ These are the parameters required by the `Sirius\Validation\Validator::add()` me
 ```php
 $form->add('name', array(
     'label' => 'Name'
-	'rules' => array(
+	'validation_rules' => array(
 		// simple rule that uses the default error message
 		'required',
 		// normal definition of validation rule
@@ -25,6 +25,7 @@ $form->add('name', array(
 
 ```
 
+Input validation rules are attached to the form's validator object during the preparation of the form. Until then you are free to change the validation rules attached to the input.
+
 [Learn more about Sirius\Validation](http://github.com/siriusphp/validation). 
 
-One thing to keep in mind when looking over the **Sirius\Validation** documentation is that it works with validation rules assigned to selectors which are constructed by the **Sirius\Forms** library from the element's name. That's why, when defining the element's validation rules you only need to pass only a 3 parameters.
