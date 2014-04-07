@@ -1,6 +1,6 @@
 # Input fields
 
-Input fields extend the [Element](../10_API/Element.md) class. You're advised to take a look at the previous like to get an idea of interface. 
+Input field classes extend the [Element](../10_API/Element.md) class. Visit the previous link to get an idea of interface of the `Element` class. 
 
 This is how you add an element to a form (you do the same for fieldsets and collections).
 
@@ -53,4 +53,4 @@ The **Sirius\Forms** library comes packed with a variaty of input fields the cov
 
 They diverge very little from the base **Element\Input** class so, by looking at their code you'll be able to understand what it takes to create your own custom fields.
 
-**Note!** The type of form elements have little to do how they are displayed. The renderer must be able to handle each type, otherwise they will render a text field. Creating custom elements solves only 20% of the problem (rendering is 80%)
+**Note!** The type of form elements have little to do how they are displayed. The renderer is responsible for the visual representation of the form and its elements. Creating custom elements solves only 20% of the problem (rendering is 80%).
