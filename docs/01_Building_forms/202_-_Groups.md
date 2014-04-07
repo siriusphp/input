@@ -8,14 +8,6 @@ $form->add('column_1', array(
 	Element::ATTRIBUTES => ['class' => 'col-md-6 col-sm-12']
 ));
 ```
-or you can instantiate it first
-
-```php
-$group = new Element\Group(array(
-	Element::TYPE => 'group',
-	Element::ATTRIBUTES => ['class' => 'col-md-6 col-sm-12']
-));
-$form->add('column_1', $group);
 
 In order to specify that an element belongs visually to a group you must set its `group` property.
 
