@@ -9,7 +9,8 @@ $form->add('column_1', array(
 ));
 ```
 or you can instantiate it first
-```
+
+```php
 $group = new Element\Group(array(
 	Element::TYPE => 'group',
 	Element::ATTRIBUTES => ['class' => 'col-md-6 col-sm-12']
