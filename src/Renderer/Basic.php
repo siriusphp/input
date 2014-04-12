@@ -1,11 +1,12 @@
 <?php
 namespace Sirius\Forms\Renderer;
 
-use \Sirius\Forms\Form;
-use \Sirius\Forms\WidgetFactory\FactoryInterface;
-use \Sirius\Forms\WidgetFactory\Base as BaseFactory;
-use \Sirius\Forms\Utils\PriorityList;
-use \Sirius\Forms\Decorator\DecoratorInterface;
+use Sirius\Forms\Decorator\DecoratorInterface;
+use Sirius\Forms\Form;
+use Sirius\Forms\Html\ExtendedTag;
+use Sirius\Forms\Utils\PriorityList;
+use Sirius\Forms\WidgetFactory\Base as BaseFactory;
+use Sirius\Forms\WidgetFactory\FactoryInterface;
 
 class Basic
 {
@@ -24,7 +25,7 @@ class Basic
 
     function __construct(FactoryInterface $widgetFactory = null)
     {
-        if (! $widgetFactory) {
+        if (!$widgetFactory) {
             $widgetFactory = new BaseFactory();
         }
         $this->widgetFactory = $widgetFactory;
@@ -34,8 +35,9 @@ class Basic
     /**
      * Add a decorator to the stack
      *
-     * @param AbstractDecorator $decorator            
-     * @param number $priority            
+     * @param DecoratorInterface $decorator
+     * @param int $priority
+     * @return self
      */
     function addDecorator(DecoratorInterface $decorator, $priority = 0)
     {
@@ -45,7 +47,7 @@ class Basic
 
     /**
      *
-     * @param Form $form            
+     * @param Form $form
      * @return Ambigous <\Sirius\Forms\WidgetFactory\false, \Sirius\Form\Renderer\Widget\WidgetInterface>
      */
     function render(Form $form)
@@ -56,7 +58,7 @@ class Basic
     /**
      * Returns the widget associated with the form
      *
-     * @param Form $form            
+     * @param Form $form
      * @return NULL \Sirius\Forms\Html\ExtendedTag
      */
     function getFormWidget(Form $form)
@@ -69,15 +71,15 @@ class Basic
     /**
      * Returns the widget associated with an element from the form
      *
-     * @param Form $form            
-     * @param string $elementName            
+     * @param Form $form
+     * @param string $elementName
      * @throws \RuntimeException
      * @return NULL \Sirius\Forms\Html\ExtendedTag
      */
     function renderElement(Form $form, $elementName)
     {
         $element = $form->get($elementName);
-        if (! $element) {
+        if (!$element) {
             throw new \RuntimeException(sprintf('Element "%s" is not registered to this form'));
         }
         $widget = $this->widgetFactory->createWidget($form, $element);
@@ -88,30 +90,32 @@ class Basic
     /**
      * Applies the decorators to the widget
      *
-     * @param \Sirius\Forms\Html\ExtendedTag $widget            
+     * @param ExtendedTag $widget
      * @throws \LogicException
-     * @return \Sirius\Forms\Html\ExtendedTag
+     * @return ExtendedTag
      */
     protected function decorateWidget($widget)
     {
-        if (! $widget instanceof \Sirius\Forms\Html\ExtendedTag) {
+        if (!$widget instanceof ExtendedTag) {
             return $widget;
         }
         /* @var $decorator \Sirius\Forms\Decorator\DecoratorInterface */
         foreach ($this->decoratorsList->getIterator() as $decorator) {
             $decoratedWidget = $decorator->decorate($widget);
-            if (! $decoratedWidget instanceof \Sirius\Forms\Html\ExtendedTag) {
-                throw new \LogicException('A decorator returned something that is not an \Sirius\Forms\Html\ExtendedTag object');
+            if (!$decoratedWidget instanceof ExtendedTag) {
+                throw new \LogicException(
+                    'A decorator returned something that is not an \Sirius\Forms\Html\ExtendedTag object'
+                );
             }
         }
-        
+
         // If the widget has children, decorate them as well
         if ($widget instanceof Sirius\Forms\Renderer\WidgetTrait\HasChildrenTrait) {
             foreach ($widget->getChilren() as $childWidget) {
                 $this->decorate($childWidget);
             }
         }
-        
+
         return $widget;
     }
 }

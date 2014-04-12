@@ -2,13 +2,16 @@
 
 namespace Sirius\Forms\Decorator;
 
-interface DecoratorInterface {
-    
+use Sirius\Forms\Html\ExtendedTag;
+
+interface DecoratorInterface
+{
+
     /**
      * Decorates a form widget
-     * 
-     * @param \Sirius\Forms\Html\ExtendedTag $widget
-     * @return \Sirius\Forms\Html\ExtendedTag
+     *
+     * @param ExtendedTag $widget
+     * @return ExtendedTag
      */
-    function decorate(\Sirius\Forms\Html\ExtendedTag $widget);
+    function decorate(ExtendedTag $widget);
 }

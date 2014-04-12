@@ -1,12 +1,14 @@
 <?php
 namespace Sirius\Forms\Decorator;
 
+use Sirius\Forms\Html\ExtendedTag;
+
 abstract class AbstractDecorator implements DecoratorInterface
 {
 
     /**
      * The decorator's configuration options
-     * 
+     *
      * @var array
      */
     protected $options = array();
@@ -16,7 +18,7 @@ abstract class AbstractDecorator implements DecoratorInterface
         $this->options = $options;
     }
 
-    function decorate(\Sirius\Forms\Html\ExtendedTag $widget)
+    function decorate(ExtendedTag $widget)
     {
         return $widget;
     }

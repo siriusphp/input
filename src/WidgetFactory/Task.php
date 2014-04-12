@@ -1,10 +1,9 @@
 <?php
 namespace Sirius\Forms\WidgetFactory;
 
-use \Sirius\Forms\WidgetFactory\FactoryInterface;
-use \Sirius\Forms\Form;
-use \Sirius\Forms\Element\Specs;
-use \Sirius\Forms\Html\ExtendedTag;
+use Sirius\Forms\Element\Specs;
+use Sirius\Forms\Form;
+use Sirius\Forms\Html\ExtendedTag;
 
 class Task
 {
@@ -68,7 +67,7 @@ class Task
     /**
      * Sets the result of the task
      *
-     * @param ExtendedTag $result            
+     * @param ExtendedTag $result
      */
     function setResult(ExtendedTag $result)
     {
@@ -77,7 +76,7 @@ class Task
 
     /**
      * Returns the result of the execution of the task
-     * 
+     *
      * @return NULL|ExtendedTag
      */
     function getResult()

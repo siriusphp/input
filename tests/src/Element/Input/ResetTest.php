@@ -4,13 +4,15 @@ namespace Sirius\Forms\Element\Input;
 
 use Sirius\Forms\Element\Input;
 
-class ResetTest extends \PHPUnit_Framework_TestCase {
+class ResetTest extends \PHPUnit_Framework_TestCase
+{
 
-	function testDefaults() {
-		$input = new Reset('reset');
+    function testDefaults()
+    {
+        $input = new Reset('reset');
 
-		$this->assertEquals('button', $input[Input::WIDGET]);
-		$this->assertEquals('reset', $input[Input::ATTRIBUTES]['type']);
-	}
+        $this->assertEquals('button', $input[Input::WIDGET]);
+        $this->assertEquals('reset', $input[Input::ATTRIBUTES]['type']);
+    }
 
 }

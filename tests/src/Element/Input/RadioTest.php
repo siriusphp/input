@@ -4,12 +4,14 @@ namespace Sirius\Forms\Element\Input;
 
 use Sirius\Forms\Element\Input;
 
-class RadioTest extends \PHPUnit_Framework_TestCase {
+class RadioTest extends \PHPUnit_Framework_TestCase
+{
 
-	function testDefaults() {
-		$input = new Radio('option');
+    function testDefaults()
+    {
+        $input = new Radio('option');
 
-		$this->assertEquals('radio', $input[Input::WIDGET]);
-	}
+        $this->assertEquals('radio', $input[Input::WIDGET]);
+    }
 
 }

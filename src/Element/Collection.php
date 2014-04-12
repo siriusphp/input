@@ -3,6 +3,7 @@ namespace Sirius\Forms\Element;
 
 use Sirius\Forms\Element\ContainerTrait as ElementContainerTrait;
 use Sirius\Forms\Element\Factory as ElementFactory;
+use Sirius\Forms\Form;
 
 class Collection extends Input
 {
@@ -24,7 +25,7 @@ class Collection extends Input
     /**
      * Generate the namespaced field name of an element inside the fielset
      *
-     * @param string $name            
+     * @param string $name
      * @return string
      */
     protected function getFullChildName($name)
@@ -32,7 +33,7 @@ class Collection extends Input
         $firstOpenBracket = strpos($name, '[');
         // the name is already at least 2 levels deep like street[name]
         if ($firstOpenBracket !== false) {
-            $name = substr($name, 0, $firstOpenBracket) . '][' . substr($name, $firstOpenBracket + 1, - 1);
+            $name = substr($name, 0, $firstOpenBracket) . '][' . substr($name, $firstOpenBracket + 1, -1);
         }
         return $this->getName() . '[*][' . $name . ']';
     }
@@ -46,17 +47,17 @@ class Collection extends Input
     /**
      * Add an element to the fielset
      *
-     * @param string $name            
-     * @param \Sirius\Forms\Element|array $specsOrElement            
+     * @param string $name
+     * @param \Sirius\Forms\Element|array $elementOrOptions
      * @throws \RuntimeException
-     * @return \Sirius\Forms\Form
+     * @return self
      */
-    function add($name, $specsOrElement)
+    function add($name, $elementOrOptions)
     {
         $name = $this->getFullChildName($name);
-        $element = $specsOrElement;
-        if (is_array($specsOrElement)) {
-            $element = $this->elementFactory->createFromSpecs($name, $specsOrElement);
+        $element = $elementOrOptions;
+        if (is_array($elementOrOptions)) {
+            $element = $this->elementFactory->createFromOptions($name, $elementOrOptions);
             $element->setForm($this);
         }
         return $this->addToElementContainer($name, $element);
@@ -65,7 +66,7 @@ class Collection extends Input
     /**
      * Retrieve an element by name
      *
-     * @param string $name            
+     * @param string $name
      * @return \Sirius\Forms\Element
      */
     function get($name)
@@ -77,9 +78,9 @@ class Collection extends Input
     /**
      * Removes an element from the fielset
      *
-     * @param string $name            
+     * @param string $name
      * @throws \RuntimeException
-     * @return \Sirius\Forms\Form
+     * @return Form
      */
     function remove($name)
     {
@@ -90,7 +91,7 @@ class Collection extends Input
     /**
      * Returns whether an element exist in the fielset
      *
-     * @param string $name            
+     * @param string $name
      * @return boolean
      */
     function has($name)
@@ -98,7 +99,7 @@ class Collection extends Input
         return false !== $this->get($name);
     }
 
-    function prepareForm(\Sirius\Forms\Form $form)
+    function prepareForm(Form $form)
     {
         parent::prepareForm($form);
         foreach ($this->getChildren() as $element) {

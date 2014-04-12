@@ -13,9 +13,11 @@ class BaseTagTest extends \PHPUnit_Framework_TestCase
 
     function testConstructor()
     {
-        $element = new BaseTag(array(
-            'name' => 'email'
-        ));
+        $element = new BaseTag(
+            array(
+                'name' => 'email'
+            )
+        );
         $this->assertEquals('email', $element->getAttribute('name'));
     }
 
@@ -33,13 +35,18 @@ class BaseTagTest extends \PHPUnit_Framework_TestCase
             'id' => 'form-email'
         );
         $this->element->setAttributes($attrs);
-        $this->assertEquals(array(
-            'name' => 'email',
-            'value' => 'me@domain.com'
-        ), $this->element->getAttributes(array(
-            'name',
-            'value'
-        )));
+        $this->assertEquals(
+            array(
+                'name' => 'email',
+                'value' => 'me@domain.com'
+            ),
+            $this->element->getAttributes(
+                array(
+                    'name',
+                    'value'
+                )
+            )
+        );
     }
 
     function testAllAttributesAreRetrieved()
@@ -60,16 +67,19 @@ class BaseTagTest extends \PHPUnit_Framework_TestCase
         );
         $this->element->setAttributes($attrs);
         $this->element->setAttribute('value', null);
-        $this->assertEquals(array(
-            'name' => 'email'
-        ), $this->element->getAttributes());
+        $this->assertEquals(
+            array(
+                'name' => 'email'
+            ),
+            $this->element->getAttributes()
+        );
     }
 
     function testAddClass()
     {
         $this->element->addClass('active');
         $this->assertEquals('active', $this->element->getAttribute('class'));
-        
+
         $this->element->addClass('disabled');
         $this->assertEquals('active disabled', $this->element->getAttribute('class'));
     }
@@ -139,15 +149,20 @@ class BaseTagTest extends \PHPUnit_Framework_TestCase
             'k3' => 'v3'
         );
         $this->element->setData($data);
-        $this->assertEquals(array(
-            'k1' => 'v1',
-            'k3' => 'v3',
-            'k4' => null
-        ), $this->element->getData(array(
-            'k1',
-            'k3',
-            'k4'
-        )));
+        $this->assertEquals(
+            array(
+                'k1' => 'v1',
+                'k3' => 'v3',
+                'k4' => null
+            ),
+            $this->element->getData(
+                array(
+                    'k1',
+                    'k3',
+                    'k4'
+                )
+            )
+        );
     }
 
 }

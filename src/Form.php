@@ -1,11 +1,13 @@
 <?php
 namespace Sirius\Forms;
 
-use Sirius\Forms\Element\Specs;
+use Sirius\Filtration\Filtrator;
+use Sirius\Filtration\FiltratorInterface;
 use Sirius\Forms\Element\ContainerTrait as ElementContainerTrait;
 use Sirius\Forms\Element\Factory as ElementFactory;
+use Sirius\Forms\Element\Specs;
+use Sirius\Validation\Validator;
 use Sirius\Validation\ValidatorInterface;
-use Sirius\Filtration\FiltratorInterface;
 
 class Form extends Specs
 {
@@ -41,20 +43,23 @@ class Form extends Specs
      */
     protected $filtrator;
 
-    function __construct(ElementFactory $elementFactory = null, ValidatorInterface $validator = null, FiltratorInterface $filtrator = null)
-    {
-        if (! $elementFactory) {
+    function __construct(
+        ElementFactory $elementFactory = null,
+        ValidatorInterface $validator = null,
+        FiltratorInterface $filtrator = null
+    ) {
+        if (!$elementFactory) {
             $elementFactory = new ElementFactory();
         }
         $this->elementFactory = $elementFactory;
-        
-        if (! $validator) {
-            $validator = new \Sirius\Validation\Validator();
+
+        if (!$validator) {
+            $validator = new Validator();
         }
         $this->validator = $validator;
-        
-        if (! $filtrator) {
-            $filtrator = new \Sirius\Filtration\Filtrator();
+
+        if (!$filtrator) {
+            $filtrator = new Filtrator();
         }
         $this->filtrator = $filtrator;
     }
@@ -97,9 +102,9 @@ class Form extends Specs
     /**
      * Add an element to the form
      *
-     * @param string $name            
-     * @param \Sirius\Forms\Element|array $specsOrElement            
-     * @throws \RuntimeException
+     * @param string $name
+     * @param \Sirius\Forms\Element|array $specsOrElement
+     * @throws \LogicException
      * @return \Sirius\Forms\Form
      */
     function add($name, $specsOrElement)
@@ -109,7 +114,7 @@ class Form extends Specs
         }
         $element = $specsOrElement;
         if (is_array($specsOrElement)) {
-            $element = $this->getElementFactory()->createFromSpecs($name, $specsOrElement);
+            $element = $this->getElementFactory()->createFromOptions($name, $specsOrElement);
             $element->setForm($this);
         }
         return $this->addToElementContainer($name, $element);
@@ -118,7 +123,7 @@ class Form extends Specs
     /**
      * Retrieve an element by name
      *
-     * @param string $name            
+     * @param string $name
      * @return \Sirius\Forms\Element
      */
     function get($name)
@@ -129,8 +134,8 @@ class Form extends Specs
     /**
      * Removes an element from the form
      *
-     * @param string $name            
-     * @throws \RuntimeException
+     * @param string $name
+     * @throws \LogicException
      * @return \Sirius\Forms\Form
      */
     function remove($name)
@@ -143,19 +148,19 @@ class Form extends Specs
 
     /**
      * Returns whether an element exist in the form
-     * 
+     *
      * @param string $name
      * @return boolean
      */
     function has($name)
     {
-    	return false !== $this->get($name);
+        return false !== $this->get($name);
     }
 
     /**
      * Prepare the form's validator, filtrator and upload handlers objects
      *
-     * @throws \RuntimeException
+     * @throws \LogicException
      * @return \Sirius\Forms\Form
      */
     function prepare()
@@ -164,7 +169,7 @@ class Form extends Specs
             return $this;
         }
         $this->init();
-        if (! $this->isInitialized()) {
+        if (!$this->isInitialized()) {
             throw new \LogicException('Form was not properly initialized');
         }
         foreach ($this->getChildren() as $element) {
@@ -175,7 +180,7 @@ class Form extends Specs
         $this->isPrepared = true;
         return $this;
     }
-    
+
     /**
      * Return whether the form is prepared or not
      *
@@ -186,7 +191,7 @@ class Form extends Specs
         return $this->isPrepared;
     }
 
-    
+
     /**
      * Returns the form's validator object
      *
@@ -215,7 +220,7 @@ class Form extends Specs
     function setData($values = array(), $files = array())
     {
         $this->prepare();
-        if (! $this->isPrepared()) {
+        if (!$this->isPrepared()) {
             throw new \LogicException('Form is not prepared and cannot receive data');
         }
     }

@@ -64,13 +64,13 @@ class BaseTag
     /**
      * Add a class to the element's class list
      *
-     * @param string $class            
+     * @param string $class
      * @return self
      */
     function addClass($class)
     {
-        if (! $this->hasClass($class)) {
-            $this->setAttribute('class', trim((string) $this->getAttribute('class') . ' ' . $class));
+        if (!$this->hasClass($class)) {
+            $this->setAttribute('class', trim((string)$this->getAttribute('class') . ' ' . $class));
         }
         return $this;
     }
@@ -78,7 +78,7 @@ class BaseTag
     /**
      * Remove a class from the element's class list
      *
-     * @param string $class            
+     * @param string $class
      * @return self
      */
     function removeClass($class)
@@ -94,7 +94,7 @@ class BaseTag
     /**
      * Toggles a class on the element
      *
-     * @param string $class            
+     * @param string $class
      * @return self
      */
     function toggleClass($class)
@@ -108,13 +108,13 @@ class BaseTag
     /**
      * Checks if the element has a specific class
      *
-     * @param string $class            
+     * @param string $class
      * @return boolean
      */
     function hasClass($class)
     {
         $classes = $this->getAttribute('class');
-        return $classes && ((bool) preg_match('/(^| ){1}' . $class . '( |$){1}/i', $classes));
+        return $classes && ((bool)preg_match('/(^| ){1}' . $class . '( |$){1}/i', $classes));
     }
 
     function setText($text)
@@ -179,7 +179,7 @@ class BaseTag
         ksort($attrs);
         foreach ($attrs as $k => $v) {
             if ($v !== true) {
-                $result[] = $k . '="' . htmlspecialchars((string) $v, ENT_COMPAT) . '"';
+                $result[] = $k . '="' . htmlspecialchars((string)$v, ENT_COMPAT) . '"';
             } else {
                 $result[] = $k;
             }

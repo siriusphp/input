@@ -3,8 +3,8 @@ namespace Sirius\Forms\Html;
 
 /**
  * Extended class for building HTML elements.
- * 
- * It offers an interface similar to jQuery's DOM handling functionality 
+ *
+ * It offers an interface similar to jQuery's DOM handling functionality
  * (besides the Element's class functionality)
  * - before(): add something bofore the element
  * - after(): add something after the element;
@@ -14,14 +14,14 @@ class ExtendedTag extends BaseTag
 
     /**
      * The HTML tag
-     * 
+     *
      * @var string
      */
     protected $tag = 'div';
 
     /**
      * Is the element self enclosing
-     * 
+     *
      * @var bool
      */
     protected $isSelfClosing = false;
@@ -34,15 +34,15 @@ class ExtendedTag extends BaseTag
     protected $name;
 
     /**
-     * Items (strings) to be added before the element 
-     * 
+     * Items (strings) to be added before the element
+     *
      * @var array
      */
     protected $before = array();
 
     /**
      * Items (strings) to be added after the element
-     * 
+     *
      * @var array
      */
     protected $after = array();
@@ -50,7 +50,9 @@ class ExtendedTag extends BaseTag
     /**
      * Factory method to allow for chaining since setters return the same object
      *
-     * @param array $options            
+     * @param array $options
+     * @param string $tag
+     * @param bool $isSelfClosing
      * @return \Sirius\Forms\Html\Tag
      */
     static function create($options = array(), $tag = null, $isSelfClosing = false)
@@ -81,7 +83,7 @@ class ExtendedTag extends BaseTag
     /**
      * Add a string or a stringifiable object immediately before the element
      *
-     * @param string|object $stringOrObject            
+     * @param string|object $stringOrObject
      * @return \Sirius\Forms\Renderer\Widget\Base
      */
     function before($stringOrObject)
@@ -93,7 +95,7 @@ class ExtendedTag extends BaseTag
     /**
      * Add a string or a stringifiable object immediately after the element
      *
-     * @param string|object $stringOrObject            
+     * @param string|object $stringOrObject
      * @return \Sirius\Forms\Renderer\Widget\Base
      */
     function after($stringOrObject)
@@ -106,15 +108,15 @@ class ExtendedTag extends BaseTag
      * Add something before and after the element.
      * Proxy for calling before() and after() simoultaneously
      *
-     * @param string|object $before            
-     * @param string|object $after            
+     * @param string|object $before
+     * @param string|object $after
      * @return \Sirius\Forms\Renderer\Widget\Base
      */
     function wrap($before, $after)
     {
         return $this->before($before)->after($after);
     }
-    
+
     /**
      * Render the element
      *
@@ -124,15 +126,15 @@ class ExtendedTag extends BaseTag
     {
         $before = '';
         foreach ($this->before as $item) {
-            $before .= (string) $item;
+            $before .= (string)$item;
         }
         $after = '';
         foreach ($this->after as $item) {
-            $after .= (string) $item;
+            $after .= (string)$item;
         }
         return $before . parent::render() . $after;
     }
-    
+
 
 }
 

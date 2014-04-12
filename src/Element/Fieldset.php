@@ -1,9 +1,10 @@
 <?php
 namespace Sirius\Forms\Element;
 
-use \Sirius\Forms\Element\ContainerTrait as ElementContainerTrait;
-use \Sirius\Forms\Element\Factory as ElementFactory;
-use \Sirius\Forms\Element\FactoryAwareInterface as ElementFactoryAwareInterface;
+use Sirius\Forms\Element\ContainerTrait as ElementContainerTrait;
+use Sirius\Forms\Element\Factory as ElementFactory;
+use Sirius\Forms\Element\FactoryAwareInterface as ElementFactoryAwareInterface;
+use Sirius\Forms\Form;
 
 /**
  * A fielset is a special kind of form element that has a namespace
@@ -11,36 +12,39 @@ use \Sirius\Forms\Element\FactoryAwareInterface as ElementFactoryAwareInterface;
  * children like `street_name`, `city`, `zip_code` etc.
  * Children will be rendered as `address[street_name]`, `address[city]` etc
  */
-class Fieldset extends Input implements ElementFactoryAwareInterface {
+class Fieldset extends Input implements ElementFactoryAwareInterface
+{
     use ElementContainerTrait;
-    
-	/**
-	 * @var \Sirius\Form\ElementFactory
-	 */
-	protected $elementFactory;
-	
 
-	protected function getDefaultSpecs() {
-	    return 	$defaultSpecs = array(
-    		Input::WIDGET => 'fieldset'
-    	);
-	}
-	
-	/**
+    /**
+     * @var \Sirius\Form\ElementFactory
+     */
+    protected $elementFactory;
+
+
+    protected function getDefaultSpecs()
+    {
+        return $defaultSpecs = array(
+            Input::WIDGET => 'fieldset'
+        );
+    }
+
+    /**
      * Generate the namespaced field name of an element inside the  fielset
-     * 
+     *
      * @param string $name
      * @return string
      */
-    protected function getFullChildName($name) {
-    	$firstOpenBracket = strpos($name, '[');
-    	// the name is already at least 2 levels deep like street[name]
-    	if ($firstOpenBracket !== false) {
-    	    $name = substr($name, 0, $firstOpenBracket) . '][' . substr($name, $firstOpenBracket + 1, -1);
-    	}
-    	return $this->getName() . '[' . $name . ']';
+    protected function getFullChildName($name)
+    {
+        $firstOpenBracket = strpos($name, '[');
+        // the name is already at least 2 levels deep like street[name]
+        if ($firstOpenBracket !== false) {
+            $name = substr($name, 0, $firstOpenBracket) . '][' . substr($name, $firstOpenBracket + 1, -1);
+        }
+        return $this->getName() . '[' . $name . ']';
     }
-    
+
     function setElementFactory(ElementFactory $elementFactory)
     {
         $this->elementFactory = $elementFactory;
@@ -53,18 +57,18 @@ class Fieldset extends Input implements ElementFactoryAwareInterface {
      * @param string $name
      * @param \Sirius\Forms\Element|array $specsOrElement
      * @throws \RuntimeException
-     * @return \Sirius\Forms\Form
+     * @return Form
      */
     function add($name, $specsOrElement)
     {
         $name = $this->getFullChildName($name);
         $element = $specsOrElement;
         if (is_array($specsOrElement)) {
-            $element = $this->elementFactory->createFromSpecs($name, $specsOrElement);
+            $element = $this->elementFactory->createFromOptions($name, $specsOrElement);
         }
         return $this->addToElementContainer($name, $element);
     }
-    
+
     /**
      * Retrieve an element by name
      *
@@ -76,13 +80,13 @@ class Fieldset extends Input implements ElementFactoryAwareInterface {
         $name = $this->getFullChildName($name);
         return $this->getFromElementContainer($name);
     }
-    
+
     /**
      * Removes an element from the fielset
      *
      * @param string $name
      * @throws \RuntimeException
-     * @return \Sirius\Forms\Form
+     * @return Form
      */
     function remove($name)
     {
@@ -93,7 +97,7 @@ class Fieldset extends Input implements ElementFactoryAwareInterface {
     /**
      * Returns whether an element exist in the fielset
      *
-     * @param string $name            
+     * @param string $name
      * @return boolean
      */
     function has($name)
@@ -101,7 +105,7 @@ class Fieldset extends Input implements ElementFactoryAwareInterface {
         return false !== $this->get($name);
     }
 
-    function prepareForm(\Sirius\Forms\Form $form)
+    function prepareForm(Form $form)
     {
         parent::prepareForm($form);
         foreach ($this->getChildren() as $element) {

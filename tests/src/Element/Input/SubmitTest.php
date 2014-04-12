@@ -4,13 +4,15 @@ namespace Sirius\Forms\Element\Input;
 
 use Sirius\Forms\Element\Input;
 
-class SubmitTest extends \PHPUnit_Framework_TestCase {
+class SubmitTest extends \PHPUnit_Framework_TestCase
+{
 
-	function testDefaults() {
-		$input = new Submit('submit');
+    function testDefaults()
+    {
+        $input = new Submit('submit');
 
-		$this->assertEquals('button', $input[Input::WIDGET]);
-		$this->assertEquals('submit', $input[Input::ATTRIBUTES]['type']);
-	}
+        $this->assertEquals('button', $input[Input::WIDGET]);
+        $this->assertEquals('submit', $input[Input::ATTRIBUTES]['type']);
+    }
 
 }

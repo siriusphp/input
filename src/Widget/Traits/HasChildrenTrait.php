@@ -1,8 +1,6 @@
 <?php
 namespace Sirius\Forms\Widget\Traits;
 
-use Sirius\Forms\Html\ExtendedTag;
-
 trait HasChildrenTrait
 {
 

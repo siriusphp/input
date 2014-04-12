@@ -1,18 +1,20 @@
 <?php
 namespace Sirius\Renderer\Widget;
 
+use Sirius\Forms\Form\Element\Specs;
 use Sirius\Forms\Html\ExtendedTag;
-use \Sirius\Forms\Form;
-use \Sirius\Forms\Form\Element\Specs;
+use Sirius\Forms\Widget\Traits\HasChildrenTrait;
+use Sirius\Forms\Widget\Traits\HasHintTrait;
 
 class Group extends ExtendedTag
 {
-    use \Sirius\Forms\Widget\Traits\HasHintTrait;
-    use \Sirius\Forms\Widget\Traits\HasChildrenTrait;
-    
+    use HasHintTrait;
+    use HasChildrenTrait;
+
     protected $tag = 'div';
 
-    function render() {
+    function render()
+    {
         $children = '';
         foreach ($this->children as $child) {
             $children .= $child;

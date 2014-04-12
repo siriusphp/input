@@ -24,17 +24,19 @@ class DivTest extends \PHPUnit_Framework_TestCase
 
     function setUp()
     {
-        $this->input = new Div(array(
-            'text' => 'Lorem ipsum...',
-            'attrs' => array(
-                'class' => 'container'
+        $this->input = new Div(
+            array(
+                'text' => 'Lorem ipsum...',
+                'attrs' => array(
+                    'class' => 'container'
+                )
             )
-        ));
+        );
     }
 
     function testRender()
     {
-        $this->assertEquals('<div class="container">Lorem ipsum...</div>', (string) $this->input);
+        $this->assertEquals('<div class="container">Lorem ipsum...</div>', (string)$this->input);
         $this->assertEquals('<div class="container">Lorem ipsum...</div>', $this->input->render());
     }
 
@@ -42,15 +44,23 @@ class DivTest extends \PHPUnit_Framework_TestCase
     {
         $this->input->after('<i class="icon-date"></i>');
         $this->input->wrap('<div class="wrapper">', '</div>');
-        $this->assertEquals('<div class="wrapper"><div class="container">Lorem ipsum...</div><i class="icon-date"></i></div>', (string) $this->input);
+        $this->assertEquals(
+            '<div class="wrapper"><div class="container">Lorem ipsum...</div><i class="icon-date"></i></div>',
+            (string)$this->input
+        );
     }
 
     function testSelfClosingTag()
     {
-        $this->assertEquals('<hr class="separator">', new Hr(array(
-            'attrs' => array(
-                'class' => 'separator'
+        $this->assertEquals(
+            '<hr class="separator">',
+            new Hr(
+                array(
+                    'attrs' => array(
+                        'class' => 'separator'
+                    )
+                )
             )
-        )));
+        );
     }
 }

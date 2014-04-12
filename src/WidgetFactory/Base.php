@@ -1,28 +1,29 @@
 <?php
 namespace Sirius\Forms\WidgetFactory;
 
-use Sirius\Forms\WidgetFactory\FactoryInterface;
-use Sirius\Forms\WidgetFactory\Task;
+use Sirius\Forms\Element\Specs;
+use Sirius\Forms\Form;
+use Sirius\Forms\Util\PriorityList;
 
 class Base implements FactoryInterface
 {
 
     /**
      *
-     * @var \Sirius\Forms\Util\PriorityList
+     * @var PriorityList
      */
     protected $workers;
 
     function __construct()
     {
-        $this->workers = new \Sirius\Forms\Util\PriorityList();
+        $this->workers = new PriorityList();
     }
 
     /**
      * Adds a worker on the list of workers that will process tasks
      *
-     * @param WorkerInterface $worker            
-     * @param number $priority            
+     * @param WorkerInterface $worker
+     * @param integer $priority
      * @return self
      */
     function addWorker(WorkerInterface $worker, $priority = 0)
@@ -30,11 +31,11 @@ class Base implements FactoryInterface
         $this->workers->add($worker, $priority);
         return $this;
     }
-    
+
     /*
      * (non-PHPdoc) @see \Sirius\Forms\WidgetFactory\FactoryInterface::createWidget()
      */
-    function createWidget(\Sirius\Forms\Form $form,\Sirius\Forms\Element\Specs $element = null)
+    function createWidget(Form $form, Specs $element = null)
     {
         $task = $this->createTask($form, $element);
         foreach ($this->workers as $worker) {
@@ -47,11 +48,11 @@ class Base implements FactoryInterface
     /**
      * Composes a task that is be passed to workers for processing
      *
-     * @param \Sirius\Forms\Form $form            
-     * @param \Sirius\Forms\Element\Specs $element            
+     * @param Form $form
+     * @param Specs $element
      * @return \Sirius\Forms\WidgetFactory\Task
      */
-    protected function createTask(\Sirius\Forms\Form $form, \Sirius\Forms\Element\Specs $element = null)
+    protected function createTask(Form $form, Specs $element = null)
     {
         return new Task($this, $form, $element);
     }

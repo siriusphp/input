@@ -2,15 +2,16 @@
 
 namespace Sirius\Forms\Element;
 
-use \Sirius\Forms\Element\Factory as ElementFactory;
+use Sirius\Forms\Element\Factory as ElementFactory;
 
-interface FactoryAwareInterface {
-	
+interface FactoryAwareInterface
+{
+
     /**
      * Sets the element factory
-     * 
-     * @param ElementFactory $elementFactory            
+     *
+     * @param ElementFactory $elementFactory
      * @return self
      */
-	public function setElementFactory(ElementFactory $elementFactory);
+    public function setElementFactory(ElementFactory $elementFactory);
 }

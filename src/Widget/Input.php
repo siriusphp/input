@@ -2,13 +2,17 @@
 namespace Sirius\Renderer\Widget;
 
 use Sirius\Forms\Html\ExtendedTag;
+use Sirius\Forms\Widget\Traits\HasErrorTrait;
+use Sirius\Forms\Widget\Traits\HasHintTrait;
+use Sirius\Forms\Widget\Traits\HasInputTrait;
+use Sirius\Forms\Widget\Traits\HasLabelTrait;
 
 class Input extends ExtendedTag
 {
-    use \Sirius\Forms\Widget\Traits\HasLabelTrait;
-    use \Sirius\Forms\Widget\Traits\HasHintTrait;
-    use \Sirius\Forms\Widget\Traits\HasErrorTrait;
-    use \Sirius\Forms\Widget\Traits\HasInputTrait;
+    use HasLabelTrait;
+    use HasHintTrait;
+    use HasErrorTrait;
+    use HasInputTrait;
 
     function render()
     {

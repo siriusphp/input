@@ -1,6 +1,9 @@
 <?php
 namespace Sirius\Forms\Element;
 
+use Sirius\Forms\Element\FactoryAwareInterface;
+use Sirius\Forms\Element\Input;
+
 class Factory
 {
 
@@ -24,52 +27,56 @@ class Factory
             $this->types[$type] = $classOrClosure;
             return $this;
         }
-        if (! is_string($classOrClosure)) {
+        if (!is_string($classOrClosure)) {
             throw new \RuntimeException('Element type must be a class or a closure');
         }
-        if (! class_exists($classOrClosure)) {
+        if (!class_exists($classOrClosure)) {
             throw new \RuntimeException(sprintf('Class %s does not exist', $classOrClosure));
         }
-        if (! is_subclass_of($classOrClosure, '\Sirius\Forms\Element\Input')) {
-            throw new \RuntimeException(sprintf('Class %s must extend the \Sirius\Forms\Element\Input class', $classOrClosure));
+        if (!is_subclass_of($classOrClosure, '\Sirius\Forms\Element\Input')) {
+            throw new \RuntimeException(
+                sprintf('Class %s must extend the \Sirius\Forms\Element\Input class', $classOrClosure)
+            );
         }
         $this->types[$type] = $classOrClosure;
         return $this;
     }
 
     /**
-     * Create element from specification
-     * 
-     * @param array $specs
+     * Create element from options
+     *
+     * @param $name
+     * @param array $options
+     * @return \Sirius\Forms\Element
      * @throws \RuntimeException
-     * @return Sirius\Forms\Element
      */
-    function createFromSpecs($name, $specs = array())
+    function createFromOptions($name, $options = array())
     {
         $type = 'text';
-        if (isset($specs[Input::ELEMENT_TYPE]) && isset($this->types[$specs[Input::ELEMENT_TYPE]])) {
-            $type = $specs[Input::ELEMENT_TYPE];
-            unset($specs[Input::ELEMENT_TYPE]);
+        if (isset($options[Input::ELEMENT_TYPE]) && isset($this->types[$options[Input::ELEMENT_TYPE]])) {
+            $type = $options[Input::ELEMENT_TYPE];
+            unset($options[Input::ELEMENT_TYPE]);
         }
-        if (! isset($this->types[$type])) {
+        if (!isset($this->types[$type])) {
             throw new \RuntimeException('The ElementFactory does not have a default way to create elements');
         }
+        /* @var $element \Sirius\Forms\Element */
         if ($this->types[$type] instanceof \Closure) {
-            $element = call_user_func($this->types[$type], $name, $specs);
+            $element = call_user_func($this->types[$type], $name, $options);
         } else {
             $class = $this->types[$type];
-            $element = new $class($name, $specs);
+            $element = new $class($name, $options);
         }
-        
-        if (!$element instanceof \Sirius\Forms\Element\Input) {
+
+        if (!$element instanceof Input) {
             throw new \RuntimeException('Cannot create a valid form element based on the data provided');
         }
-        
+
         // if the element is a fieldset/collection type, inject the element factory
-        if ($element instanceof \Sirius\Forms\ElementFactoryAwareInterface) {
+        if ($element instanceof FactoryAwareInterface) {
             $element->setElementFactory($this);
         }
-        
+
         return $element;
     }
 }

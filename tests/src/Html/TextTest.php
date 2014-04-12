@@ -8,14 +8,16 @@ class TextTest extends \PHPUnit_Framework_TestCase
 
     function setUp()
     {
-        $this->input = new Text(array(
-            'name' => 'username',
-            'value' => 'siriusforms',
-            'attrs' => array(
-                'disabled' => true,
-                'class' => 'not-valid'
+        $this->input = new Text(
+            array(
+                'name' => 'username',
+                'value' => 'siriusforms',
+                'attrs' => array(
+                    'disabled' => true,
+                    'class' => 'not-valid'
+                )
             )
-        ));
+        );
     }
 
     function testFactoryMethod()
@@ -27,7 +29,7 @@ class TextTest extends \PHPUnit_Framework_TestCase
     function testFactoryOfCustomElement()
     {
         $input = Text::create(array(), 'em', false);
-        $this->assertEquals('<em></em>', (string) $input);
+        $this->assertEquals('<em></em>', (string)$input);
     }
 
     function testAttributes()
@@ -39,6 +41,9 @@ class TextTest extends \PHPUnit_Framework_TestCase
 
     function testRender()
     {
-        $this->assertEquals('<input class="not-valid" disabled name="username" value="siriusforms">', (string) $this->input);
+        $this->assertEquals(
+            '<input class="not-valid" disabled name="username" value="siriusforms">',
+            (string)$this->input
+        );
     }
 }

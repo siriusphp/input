@@ -1,44 +1,47 @@
 <?php
 namespace Sirius\Forms\Element;
 
+use Sirius\Forms\Element;
+use Sirius\Forms\Form;
+
 /**
  *
- * @method \Sirius\Forms\Element getLabel() Get the label text
- * @method \Sirius\Forms\Element setLabel($label) Set label text
- * @method \Sirius\Forms\Element getLabelAttributes() Get the attributes for the label
- * @method \Sirius\Forms\Element setLabelAttributes(array $attributes) Set label attributes
- * @method \Sirius\Forms\Element setLabelAttribute($attr, $value = null) Set/Unset label attribute
- * @method \Sirius\Forms\Element addLabelClass($class) Add a CSS class to the label
- * @method \Sirius\Forms\Element removeLabelClass($class) Removes a CSS class from the label
- * @method \Sirius\Forms\Element toggleLabelClass($class) Toggles a class on the label
- * @method \Sirius\Forms\Element getHint() Get the hint text
- * @method \Sirius\Forms\Element setHint($label) Set hint text
- * @method \Sirius\Forms\Element getHintAttributes() Get the attributes for the hint
- * @method \Sirius\Forms\Element setHintAttributes(array $attributes) Set hint attributes
- * @method \Sirius\Forms\Element setHintAttribute($attr, $value = null) Set/Unset hint attribute
- * @method \Sirius\Forms\Element addHintClass($class) Add a CSS class to the hint
- * @method \Sirius\Forms\Element removeHintClass($class) Removes a CSS class from the hint
- * @method \Sirius\Forms\Element toggleHintClass($class) Toggles a class on the hint
- * @method \Sirius\Forms\Element getContainerAttributes() Get the attributes for the container
- * @method \Sirius\Forms\Element setContainerAttributes(array $attributes) Set container attributes
- * @method \Sirius\Forms\Element setContainerAttribute($attr, $value = null) Set/Unset container attribute
- * @method \Sirius\Forms\Element addContainerClass($class) Add a CSS class to the container
- * @method \Sirius\Forms\Element removeContainerClass($class) Removes a CSS class from the container
- * @method \Sirius\Forms\Element toggleContainerClass($class) Toggles a class on the container
- * @method \Sirius\Forms\Element getOptions() Get list of options for SELECTS, radio or checkbox groups
- * @method \Sirius\Forms\Element setOptions(array $options) Set list of options for SELECTs, radio or checkbox groups
- * @method \Sirius\Forms\Element getFirstOption() Get the first/empty option for SELECT
- * @method \Sirius\Forms\Element setFirstOption($option) Set the first/empty option for SELECT
- * @method \Sirius\Forms\Element getValidationRules() Get list of validation rules
- * @method \Sirius\Forms\Element setValidationRules(array $rules) Set list of validation rules
- * @method \Sirius\Forms\Element getFilters() Get list of data filters
- * @method \Sirius\Forms\Element setFilters(array $filters) Set list of filters
- * @method \Sirius\Forms\Element getUploadContainer() Get the upload container for the element
- * @method \Sirius\Forms\Element setUploadContainer($container) Set the upload container for the element
- * @method \Sirius\Forms\Element getUploadOptions() Get the upload options for the container
- * @method \Sirius\Forms\Element setUploadOptions(array $options) Set the upload options for the container
- * @method \Sirius\Forms\Element getUploadRules() Get the upload validation rules
- * @method \Sirius\Forms\Element setUploadRules(array $rules) Set the upload validation rules
+ * @method Element getLabel() Get the label text
+ * @method Element setLabel($label) Set label text
+ * @method Element getLabelAttributes() Get the attributes for the label
+ * @method Element setLabelAttributes(array $attributes) Set label attributes
+ * @method Element setLabelAttribute($attr, $value = null) Set/Unset label attribute
+ * @method Element addLabelClass($class) Add a CSS class to the label
+ * @method Element removeLabelClass($class) Removes a CSS class from the label
+ * @method Element toggleLabelClass($class) Toggles a class on the label
+ * @method Element getHint() Get the hint text
+ * @method Element setHint($label) Set hint text
+ * @method Element getHintAttributes() Get the attributes for the hint
+ * @method Element setHintAttributes(array $attributes) Set hint attributes
+ * @method Element setHintAttribute($attr, $value = null) Set/Unset hint attribute
+ * @method Element addHintClass($class) Add a CSS class to the hint
+ * @method Element removeHintClass($class) Removes a CSS class from the hint
+ * @method Element toggleHintClass($class) Toggles a class on the hint
+ * @method Element getContainerAttributes() Get the attributes for the container
+ * @method Element setContainerAttributes(array $attributes) Set container attributes
+ * @method Element setContainerAttribute($attr, $value = null) Set/Unset container attribute
+ * @method Element addContainerClass($class) Add a CSS class to the container
+ * @method Element removeContainerClass($class) Removes a CSS class from the container
+ * @method Element toggleContainerClass($class) Toggles a class on the container
+ * @method Element getOptions() Get list of options for SELECTS, radio or checkbox groups
+ * @method Element setOptions(array $options) Set list of options for SELECTs, radio or checkbox groups
+ * @method Element getFirstOption() Get the first/empty option for SELECT
+ * @method Element setFirstOption($option) Set the first/empty option for SELECT
+ * @method Element getValidationRules() Get list of validation rules
+ * @method Element setValidationRules(array $rules) Set list of validation rules
+ * @method Element getFilters() Get list of data filters
+ * @method Element setFilters(array $filters) Set list of filters
+ * @method Element getUploadContainer() Get the upload container for the element
+ * @method Element setUploadContainer($container) Set the upload container for the element
+ * @method Element getUploadOptions() Get the upload options for the container
+ * @method Element setUploadOptions(array $options) Set the upload options for the container
+ * @method Element getUploadRules() Get the upload validation rules
+ * @method Element setUploadRules(array $rules) Set the upload validation rules
  */
 abstract class Input extends Specs
 {
@@ -82,7 +85,7 @@ abstract class Input extends Specs
 
     /**
      * Name of the field (identifier of the element in the form's child list)
-     * 
+     *
      * @var string
      */
     protected $name;
@@ -138,14 +141,16 @@ abstract class Input extends Specs
         $this->value = $value;
         return $this;
     }
-    
-    function prepareForm(\Sirius\Forms\Form $form) {
+
+    function prepareForm(Form $form)
+    {
         $this->prepareFormValidation($form);
         $this->prepareFormFiltration($form);
         $this->prepareFormUploadHandling($form);
     }
-    
-    protected function prepareFormFiltration(\Sirius\Forms\Form $form) {
+
+    protected function prepareFormFiltration(Form $form)
+    {
         $filters = $this->getFilters();
         if (!$filters || !is_array($filters)) {
             return;
@@ -158,8 +163,9 @@ abstract class Input extends Specs
             }
         }
     }
-    
-    protected function prepareFormValidation(\Sirius\Forms\Form $form) {
+
+    protected function prepareFormValidation(Form $form)
+    {
         $validationRules = $this->getValidationRules();
         if (!$validationRules || !is_array($validationRules)) {
             return;
@@ -171,10 +177,11 @@ abstract class Input extends Specs
                 $validator->add($this->getName(), $params[0], @$params[1], @$params[2], $this->getLabel());
             }
         }
-        
+
     }
-    
-    protected function prepareFormUploadHandling(\Sirius\Forms\Form $form) {
-        
+
+    protected function prepareFormUploadHandling(Form $form)
+    {
+
     }
 }

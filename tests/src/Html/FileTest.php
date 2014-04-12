@@ -8,16 +8,18 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     function setUp()
     {
-        $this->input = new File(array(
-            'name' => 'picture',
-            'attrs' => array(
-                'class' => 'upload'
+        $this->input = new File(
+            array(
+                'name' => 'picture',
+                'attrs' => array(
+                    'class' => 'upload'
+                )
             )
-        ));
+        );
     }
 
     function testRender()
     {
-        $this->assertEquals('<input class="upload" name="picture" type="file">', (string) $this->input);
+        $this->assertEquals('<input class="upload" name="picture" type="file">', (string)$this->input);
     }
 }

@@ -8,13 +8,15 @@ class HiddenTest extends \PHPUnit_Framework_TestCase
 
     function setUp()
     {
-        $this->input = new Hidden(array(
-            'name' => 'token'
-        ));
+        $this->input = new Hidden(
+            array(
+                'name' => 'token'
+            )
+        );
     }
 
     function testRender()
     {
-        $this->assertEquals('<input name="token" type="hidden">', (string) $this->input);
+        $this->assertEquals('<input name="token" type="hidden">', (string)$this->input);
     }
 }
