@@ -27,5 +27,5 @@ $form->add('name', array(
 
 Input validation rules are attached to the form's validator object during the preparation of the form. Until then you are free to change the validation rules attached to the input.
 
-[Learn more about Sirius\Validation](http://github.com/siriusphp/validation). 
+[Learn more about Sirius\Validation](http://github.com/siriusphp/validation).
 

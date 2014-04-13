@@ -7,7 +7,7 @@ The `filters` property of an input specs is an array of filters. For each filter
 - name of the filter
 - options for the filter (optional)
 
-These are the parameters required by the `Sirius\Validation\Filtrator::add()` method and they can be provided in a format that is recognizable by that library.
+These are the parameters required by the `Sirius\Validation\Filtrator::add()` method and they can be provided in a format that is recognizable by the **Sirius\Filtration** library.
 
 ```php
 $form->add('date', array(

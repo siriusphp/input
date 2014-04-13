@@ -21,18 +21,18 @@ $filtrator = new Filtrator();
 $form = new Form($elementFactory, $validator, $filtrator);
 ```
 
-The `Form` class extends the `Element\Specs` (which is an augmented `\ArrayObject`) class which allows you to alter the form's properties
+The `Form` class extends the `Element` class (which is an augmented `\ArrayObject`) which allows you to alter the form's properties
 
 ```php
 $form->setAttribute('method', 'post')
-	->setAttribute('action', '/uri')
+	->setAttribute('action', '/controller/action')
 	->addClass('form-inline')
 	->removeClass('row')
 
-// or using array object notation
+// or using array object notation if you're more comfortable
 
 $form->attributes['method'] = 'post';
 $form->attributes['class'] = 'form-inline';
 ```
 
-That's all you need to contruct your form. Next step: [start adding elements](02_Add_elements_to_your_form.md)
+That's all you need to construct your form. Next step: [start adding elements](02_Add_elements_to_your_form.md)

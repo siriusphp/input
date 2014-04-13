@@ -1,6 +1,6 @@
 # Input fields
 
-Input field classes extend the [Element](../10_API/Element.md) class. Visit the previous link to get an idea of interface of the `Element` class. 
+Input field classes extend the [Input](../10_API/Input.md) class. Visit the previous link to get an idea of interface of the `Input` class.
 
 This is how you add an element to a form (you do the same for fieldsets and collections).
 
@@ -32,6 +32,14 @@ $email->label = 'Your email';
 $email['label_attributes']['class'] = 'important';
 ```
 
+## Input traits
+
+The traits added to inputs are:
+
+- `HasLabelTrait` for managing the input's label
+- `HasHintTrait` for managing the input completion instructions
+- `HasValidationRulesTrait` for managing the input's validation rules
+- `HasFiltersTrait` for managing the data filters attached to the input
 
 ## Built-in input fields
 
@@ -51,6 +59,6 @@ The **Sirius\Forms** library comes packed with a variaty of input fields the cov
 12. LocalDateTime
 13. Number
 
-They diverge very little from the base **Element\Input** class so, by looking at their code you'll be able to understand what it takes to create your own custom fields.
+They diverge very little from the base **Input\Input** class so, by looking at their code you'll be able to understand what it takes to create your own custom fields.
 
 **Note!** The type of form elements have little to do how they are displayed. The renderer is responsible for the visual representation of the form and its elements. Creating custom elements solves only 20% of the problem (rendering is 80%).

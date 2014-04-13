@@ -31,6 +31,6 @@ $total = $fieldset->get('total');
 $email->setAttribute('readonly', 'readonly');
 ```
 
-The child elements of a collection are namespaced. In the exemple above the `quantity` inputs will have the `name` attribute like `lines[{index}][quantity]`
+The child elements of a collection are namespaced. In the example above the `quantity` inputs will have the `name` attribute set as `lines[{index}][quantity]`
 
 **Important!** Just like in the case of [Fieldsets](203_-_Fieldsets.md) this will have implications on the validation and filtration.
