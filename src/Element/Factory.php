@@ -28,7 +28,7 @@ class Factory
             return $this;
         }
         if (!is_string($classOrClosure)) {
-            throw new \RuntimeException('Element type must be a class or a closure');
+            throw new \RuntimeException('Input type must be a class or a closure');
         }
         if (!class_exists($classOrClosure)) {
             throw new \RuntimeException(sprintf('Class %s does not exist', $classOrClosure));

@@ -80,7 +80,7 @@ class Basic
     {
         $element = $form->get($elementName);
         if (!$element) {
-            throw new \RuntimeException(sprintf('Element "%s" is not registered to this form'));
+            throw new \RuntimeException(sprintf('Input "%s" is not registered to this form'));
         }
         $widget = $this->widgetFactory->createWidget($form, $element);
         $this->decorateWidget($widget);

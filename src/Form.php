@@ -3,13 +3,13 @@ namespace Sirius\Forms;
 
 use Sirius\Filtration\Filtrator;
 use Sirius\Filtration\FiltratorInterface;
-use Sirius\Forms\Element\ContainerTrait as ElementContainerTrait;
+use Sirius\Forms\Element\Traits\HasChildrenTrait as ElementContainerTrait;
 use Sirius\Forms\Element\Factory as ElementFactory;
-use Sirius\Forms\Element\Specs;
+use Sirius\Forms\Element\AbstractElement;
 use Sirius\Validation\Validator;
 use Sirius\Validation\ValidatorInterface;
 
-class Form extends Specs
+class Form extends Element
 {
     use ElementContainerTrait;
 
@@ -97,64 +97,6 @@ class Form extends Specs
     function getElementFactory()
     {
         return $this->elementFactory;
-    }
-
-    /**
-     * Add an element to the form
-     *
-     * @param string $name
-     * @param \Sirius\Forms\Element|array $specsOrElement
-     * @throws \LogicException
-     * @return \Sirius\Forms\Form
-     */
-    function add($name, $specsOrElement)
-    {
-        if ($this->isPrepared()) {
-            throw new \LogicException('You cannot add elements after the form has been prepared');
-        }
-        $element = $specsOrElement;
-        if (is_array($specsOrElement)) {
-            $element = $this->getElementFactory()->createFromOptions($name, $specsOrElement);
-            $element->setForm($this);
-        }
-        return $this->addToElementContainer($name, $element);
-    }
-
-    /**
-     * Retrieve an element by name
-     *
-     * @param string $name
-     * @return \Sirius\Forms\Element
-     */
-    function get($name)
-    {
-        return $this->getFromElementContainer($name);
-    }
-
-    /**
-     * Removes an element from the form
-     *
-     * @param string $name
-     * @throws \LogicException
-     * @return \Sirius\Forms\Form
-     */
-    function remove($name)
-    {
-        if ($this->isPrepared()) {
-            throw new \LogicException('You cannot remove elements after the form has been prepared');
-        }
-        return $this->removeFromElementContainer($name);
-    }
-
-    /**
-     * Returns whether an element exist in the form
-     *
-     * @param string $name
-     * @return boolean
-     */
-    function has($name)
-    {
-        return false !== $this->get($name);
     }
 
     /**

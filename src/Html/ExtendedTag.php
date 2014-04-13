@@ -5,7 +5,7 @@ namespace Sirius\Forms\Html;
  * Extended class for building HTML elements.
  *
  * It offers an interface similar to jQuery's DOM handling functionality
- * (besides the Element's class functionality)
+ * (besides the Input's class functionality)
  * - before(): add something bofore the element
  * - after(): add something after the element;
  */

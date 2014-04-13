@@ -25,19 +25,4 @@ class FormTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    function testExpectionThrownWhenAddingAfterPrepare()
-    {
-        $this->setExpectedException('\LogicException');
-        $this->form->prepare();
-        $this->form->add('email', array(Element\Input::ELEMENT_TYPE => 'text'));
-    }
-
-
-    function testExpectionThrownWhenRemovingAfterPrepare()
-    {
-        $this->form->add('email', array(Element\Input::ELEMENT_TYPE => 'text'));
-        $this->setExpectedException('\LogicException');
-        $this->form->prepare();
-        $this->form->remove('email');
-    }
 }

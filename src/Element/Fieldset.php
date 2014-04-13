@@ -1,7 +1,11 @@
 <?php
 namespace Sirius\Forms\Element;
 
-use Sirius\Forms\Element\ContainerTrait as ElementContainerTrait;
+use Sirius\Forms\Element\Traits\HasChildrenTrait;
+use Sirius\Forms\Element\Traits\HasLabelTrait;
+use Sirius\Forms\Element\Traits\HasHintTrait;
+use Sirius\Forms\Element\Traits\HasFiltersTrait;
+use Sirius\Forms\Element\Traits\HasValidationRulesTrait;
 use Sirius\Forms\Element\Factory as ElementFactory;
 use Sirius\Forms\Element\FactoryAwareInterface as ElementFactoryAwareInterface;
 use Sirius\Forms\Form;
@@ -14,10 +18,14 @@ use Sirius\Forms\Form;
  */
 class Fieldset extends Input implements ElementFactoryAwareInterface
 {
-    use ElementContainerTrait;
+    use HasChildrenTrait;
+    use HasLabelTrait;
+    use HasHintTrait;
+    use HasFiltersTrait;
+    use HasValidationRulesTrait;
 
     /**
-     * @var \Sirius\Form\ElementFactory
+     * @var \Sirius\Form\Element\Factory
      */
     protected $elementFactory;
 
@@ -45,65 +53,19 @@ class Fieldset extends Input implements ElementFactoryAwareInterface
         return $this->getName() . '[' . $name . ']';
     }
 
+    /**
+     * Sets the element factory object.
+     * This is passed from the form to other objects that may have children
+     *
+     * @param ElementFactory $elementFactory
+     * @return $this
+     */
     function setElementFactory(ElementFactory $elementFactory)
     {
         $this->elementFactory = $elementFactory;
         return $this;
     }
 
-    /**
-     * Add an element to the fielset
-     *
-     * @param string $name
-     * @param \Sirius\Forms\Element|array $specsOrElement
-     * @throws \RuntimeException
-     * @return Form
-     */
-    function add($name, $specsOrElement)
-    {
-        $name = $this->getFullChildName($name);
-        $element = $specsOrElement;
-        if (is_array($specsOrElement)) {
-            $element = $this->elementFactory->createFromOptions($name, $specsOrElement);
-        }
-        return $this->addToElementContainer($name, $element);
-    }
-
-    /**
-     * Retrieve an element by name
-     *
-     * @param string $name
-     * @return \Sirius\Forms\Element
-     */
-    function get($name)
-    {
-        $name = $this->getFullChildName($name);
-        return $this->getFromElementContainer($name);
-    }
-
-    /**
-     * Removes an element from the fielset
-     *
-     * @param string $name
-     * @throws \RuntimeException
-     * @return Form
-     */
-    function remove($name)
-    {
-        $name = $this->getFullChildName($name);
-        return $this->removeFromElementContainer($name);
-    }
-
-    /**
-     * Returns whether an element exist in the fielset
-     *
-     * @param string $name
-     * @return boolean
-     */
-    function has($name)
-    {
-        return false !== $this->get($name);
-    }
 
     function prepareForm(Form $form)
     {

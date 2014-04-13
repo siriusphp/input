@@ -1,6 +1,6 @@
 {
     "name": "siriusphp/forms",
-    "description": "Form handling library that",
+    "description": "Framework agnostic library that manages the life-cycle of forms from creation to data input and rendering",
     "type": "library",
     "license": "MIT",
     "keywords": [
