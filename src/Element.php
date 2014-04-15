@@ -1,8 +1,6 @@
 <?php
 namespace Sirius\Forms;
 
-use Sirius\Forms\Form;
-
 /**
  *
  * @method Element getLabel() Get the label text
@@ -42,7 +40,7 @@ use Sirius\Forms\Form;
  * @method Element getUploadRules() Get the upload validation rules
  * @method Element setUploadRules(array $rules) Set the upload validation rules
  */
-abstract class Element extends \ArrayObject
+abstract class Element extends Specs
 {
     /**
      * Constants to be used by setSpec(), getXXX(), setXXX()
@@ -123,177 +121,6 @@ abstract class Element extends \ArrayObject
         return $this->name;
     }
 
-    function setAttributes($attrs) {
-        return $this->setAttributesFor('', $attrs);
-    }
-
-    function getAttributes() {
-        return $this->getAttributesFor('');
-    }
-
-    function getAttribute($attr) {
-        return $this->getAttributeFor('', $attr);
-    }
-
-    function setAttribute($attr, $value = null) {
-        return $this->setAttributeFor('', $attr, $value);
-    }
-
-    function addClass($class) {
-        return $this->addClassFor('', $class);
-    }
-
-    function removeClass($class) {
-        return $this->removeClassFor('', $class);
-    }
-
-    function toggleClass($class) {
-        return $this->toggleClassFor('', $class);
-    }
-
-    /**
-     * Adds a class on an attribute container
-     * $this['attributes'], $this['label_attributes'], $this['hint_attributes'])
-     *
-     * @param string $target
-     * @param string $className
-     * @return AbstractElement
-     */
-    protected function addClassFor($target, $className)
-    {
-        $class = $this->getAttributeFor($target, 'class') ? : '';
-        if (!in_array($className, explode(' ', $class))) {
-            $class .= ' ' . $className;
-            $this->setAttributeFor($target, 'class', trim($class));
-        }
-        return $this;
-    }
-
-    /**
-     * Remove a class from an attribute container
-     * ex: $this['attributes'], $this['label_attributes'], $this['hint_attributes'])
-     *
-     * @param string $target (ex: NULL, label, hint etc)
-     * @param string $className
-     * @return AbstractElement
-     */
-    protected function removeClassFor($target, $className)
-    {
-        $class = $this->getAttributeFor($target, 'class') ? : '';
-        $classesList = explode(' ', $class);
-        if (in_array($className, $classesList)) {
-            $classesList = array_diff($classesList, array($className));
-            $this->setAttributeFor($target, 'class', trim(implode(' ', $classesList)));
-        }
-        return $this;
-    }
-
-    /**
-     * Toggles a class on an attribute container
-     * $this['attributes'], $this['label_attributes'], $this['hint_attributes'])
-     *
-     * @param string $target (ex: NULL, label, hint etc)
-     * @param string $className
-     * @return AbstractElement
-     */
-    protected function toggleClassFor($target, $className)
-    {
-        $class = $this->getAttributeFor($target, 'class') ? : '';
-        $classesList = explode(' ', $class);
-        if (in_array($className, $classesList)) {
-            $classesList = array_diff($classesList, array($className));
-        } else {
-            $classesList[] = $className;
-        }
-        $this->setAttributeFor($target, 'class', trim(implode(' ', $classesList)));
-        return $this;
-    }
-
-    /**
-     * Set attributes on to an attribute container
-     * ex: $this['attributes'], $this['label_attributes'], $this['hint_attributes'])
-     *
-     * @param string $target (ex: NULL, label, hint etc)
-     * @param array $attributes
-     * @return AbstractElement
-     */
-    protected function setAttributesFor($target, array $attributes)
-    {
-        foreach ($attributes as $attribute => $value) {
-            $this->setAttributeFor($target, $attribute, $value);
-        }
-        return $this;
-    }
-
-    /**
-     * Retrieve attributes from an attribute container
-     * ex: $this['attributes'], $this['label_attributes'], $this['hint_attributes'])
-     *
-     * @param string $target (ex: NULL, label, hint etc)
-     * @return mixed
-     */
-    protected function getAttributesFor($target)
-    {
-        $target = strtolower($target);
-        $key = 'attributes';
-        if ('' !== $target) {
-            $key = $target . '_attributes';
-        }
-        // ensure the attributes are an array
-        if (!isset($this[$key]) || !is_array($this[$key])) {
-            $this[$key] = array();
-        }
-        return $this[$key];
-    }
-
-    /**
-     * Sets a single attribute on an attribute container
-     * ex: $this['attributes'], $this['label_attributes'], $this['hint_attributes'])
-     *
-     * @param string $target (ex: NULL, label, hint etc)
-     * @param string $attribute (ex: id, class, disabled)
-     * @param mixed $value
-     * @return AbstractElement
-     */
-    protected function setAttributeFor($target, $attribute, $value = null)
-    {
-        $target = strtolower($target);
-        $key = 'attributes';
-        if ($target) {
-            $key = $target . '_attributes';
-        }
-        if (!isset($this[$key]) || !is_array($this[$key])) {
-            $this[$key] = array();
-        }
-        if ($value === null) {
-            $container = $this[$key];
-            unset($container[$attribute]);
-            $this[$key] = $container;
-            return $this;
-        }
-        $this[$key][$attribute] = $value;
-        return $this;
-    }
-
-    /**
-     * Get a single attribute from an attribute container
-     * ex: $this['attributes'], $this['label_attributes'], $this['hint_attributes'])
-     *
-     * @param string $target (ex: NULL, label, hint etc)
-     * @param string $attribute (ex: id, class, disabled)
-     * @return mixed|NULL
-     */
-    protected function getAttributeFor($target, $attribute)
-    {
-        $attrs = $this->getAttributesFor($target);
-        if (isset($attrs[$attribute])) {
-            return $attrs[$attribute];
-        }
-        return null;
-    }
-
-
-
     /**
      * Prepares the form to receive data and be rendered
      * It attaches the filters, validation rules, upload handler for the element
@@ -303,13 +130,15 @@ abstract class Element extends \ArrayObject
      */
     function prepareForm(Form $form)
     {
-        $this->prepareFormValidation($form);
-        $this->prepareFormFiltration($form);
-        $this->prepareFormUploadHandling($form);
+        if (method_exists($this, 'prepareFormValidation')) {
+            $this->prepareFormValidation($form);
+        }
+        if (method_exists($this, 'prepareFormFiltration')) {
+            $this->prepareFormFiltration($form);
+        }
+        if (method_exists($this, 'prepareFormUploadHandling')) {
+            $this->prepareFormUploadHandling($form);
+        }
     }
 
-    protected function prepareFormUploadHandling(Form $form)
-    {
-
-    }
 }

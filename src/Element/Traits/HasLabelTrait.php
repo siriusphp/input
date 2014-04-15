@@ -2,44 +2,117 @@
 
 namespace Sirius\Forms\Element\Traits;
 
-use Sirius\Forms\Element\Input;
+use Sirius\Forms\Element;
 
 trait HasLabelTrait {
 
-    function getLabel() {
-        return isset($this[Input::LABEL]) ? $this[Input::LABEL] : null;
+    /**
+     * Retrieves the label's text
+     *
+     * @return string|null
+     */
+    function getLabel()
+    {
+        return isset($this[Element::LABEL]) ? $this[Element::LABEL] : null;
     }
 
-    function setLabel($label) {
-        $this[Input::LABEL] = $label;
+    /**
+     * Sets the label's text
+     *
+     * @param string $label
+     * @return self
+     */
+    function setLabel($label)
+    {
+        $this[Element::LABEL] = $label;
         return $this;
     }
 
-    function getLabelAttributes() {
-        return $this->getAttributesFor(Input::LABEL);
+    /**
+     * Retrieve all of the label's attributes
+     *
+     * @return mixed
+     */
+    function getLabelAttributes()
+    {
+        return $this->getAttributesFor(Element::LABEL);
     }
 
-    function setLabelAttributes($attrs) {
-        return $this->setAttributesFor(Input::LABEL, $attrs);
+    /**
+     * Sets multiple attributes for the label
+     *
+     * @param array $attrs
+     * @return mixed
+     */
+    function setLabelAttributes($attrs)
+    {
+        return $this->setAttributesFor(Element::LABEL, $attrs);
     }
 
-    function getLabelAttribute($attr) {
-        return $this->getAttributeFor(Input::LABEL, $attr);
+    /**
+     * Retrieve an attribute from the label
+     *
+     * @param string $attr
+     * @return mixed
+     */
+    function getLabelAttribute($attr)
+    {
+        return $this->getAttributeFor(Element::LABEL, $attr);
     }
 
-    function setLabelAttribute($attr, $value = null) {
-        return $this->setAttributeFor(Input::LABEL, $attr, $value);
+    /**
+     * Set/Unset a label attribute
+     *
+     * @param string $attr
+     * @param mixed|null $value
+     * @return self
+     */
+    function setLabelAttribute($attr, $value = null)
+    {
+        return $this->setAttributeFor(Element::LABEL, $attr, $value);
     }
 
-    function addLabelClass($class) {
-        return $this->addClassFor(Input::LABEL, $class);
+    /**
+     * Adds a CSS class to the label's "class" attribute
+     *
+     * @param string $class
+     * @return self
+     */
+    function addLabelClass($class)
+    {
+        return $this->addClassFor(Element::LABEL, $class);
     }
 
-    function removeLabelClass($class) {
-        return $this->removeClassFor(Input::LABEL, $class);
+    /**
+     * Removes a CSS class from the label's "class" attribute
+     *
+     * @param string $class
+     * @return self
+     */
+    function removeLabelClass($class)
+    {
+        return $this->removeClassFor(Element::LABEL, $class);
     }
 
-    function toggleLabelClass($class) {
-        return $this->toggleClassFor(Input::LABEL, $class);
+    /**
+     * Toggles a CSS class to the label's "class" attribute
+     *
+     * @param $class
+     * @return self
+     */
+    function toggleLabelClass($class)
+    {
+        return $this->toggleClassFor(Element::LABEL, $class);
+    }
+
+    /**
+     * Checks if the label has a CSS class on the "class" attribute
+     *
+     * @param $class
+     * @return bool
+     */
+    function hasLabelClass($class)
+    {
+        return $this->hasClassOn(Element::LABEL, $class);
     }
 }

@@ -79,15 +79,15 @@ class ElementTest extends \PHPUnit_Framework_TestCase
 
         // adding a class twice is not possible
         $this->element->addClass('required');
-        $this->assertEquals('required', $this->element['attributes']['class']);
+        $this->assertTrue($this->element->hasClass('required'));
 
         $this->element->removeClass('required');
-        $this->assertEquals('', $this->element['attributes']['class']);
+        $this->assertEquals('', $this->element->getAttribute('class'));
 
         $this->element->toggleClass('required');
-        $this->assertEquals('required', $this->element['attributes']['class']);
+        $this->assertTrue($this->element->hasClass('required'));
         $this->element->toggleClass('required');
-        $this->assertEquals('', $this->element['attributes']['class']);
+        $this->assertEquals('', $this->element->getAttribute('class'));
     }
 
 }

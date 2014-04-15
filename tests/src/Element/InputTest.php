@@ -31,7 +31,8 @@ class InputTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Username', $this->element->getLabel());
     }
 
-    function testLabelAttributes() {
+    function testLabelAttributes()
+    {
         // setting single attribute
         $this->element->setLabelAttribute('class', 'required');
         $this->assertEquals('required', $this->element->getLabelAttribute('class'));
@@ -46,15 +47,18 @@ class InputTest extends \PHPUnit_Framework_TestCase
         );
         $this->element->setLabelAttributes($attrs);
         $this->assertEquals($attrs, $this->element->getLabelAttributes());
+    }
 
+    function testLabelCssClassHandling()
+    {
         // add CSS class
         $this->assertNull($this->element->getLabelAttribute('class'));
         $this->element->addLabelClass('required');
-        $this->assertEquals('required', $this->element->getLabelAttribute('class'));
+        $this->assertTrue($this->element->hasLabelClass('required'));
         $this->element->removeLabelClass('required');
         $this->assertEmpty($this->element->getLabelAttribute('class'));
         $this->element->toggleLabelClass('required');
-        $this->assertEquals('required', $this->element->getLabelAttribute('class'));
+        $this->assertTrue($this->element->hasLabelClass('required'));
     }
 
     function testHint() {
@@ -63,7 +67,8 @@ class InputTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Your website nickname', $this->element->getHint());
     }
 
-    function testHintAttributes() {
+    function testHintAttributes()
+    {
         // setting single attribute
         $this->element->setHintAttribute('class', 'form-tip');
         $this->assertEquals('form-tip', $this->element->getHintAttribute('class'));
@@ -78,15 +83,18 @@ class InputTest extends \PHPUnit_Framework_TestCase
         );
         $this->element->setHintAttributes($attrs);
         $this->assertEquals($attrs, $this->element->getHintAttributes());
+    }
 
+    function testHintCssClassHandling()
+    {
         // add CSS class
         $this->assertNull($this->element->getHintAttribute('class'));
         $this->element->addHintClass('form-tip');
-        $this->assertEquals('form-tip', $this->element->getHintAttribute('class'));
+        $this->assertTrue($this->element->hasHintClass('form-tip'));
         $this->element->removeHintClass('form-tip');
-        $this->assertEmpty($this->element->getHintAttribute('class'));
+        $this->assertFalse($this->element->hasHintClass('form-tip'));
         $this->element->toggleHintClass('form-tip');
-        $this->assertEquals('form-tip', $this->element->getHintAttribute('class'));
+        $this->assertTrue($this->element->hasHintClass('form-tip'));
     }
 
     function testPrepareFormValidation()
@@ -135,6 +143,12 @@ class InputTest extends \PHPUnit_Framework_TestCase
                 ->with('email', $filter[0], @$filter[1], @$filter[2], @$filter[3])
                 ->andReturn($this->filtrator);
         }
+
+        $this->validator->shouldReceive('getRules');
+        $this->validator->shouldReceive('remove');
+
+        $this->filtrator->shouldReceive('getAll');
+        $this->filtrator->shouldReceive('remove');
 
         $this->form->prepare();
     }

@@ -84,9 +84,14 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
             )
         );
 
+        $this->validator->shouldReceive('getRules');
+        $this->validator->shouldReceive('remove');
         $this->validator->shouldReceive('add')
             ->with('invoice_lines[*][product]', 'required', null, null, null)
             ->andReturn($this->validator);
+
+        $this->filtrator->shouldReceive('getAll');
+        $this->filtrator->shouldReceive('remove');
 
         $this->form->prepare();
     }
