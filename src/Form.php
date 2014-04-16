@@ -6,6 +6,7 @@ use Sirius\Filtration\FiltratorInterface;
 use Sirius\Forms\Element\AbstractElement;
 use Sirius\Forms\Element\Factory as ElementFactory;
 use Sirius\Forms\Element\Traits\HasChildrenTrait as ElementContainerTrait;
+use Sirius\Upload\Hander;
 use Sirius\Validation\Validator;
 use Sirius\Validation\ValidatorInterface;
 
@@ -49,7 +50,7 @@ class Form extends Specs
      *
      * @var array
      */
-    protected $uploadHanlders = array();
+    protected $uploadHandlers = array();
 
     function __construct(
         ElementFactory $elementFactory = null,
@@ -126,18 +127,24 @@ class Form extends Specs
 
         // remove validation rules
         $validator = $this->getValidator();
-        foreach (array_keys($validator->getRules()) as $selector) {
-            $validator->remove($selector);
+        $validationRules = $validator->getRules();
+        if (is_array($validationRules)) {
+            foreach (array_keys($validationRules) as $selector) {
+                $validator->remove($selector);
+            }
         }
 
         // remove filtration rules
         $filtrator = $this->getFiltrator();
-        foreach (array_keys($filtrator->getAll()) as $selector) {
-            $filtrator->remove($selector);
+        $filters = $filtrator->getFilters();
+        if (is_array($filters)) {
+            foreach (array_keys($filters) as $selector) {
+                $filtrator->remove($selector);
+            }
         }
 
         // remove upload hanlder
-        $this->uploadHanlders = array();
+        $this->uploadHandlers = array();
 
         foreach ($this->getChildren() as $element) {
             if (method_exists($element, 'prepareForm')) {
@@ -184,13 +191,37 @@ class Form extends Specs
         return $this->uploadHandlers;
     }
 
-    function setData($values = array(), $files = array())
+    function setUploadHandler($selector, Hander $handler) {
+        $this->uploadHandlers[$selector] = $handler;
+        return $this;
+    }
+
+    function populate($data = array(), $files = array())
     {
         $this->prepare();
         if (!$this->isPrepared()) {
             throw new \LogicException('Form is not prepared and cannot receive data');
         }
+        $this->rawData = $data;
+        $this->data = $this->getFiltrator()->filter($this->rawData);
+        $this->files = $files;
+        $this->processUploads();
     }
+
+    protected function processUploads() {
+        foreach ($this->uploadHandlers as $selector => $handler) {
+            /* @var $handler \Sirius\Upload\Handler */
+            $files = \Sirius\Forms\Util\Arr::getBySelector($selector);
+
+            $isSingle = count($files) === 1;
+
+            foreach ($files as $key => $file) {
+                $uploadResults = $handler->process($file);
+            }
+        }
+    }
+
+
 
     function isValid()
     {

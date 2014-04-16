@@ -10,7 +10,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
 
     function setUp()
     {
-        $this->element = new BaseElement();
+        $this->element = new BaseElement('email');
     }
 
     function testSettingAndGettingAttributes()
@@ -24,18 +24,6 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $this->element->setAttributes($attrs);
         $this->assertEquals($attrs, $this->element['attributes']);
         $this->assertEquals($attrs, $this->element->getAttributes());
-//        // on the label
-//        $this->element->setLabelAttributes($attrs);
-//        $this->assertEquals($attrs, $this->element['label_attributes']);
-//        $this->assertEquals($attrs, $this->element->getLabelAttributes());
-//        // on the hint
-//        $this->element->setHintAttributes($attrs);
-//        $this->assertEquals($attrs, $this->element['hint_attributes']);
-//        $this->assertEquals($attrs, $this->element->getHintAttributes());
-//        // on the container
-//        $this->element->setContainerAttributes($attrs);
-//        $this->assertEquals($attrs, $this->element['container_attributes']);
-//        $this->assertEquals($attrs, $this->element->getContainerAttributes());
 
     }
 
@@ -47,12 +35,6 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         // on the element
         $this->element->setAttribute($attr, $value);
         $this->assertEquals($value, $this->element->getAttribute($attr));
-        // on the hint
-//        $this->element->setHintAttribute($attr, $value);
-//        $this->assertEquals($value, $this->element->getHintAttribute($attr));
-        // on the container
-//        $this->element->setContainerAttribute($attr, $value);
-//        $this->assertEquals($value, $this->element->getContainerAttribute($attr));
 
     }
 

@@ -14,4 +14,9 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('file', $input[Input::WIDGET]);
     }
 
+
+    function testPrepareFormUploadHandling() {
+
+    }
+
 }

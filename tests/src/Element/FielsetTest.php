@@ -95,7 +95,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
             ->with('address[city]', 'required', null, null, null)
             ->andReturn($this->validator);
 
-        $this->filtrator->shouldReceive('getAll');
+        $this->filtrator->shouldReceive('getFilters');
         $this->filtrator->shouldReceive('remove');
 
         $this->form->prepare();
