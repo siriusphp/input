@@ -6,6 +6,7 @@ use Sirius\Filtration\FiltratorInterface;
 use Sirius\Forms\Element\AbstractElement;
 use Sirius\Forms\Element\Factory as ElementFactory;
 use Sirius\Forms\Element\Traits\HasChildrenTrait as ElementContainerTrait;
+use Sirius\Forms\Util\Arr;
 use Sirius\Upload\Hander;
 use Sirius\Validation\Validator;
 use Sirius\Validation\ValidatorInterface;
@@ -13,6 +14,16 @@ use Sirius\Validation\ValidatorInterface;
 class Form extends Specs
 {
     use ElementContainerTrait;
+
+    /**
+     * Uploaded files will have their names prefixed with this value
+     * A form element of type "file" with the name "picture" will upload
+     * the file into $_FILES['__upload_picture'].
+     *
+     * This is done to prevent collisions with hidden fields that
+     * might hold values from AJAX uploads.
+     */
+    const UPLOAD_PREFIX = '__upload_';
 
     /**
      * @var boolean
@@ -48,7 +59,7 @@ class Form extends Specs
     /**
      * The upload handlers that are registered withing this form
      *
-     * @var array
+     * @var \Sirius\Upload\HandlerAggregate
      */
     protected $uploadHandlers = array();
 
@@ -186,43 +197,92 @@ class Form extends Specs
         return $this->filtrator;
     }
 
+    /**
+     * Retrieves the upload handlers aggregate object
+     *
+     * @return \Sirius\Upload\HandlerAggregate
+     */
     function getUploadHandlers()
     {
         return $this->uploadHandlers;
     }
 
+    /**
+     * Sets a upload handler to be executed on files with a specific selector
+     * @example
+     *      $form->setUploadHandler('pictures[*]', $pictureHandler);
+     *
+     * @param $selector
+     * @param Hander $handler
+     * @return $this
+     */
     function setUploadHandler($selector, Hander $handler) {
-        $this->uploadHandlers[$selector] = $handler;
+        $this->uploadHandlers->addHandler($selector, $handler);
         return $this;
     }
 
-    function populate($data = array(), $files = array())
+    /**
+     * Populates a form with values. If you have uploads you must merge data from POST and FILES.
+     *
+     * @param array $data
+     * @throws \LogicException
+     */
+    function populate($data = array())
     {
         $this->prepare();
         if (!$this->isPrepared()) {
             throw new \LogicException('Form is not prepared and cannot receive data');
         }
+
+        // set raw data and data
         $this->rawData = $data;
         $this->data = $this->getFiltrator()->filter($this->rawData);
-        $this->files = $files;
-        $this->processUploads();
-    }
+        $uploadErrors = $this->processUploads();
 
-    protected function processUploads() {
-        foreach ($this->uploadHandlers as $selector => $handler) {
-            /* @var $handler \Sirius\Upload\Handler */
-            $files = \Sirius\Forms\Util\Arr::getBySelector($selector);
+        // validate form values
+        $validator = $this->getValidator();
+        $validator->validate($this->data);
 
-            $isSingle = count($files) === 1;
-
-            foreach ($files as $key => $file) {
-                $uploadResults = $handler->process($file);
+        // add upload error messages to the validator
+        foreach ($uploadErrors as $key => $messages) {
+            foreach ($messages as $message) {
+                $validator->addMessage($key, $message);
             }
         }
     }
 
+    /**
+     * Processes the uploaded files:
+     * 1. Validates the files
+     * 2. Confirms valid files
+     * 3. Returns validation errors
+     *
+     * @return array
+     */
+    protected function processUploads() {
+        $result = $this->uploadHandlers->process($this->data);
+        $errors = array();
+        foreach ($result as $path => $file) {
+            // remember!; $_FILES keys are prefixed with '__upload_'
+            $key = substring($path, strlen(self::UPLOAD_PREFIX));
+            /* @var $file \Sirius\Upload\Result\File */
+            if ($file->isValid()) {
+                $file->confirm();
+                Arr::setByPath($key, $file->name);
+            } else {
+                $errors[$key] = $file->getMessages();
+            }
+        }
+        return $errors;
+    }
 
 
+    /**
+     * Returns whether the form's data is valid.
+     * The validation was executed on populate()
+     *
+     * @return bool
+     */
     function isValid()
     {
         return count($this->getValidator()->getMessages()) === 0;

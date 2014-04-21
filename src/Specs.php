@@ -1,22 +1,17 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Florin
- * Date: 4/15/2014
- * Time: 11:10 PM
- */
-
 namespace Sirius\Forms;
 
 
-class Specs extends \ArrayObject{
+class Specs extends \ArrayObject
+{
 
     /**
      * Sets multiple attributes at once on the element
      * @param $attrs
      * @return self
      */
-    function setAttributes($attrs) {
+    function setAttributes($attrs)
+    {
         return $this->setAttributesFor('', $attrs);
     }
 
@@ -24,7 +19,8 @@ class Specs extends \ArrayObject{
      * Retrieves all attributes of the object
      * @return mixed
      */
-    function getAttributes() {
+    function getAttributes()
+    {
         return $this->getAttributesFor('');
     }
 
@@ -34,7 +30,8 @@ class Specs extends \ArrayObject{
      * @param $attr
      * @return mixed|NULL
      */
-    function getAttribute($attr) {
+    function getAttribute($attr)
+    {
         return $this->getAttributeFor('', $attr);
     }
 
@@ -45,7 +42,8 @@ class Specs extends \ArrayObject{
      * @param null $value
      * @return self
      */
-    function setAttribute($attr, $value = null) {
+    function setAttribute($attr, $value = null)
+    {
         return $this->setAttributeFor('', $attr, $value);
     }
 
@@ -55,7 +53,8 @@ class Specs extends \ArrayObject{
      * @param string $class
      * @return self
      */
-    function addClass($class) {
+    function addClass($class)
+    {
         return $this->addClassFor('', $class);
     }
 
@@ -65,7 +64,8 @@ class Specs extends \ArrayObject{
      * @param string
      * @return self
      */
-    function removeClass($class) {
+    function removeClass($class)
+    {
         return $this->removeClassFor('', $class);
     }
 
@@ -75,7 +75,8 @@ class Specs extends \ArrayObject{
      * @param string $class
      * @return self
      */
-    function toggleClass($class) {
+    function toggleClass($class)
+    {
         return $this->toggleClassFor('', $class);
     }
 
@@ -85,7 +86,8 @@ class Specs extends \ArrayObject{
      * @param string $class
      * @return bool
      */
-    function hasClass($class) {
+    function hasClass($class)
+    {
         return $this->hasClassOn('', $class);
     }
 
@@ -155,7 +157,8 @@ class Specs extends \ArrayObject{
      * @param $className
      * @return bool
      */
-    protected function hasClassOn($target, $className) {
+    protected function hasClassOn($target, $className)
+    {
         $class = $this->getAttributeFor($target, 'class') ? : '';
         $classesList = explode(' ', $class);
         return $className and in_array($className, $classesList);

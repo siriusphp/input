@@ -4,7 +4,7 @@ namespace Sirius\Forms\Renderer;
 use Sirius\Forms\Decorator\DecoratorInterface;
 use Sirius\Forms\Form;
 use Sirius\Forms\Html\ExtendedTag;
-use Sirius\Forms\Utils\PriorityList;
+use Sirius\Forms\Util\PriorityList;
 use Sirius\Forms\WidgetFactory\Base as BaseFactory;
 use Sirius\Forms\WidgetFactory\FactoryInterface;
 
@@ -59,7 +59,7 @@ class Basic
      * Returns the widget associated with the form
      *
      * @param Form $form
-     * @return NULL \Sirius\Forms\Html\ExtendedTag
+     * @return NULL|\Sirius\Forms\Html\ExtendedTag
      */
     function getFormWidget(Form $form)
     {
@@ -74,7 +74,7 @@ class Basic
      * @param Form $form
      * @param string $elementName
      * @throws \RuntimeException
-     * @return NULL \Sirius\Forms\Html\ExtendedTag
+     * @return NULL|\Sirius\Forms\Html\ExtendedTag
      */
     function renderElement(Form $form, $elementName)
     {

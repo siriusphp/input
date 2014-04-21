@@ -73,6 +73,8 @@ abstract class Element extends Specs
 
     const FIRST_OPTION = 'first_option';
 
+    const UNCHECKED_VALUE = 'unchecked_value';
+
     const UPLOAD_CONTAINER = 'upload_container';
 
     const UPLOAD_OPTIONS = 'upload_options';

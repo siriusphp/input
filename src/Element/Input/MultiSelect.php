@@ -9,7 +9,10 @@ class MultiSelect extends BaseInput
     protected function getDefaultSpecs()
     {
         return array(
-            BaseInput::WIDGET => 'multiselect'
+            BaseInput::WIDGET => 'multiselect',
+            BaseInput::ATTRIBUTES => array(
+                'size' => '5'
+            )
         );
     }
 }

@@ -13,7 +13,6 @@ use Sirius\Upload\Handler;
  */
 class File extends BaseInput
 {
-    public static $inputPrefix = '__upload_';
 
     use HasUploadTrait;
 
@@ -31,7 +30,7 @@ class File extends BaseInput
      */
     protected function prepareFormUploadHandling(Form $form)
     {
-        // create the upload hanlder
+        // create the upload handler
         $uploadHandler = new Handler(
             $this->getUploadContainer(),
             $form->getValidator()->getErroMessagePrototype(),
@@ -47,7 +46,7 @@ class File extends BaseInput
             $label = $this->getLabel();
             $uploadHandler->addRule($name, $options, $message, $label);
         }
-        $form->setUploadHanlder(static::$inputPrefix . $this->getName(), $uploadHandler);
+        $form->setUploadHandler(Form::UPLOAD_PREFIX . $this->getName(), $uploadHandler);
     }
 
 }
