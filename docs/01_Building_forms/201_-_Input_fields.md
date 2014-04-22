@@ -40,25 +40,20 @@ The traits added to inputs are:
 - `HasHintTrait` for managing the input completion instructions
 - `HasValidationRulesTrait` for managing the input's validation rules
 - `HasFiltersTrait` for managing the data filters attached to the input
+- `HasUploadTrait` for fields that allow uploading files
+- `HasChildreTrait` for fields that may contain children (used by forms, fieldsets and collections)
 
 ## Built-in input fields
 
 The **Sirius\Forms** library comes packed with a variaty of input fields the cover most of the use-cases:
 
 1. Text
-2. Textarea
-3. Checkbox
-4. CheckboxSet
-5. Radio
-6. RadioSet
-7. Select
-8. File
-9. Password
-10. Email
-11. DateTime
-12. LocalDateTime
-13. Number
+2. Textarea - a text input displayed as a textarea
+3. Checkbox - an element that will have a specific value if the user choose to select it
+4. File - an element that has the upload trait
+5. Select - an element that has a list of valid choices from which only one can be chosen
+6. Multiselect - an element that has a list of valid choice from which one or more can be chosen
 
-They diverge very little from the base **Input\Input** class so, by looking at their code you'll be able to understand what it takes to create your own custom fields.
+They diverge very little from the base **Element\Input** class so, by looking at their code, you'll be able to understand what it takes to create your own custom fields.
 
-**Note!** The type of form elements have little to do how they are displayed. The renderer is responsible for the visual representation of the form and its elements. Creating custom elements solves only 20% of the problem (rendering is 80%).
+**Reminder!** The type of form elements have little to do how they are displayed. The renderer is responsible for the visual representation of the form and its elements.

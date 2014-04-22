@@ -2,7 +2,7 @@
 
 The **Sirius\Forms** library uses the [Sirius\Upload](http://github.com/siriusphp/upload) library.
 
-For each element that is of type `file` the library will construct an __"upload handler"__. For that the element specs need to contain:
+For each element that is of type `file` the library will construct an __"upload handler"__. For this reason, the element specs need to contain:
 
 - the container
 - upload options
@@ -25,5 +25,12 @@ $form->add('picture', array(
 ));
 
 ```
+
+The container can be a local folder or an instance of `Sirius\Upload\Container\ContainerInterface`.
+
+**Important!** Files are uploaded under a name that is equal to: `__upload_` + the form's element name. So, in the example above the `$_FILES` array should contain a `__upload_picture` entry.
+
+This is done to prevent name collisions in modern apps that use Javascript upload. In such apps an Ajax uploader will populate the field `picture` with the result of the successful upload.
+
 
 [Learn more about Sirius\Upload](http://github.com/siriusphp/upload)

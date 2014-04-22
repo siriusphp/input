@@ -94,10 +94,10 @@ trait HasChildrenTrait
      */
     protected function childComparator($childA, $childB)
     {
-        if ($childA['priority'] < $childB['priority']) {
+        if (@$childA['priority'] < @$childB['priority']) {
             return -1;
         }
-        if ($childA['priority'] > $childB['priority']) {
+        if (@$childA['priority'] > @$childB['priority']) {
             return 1;
         }
         // if the priority is the same, childB is first
