@@ -17,6 +17,10 @@ class Base implements FactoryInterface
     function __construct()
     {
         $this->workers = new PriorityList();
+        $this->addWorker(new Worker\WidgetMaker(), PHP_INT_MAX - 100);
+        $this->addWorker(new Worker\LabelMaker(), PHP_INT_MAX - 101);
+        $this->addWorker(new Worker\ErrorMaker(), PHP_INT_MAX - 102);
+        $this->addWorker(new Worker\HintMaker(), PHP_INT_MAX - 103);
     }
 
     /**
