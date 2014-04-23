@@ -19,8 +19,8 @@ Since all the form's elements are just specs you can create your own renderers. 
 While you don't have to write all the code below to instantiate the default renderer (because it has sensible defaults) here's what a form renderer is supposed to work:
 
 ```php
-$widgetFactory = \Sirius\Forms\WidgetFactory\Base;
-$formRenderer = \Sirius\Forms\Renderer\Basic($widgetFactory);
+$widgetFactory = new \Sirius\Forms\WidgetFactory\Base;
+$formRenderer = new \Sirius\Forms\Renderer\Basic($widgetFactory);
 
 $widgetFactory->addWorker(new \Sirius\Forms\WidgetFactory\Worker\WidgetMaker); // this is done by default
 $widgetFactory->addWorker(new \Sirius\Forms\WidgetFactory\Worker\HintMaker); // this is done by default
@@ -50,7 +50,7 @@ Widget factory workers are ordered based on a `priority` and they receive the ta
 
 As you can see the order the workers are organized matters a lot; a worker responsible for attaching the label to the element will not be able to do so if the worker responsible for creating the widget did that before it.
 
-The task that is passed from worker to worker is a simple object that contains:
+The task that is passed from worker to worker and it's a simple object that contains:
 
 1. The widget factory - this way a worker may ask for different things from the factory (eg: a worker responsible to attach the children of a fieldset to a widget will ask the widget factory to provide it with the children)
 2. The form - this way a worker might get data from the form's validator object (eg: a worker that attaches client side validation to the form)
