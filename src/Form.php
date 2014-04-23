@@ -7,7 +7,8 @@ use Sirius\Forms\Element\AbstractElement;
 use Sirius\Forms\Element\Factory as ElementFactory;
 use Sirius\Forms\Element\Traits\HasChildrenTrait as ElementContainerTrait;
 use Sirius\Forms\Util\Arr;
-use Sirius\Upload\Hander;
+use Sirius\Upload\Handler;
+use Sirius\Upload\HandlerAggregate;
 use Sirius\Validation\Validator;
 use Sirius\Validation\ValidatorInterface;
 
@@ -59,7 +60,7 @@ class Form extends Specs
     /**
      * The upload handlers that are registered withing this form
      *
-     * @var \Sirius\Upload\HandlerAggregate
+     * @var HandlerAggregate
      */
     protected $uploadHandlers = array();
 
@@ -154,8 +155,8 @@ class Form extends Specs
             }
         }
 
-        // remove upload hanlder
-        $this->uploadHandlers = array();
+        // reset upload handler
+        $this->uploadHandlers = null;
 
         foreach ($this->getChildren() as $element) {
             if (method_exists($element, 'prepareForm')) {
@@ -200,10 +201,13 @@ class Form extends Specs
     /**
      * Retrieves the upload handlers aggregate object
      *
-     * @return \Sirius\Upload\HandlerAggregate
+     * @return HandlerAggregate
      */
     function getUploadHandlers()
     {
+        if (!$this->uploadHandlers) {
+            $this->uploadHandlers = new HandlerAggregate;
+        }
         return $this->uploadHandlers;
     }
 
@@ -213,11 +217,11 @@ class Form extends Specs
      *      $form->setUploadHandler('pictures[*]', $pictureHandler);
      *
      * @param $selector
-     * @param Hander $handler
+     * @param Handler $handler
      * @return $this
      */
-    function setUploadHandler($selector, Hander $handler) {
-        $this->uploadHandlers->addHandler($selector, $handler);
+    function setUploadHandler($selector, Handler $handler) {
+        $this->getUploadHandlers()->addHandler($selector, $handler);
         return $this;
     }
 

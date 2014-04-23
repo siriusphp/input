@@ -1,7 +1,7 @@
 <?php
 namespace Sirius\Forms\WidgetFactory;
 
-use Sirius\Forms\Element\AbstractElement;
+use Sirius\Forms\Element;
 use Sirius\Forms\Form;
 use Sirius\Forms\Html\ExtendedTag;
 
@@ -9,24 +9,21 @@ class Task
 {
 
     /**
-     *
      * @var FactoryInterface
      */
     protected $widgetFactory;
 
     /**
-     *
      * @var Form
      */
     protected $form;
 
     /**
-     *
-     * @var AbstractElement
+     * @var Element
      */
     protected $element;
 
-    function __construct(FactoryInterface $widgetFactory, Form $form, AbstractElement $element)
+    function __construct(FactoryInterface $widgetFactory, Form $form, Element $element)
     {
         $this->widgetFactory = $widgetFactory;
         $this->form = $form;

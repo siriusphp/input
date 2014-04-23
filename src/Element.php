@@ -124,6 +124,47 @@ abstract class Element extends Specs
     }
 
     /**
+     * Sets the options for elements like selects, radio buttons, checkboxes
+     *
+     * @param array $options
+     *
+     * @return $this
+     */
+    function setOptions($options = array()) {
+        $this[Element::OPTIONS] = $options;
+        return $this;
+    }
+
+    /**
+     * Retrieves the options for selects, radio button, checkboxes
+     *
+     * @return array
+     */
+    function getOptions() {
+        return $this[Element::OPTIONS] ?: array();
+    }
+
+    /**
+     * Sets the first option for SELECT widgets
+     *
+     * @param null $firstOption
+     *
+     * @return $this
+     */
+    function setFirstOption($firstOption = null) {
+        $this[Element::FIRST_OPTION] = $firstOption;
+        return $this;
+    }
+
+    /**
+     * Retrieve the first option for SELECT widgets
+     * @return null
+     */
+    function getFirstOption() {
+        return $this[Element::FIRST_OPTION] ?: null;
+    }
+
+    /**
      * Prepares the form to receive data and be rendered
      * It attaches the filters, validation rules, upload handler for the element
      * If the element has children the method is executed on the children as well

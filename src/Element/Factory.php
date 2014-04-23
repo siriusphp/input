@@ -8,13 +8,11 @@ class Factory
 
     protected $types = array(
         'text' => '\Sirius\Forms\Element\Input\Text',
+        'file' => '\Sirius\Forms\Element\Input\File',
         'textarea' => '\Sirius\Forms\Element\Input\Textarea',
         'select' => '\Sirius\Forms\Element\Input\Select',
         'multiselect' => '\Sirius\Forms\Element\Input\MultiSelect',
         'checkbox' => '\Sirius\Forms\Element\Input\Checkbox',
-        'checkboxset' => '\Sirius\Forms\Element\Input\CheckboxSet',
-        'radio' => '\Sirius\Forms\Element\Input\Radio',
-        'radioset' => '\Sirius\Forms\Element\Input\RadioSet',
         'button' => '\Sirius\Forms\Element\Input\Button',
         'submit' => '\Sirius\Forms\Element\Input\Submit',
         'reset' => '\Sirius\Forms\Element\Input\Reset'
