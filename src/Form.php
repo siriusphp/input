@@ -64,6 +64,10 @@ class Form extends Specs
      */
     protected $uploadHandlers = array();
 
+    protected $rawData = array();
+
+    protected $data = array();
+
     function __construct(
         ElementFactory $elementFactory = null,
         ValidatorInterface $validator = null,
@@ -264,15 +268,15 @@ class Form extends Specs
      * @return array
      */
     protected function processUploads() {
-        $result = $this->uploadHandlers->process($this->data);
+        $result = $this->getUploadHandlers()->process($this->data);
         $errors = array();
         foreach ($result as $path => $file) {
             // remember!; $_FILES keys are prefixed with '__upload_'
-            $key = substring($path, strlen(self::UPLOAD_PREFIX));
+            $key = substr($path, strlen(self::UPLOAD_PREFIX));
             /* @var $file \Sirius\Upload\Result\File */
             if ($file->isValid()) {
                 $file->confirm();
-                Arr::setByPath($key, $file->name);
+                $this->data = Arr::setBySelector($this->data, $key, $file->name);
             } else {
                 $errors[$key] = $file->getMessages();
             }
@@ -290,5 +294,13 @@ class Form extends Specs
     function isValid()
     {
         return count($this->getValidator()->getMessages()) === 0;
+    }
+
+    function getValue($name) {
+        return Arr::getByPath($this->data, $name);
+    }
+
+    function getRawValue($name) {
+        return Arr::getByPath($this->rawData, $name);
     }
 }

@@ -23,7 +23,7 @@ class Task
      */
     protected $element;
 
-    function __construct(FactoryInterface $widgetFactory, Form $form, Element $element)
+    function __construct(FactoryInterface $widgetFactory, Form $form, Element $element = null)
     {
         $this->widgetFactory = $widgetFactory;
         $this->form = $form;

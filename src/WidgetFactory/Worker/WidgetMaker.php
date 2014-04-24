@@ -20,7 +20,12 @@ class WidgetMaker implements WorkerInterface
         }
         /* @var $element \Sirius\Forms\Element */
         $element = $task->getElement();
-        $task->setResult($this->createWidget($element));
+        $form = $task->getForm();
+        if (!$element) {
+            $task->setResult($this->createForm($form));
+        } else {
+            $task->setResult($this->createElement($element));
+        }
     }
 
     protected function canHandleTask(Task $task)
@@ -28,14 +33,42 @@ class WidgetMaker implements WorkerInterface
         return !is_object($task->getResult());
     }
 
-    function createWidget(Specs $element) {
+    function createForm(Specs $element) {
+
+    }
+
+    function createElement(Specs $element) {
         switch ($element[Element::WIDGET]) {
             case 'textarea':
+                return $this->createTextarea($element);
+                break;
+            case 'checkbox':
+                return $this->createCheckbox($element);
+                break;
+            case 'select':
+                return $this->createSelect($element);
+                break;
+            case 'multiselect':
+                return $this->createMultiSelect($element);
+                break;
+            case 'checkboxset':
+                return $this->createCheckboxSet($element);
+                break;
+            case 'radioset':
+                return $this->createRadioSet($element);
+                break;
+            case 'file':
+                return $this->createFile($element);
                 break;
             case 'input':
             case 'text':
             default:
+                return $this->createText($element);
                 break;
         }
+    }
+
+    protected function createTextarea(Specs $element) {
+        //
     }
 }

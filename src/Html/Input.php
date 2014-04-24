@@ -37,7 +37,7 @@ class Input extends ExtendedTag
      * Set value of the input element
      *
      * @param string $val
-     * @return \Sirius\Forms\Renderer\Widget\Input
+     * @return self
      */
     function setValue($val)
     {

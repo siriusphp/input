@@ -28,6 +28,14 @@ class Renderer
             $widgetFactory = new BaseFactory();
         }
         $this->widgetFactory = $widgetFactory;
+        $this->init();
+    }
+
+    function init() {
+        $this->widgetFactory->addWorker(new Worker\WidgetMaker(), PHP_INT_MAX - 100);
+        $this->widgetFactory->addWorker(new Worker\LabelMaker(), PHP_INT_MAX - 200);
+        $this->widgetFactory->addWorker(new Worker\ErrorMaker(), PHP_INT_MAX - 300);
+        $this->widgetFactory->addWorker(new Worker\HintMaker(), PHP_INT_MAX - 400);
     }
 
     /**

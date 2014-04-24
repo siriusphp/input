@@ -21,9 +21,9 @@
         }
     ],
     "require": {
-        "siriusphp/validation": ">=1.1.0",
+        "siriusphp/validation": ">=1.2.0",
         "siriusphp/filtration": ">=1.2.5",
-        "siriusphp/upload": ">=1.1.0",
+        "siriusphp/upload": ">=1.2.0",
         "php": ">=5.4"
     },
     "require-dev": {
