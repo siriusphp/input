@@ -52,6 +52,29 @@ class ElementTest extends \PHPUnit_Framework_TestCase
 
     function testSettingAndGettingVariousItems()
     {
+        $this->element->setWhateverItem('value');
+        $this->assertEquals('value', $this->element->getWhateverItem());
+        $this->assertEquals('value', $this->element->getData('whatever_item'));
+    }
+
+    function testSettingData()
+    {
+
+        $this->element->setData('key', 'value');
+        $this->assertEquals('value', $this->element->getData('key'));
+        $this->assertNull($this->element->getData('no_key'));
+    }
+
+    function testSettingMultipleData()
+    {
+        $data = array(
+            'a' => 'b',
+            'c' => 'd'
+        );
+        $this->element->setData($data);
+        $this->assertEquals('b', $this->element->getData('a'));
+
+        $this->assertEquals($data, $this->element->getData());
     }
 
     function testHandlingCssClasses()

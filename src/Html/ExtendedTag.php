@@ -6,7 +6,7 @@ namespace Sirius\Forms\Html;
  *
  * It offers an interface similar to jQuery's DOM handling functionality
  * (besides the Input's class functionality)
- * - before(): add something bofore the element
+ * - before(): add something before the element
  * - after(): add something after the element;
  */
 class ExtendedTag extends BaseTag

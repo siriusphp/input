@@ -12,10 +12,24 @@ namespace Sirius\Forms\Html;
 class BaseTag
 {
 
+    /**
+     * Attributes collection
+     *
+     * @var array
+     */
     protected $attrs = array();
 
+    /**
+     * Data attached to the element (think jQuery)
+     *
+     * @var array
+     */
     protected $data = array();
 
+    /**
+     * innerHTML
+     * @var
+     */
     protected $text;
 
     function __construct($attrs = array())
@@ -25,13 +39,27 @@ class BaseTag
         }
     }
 
+    /**
+     * Set multipe attributes to the HTML element
+     *
+     * @param $attrs
+     * @return self
+     */
     function setAttributes($attrs)
     {
         foreach ($attrs as $name => $value) {
             $this->setAttribute($name, $value);
         }
+        return $this;
     }
 
+    /**
+     * Set a single attribute to the HTML element
+     *
+     * @param $name
+     * @param null $value
+     * @return $this
+     */
     function setAttribute($name, $value = null)
     {
         if (is_string($name)) {
@@ -44,6 +72,12 @@ class BaseTag
         return $this;
     }
 
+    /**
+     * Returns some or all of the HTML element's attributes
+     *
+     * @param null|array $list
+     * @return array
+     */
     function getAttributes($list = null)
     {
         if ($list && is_array($list)) {
@@ -56,6 +90,12 @@ class BaseTag
         return $this->attrs;
     }
 
+    /**
+     * Returns one of HTML element's attributes
+     *
+     * @param $name
+     * @return null
+     */
     function getAttribute($name)
     {
         return isset($this->attrs[$name]) ? $this->attrs[$name] : null;
@@ -117,17 +157,34 @@ class BaseTag
         return $classes && ((bool)preg_match('/(^| ){1}' . $class . '( |$){1}/i', $classes));
     }
 
+    /**
+     * Set the innerHTML
+     *
+     * @param $text
+     * @return $this
+     */
     function setText($text)
     {
         $this->text = $text;
         return $this;
     }
 
+    /**
+     * Get the innerHTML
+     *
+     * @return mixed
+     */
     function getText()
     {
         return $this->text;
     }
 
+    /**
+     * Get one, more or all of the additional data attached to the HTML element
+     *
+     * @param null $name
+     * @return array
+     */
     function getData($name = null)
     {
         if (is_string($name)) {
@@ -150,6 +207,13 @@ class BaseTag
         return $this->data;
     }
 
+    /**
+     * Set one or more data items on the HTML element
+     *
+     * @param null $name
+     * @param null $value
+     * @return $this
+     */
     function setData($name = null, $value = null)
     {
         if (is_array($name)) {

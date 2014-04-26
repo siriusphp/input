@@ -5,6 +5,66 @@ namespace Sirius\Forms;
 class Specs extends \ArrayObject
 {
 
+    protected function inflectUnderscore($var) {
+        $var = preg_replace('/[A-Z]{1}/', '_$0', $var);
+        $var = strtolower($var);
+        $var = trim($var, '_');
+        return $var;
+    }
+
+    function __call($method, $args) {
+        if (substr($method, 0, 3) === 'set') {
+            $dataName = $this->inflectUnderscore(substr($method, 3));
+            return $this->setData($dataName, $args[0]);
+        }
+
+        if (substr($method, 0, 3) === 'get') {
+            $dataName = $this->inflectUnderscore(substr($method, 3));
+            return $this->getData($dataName);
+        }
+
+        throw new \BadMethodCallException(sprintf('Method %s does not exist on this object', $method));
+    }
+
+    /**
+     * Set additional data to the element like jQuery
+     *
+     * @param $name
+     * @param $value
+     * @return self
+     */
+    function setData($name, $value = null) {
+        if (!isset($this['data'])) {
+            $this['data'] = array();
+        }
+
+        if (is_array($name)) {
+            foreach ($name as $k => $v) {
+                $this->setData((string) $k, $v);
+            }
+        }
+        if (is_string($name)) {
+            $this['data'][$name] = $value;
+        }
+        return $this;
+    }
+
+    /**
+     * Get one or all element attached data
+     *
+     * @param null|string $name
+     * @return null|mixed
+     */
+    function getData($name = null) {
+        if (null === $name) {
+            return $this['data'];
+        }
+        if (isset($this['data'][$name])) {
+            return $this['data'][$name];
+        }
+        return null;
+    }
+
     /**
      * Sets multiple attributes at once on the element
      * @param $attrs
