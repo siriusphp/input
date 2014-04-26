@@ -1,6 +1,7 @@
 <?php
 namespace Sirius\Forms\Element;
 
+use Sirius\Forms\Element\Traits\HasContainerTrait;
 use Sirius\Forms\Element\Traits\HasFiltersTrait;
 use Sirius\Forms\Element\Traits\HasLabelTrait;
 use Sirius\Forms\Element;
@@ -13,6 +14,7 @@ class Input extends Element
     use HasValidationRulesTrait;
     use HasLabelTrait;
     use HasHintTrait;
+    use HasContainerTrait;
 
     /**
      * Name of the field (identifier of the element in the form's child list)

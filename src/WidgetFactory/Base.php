@@ -2,6 +2,7 @@
 namespace Sirius\Forms\WidgetFactory;
 
 use Sirius\Forms\Element\AbstractElement;
+use Sirius\Forms\Element;
 use Sirius\Forms\Form;
 use Sirius\Forms\Util\PriorityList;
 
@@ -35,7 +36,7 @@ class Base implements FactoryInterface
     /*
      * (non-PHPdoc) @see \Sirius\Forms\WidgetFactory\FactoryInterface::createWidget()
      */
-    function createWidget(Form $form, AbstractElement $element = null)
+    function createWidget(Form $form, Element $element = null)
     {
         $task = $this->createTask($form, $element);
         foreach ($this->workers as $worker) {
@@ -49,10 +50,10 @@ class Base implements FactoryInterface
      * Composes a task that is be passed to workers for processing
      *
      * @param Form $form
-     * @param AbstractElement $element
+     * @param Element $element
      * @return \Sirius\Forms\WidgetFactory\Task
      */
-    protected function createTask(Form $form, AbstractElement $element = null)
+    protected function createTask(Form $form, Element $element = null)
     {
         return new Task($this, $form, $element);
     }

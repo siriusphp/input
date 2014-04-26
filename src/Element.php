@@ -25,10 +25,6 @@ namespace Sirius\Forms;
  * @method Element addContainerClass($class) Add a CSS class to the container
  * @method Element removeContainerClass($class) Removes a CSS class from the container
  * @method Element toggleContainerClass($class) Toggles a class on the container
- * @method Element getOptions() Get list of options for SELECTS, radio or checkbox groups
- * @method Element setOptions(array $options) Set list of options for SELECTs, radio or checkbox groups
- * @method Element getFirstOption() Get the first/empty option for SELECT
- * @method Element setFirstOption($option) Set the first/empty option for SELECT
  * @method Element getValidationRules() Get list of validation rules
  * @method Element setValidationRules(array $rules) Set list of validation rules
  * @method Element getFilters() Get list of data filters
@@ -163,6 +159,8 @@ abstract class Element extends Specs
     function getFirstOption() {
         return $this[Element::FIRST_OPTION] ?: null;
     }
+
+
 
     /**
      * Prepares the form to receive data and be rendered

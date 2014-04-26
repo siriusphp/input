@@ -26,7 +26,7 @@ trait HasErrorTrait
     /**
      * Get the error HTML element for this input/fielset
      *
-     * @return mixed
+     * @return ExtendedTag
      */
     function getError()
     {

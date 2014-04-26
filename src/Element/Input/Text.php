@@ -9,4 +9,10 @@ use Sirius\Forms\Element\Traits\HasFiltersTrait;
 class Text extends BaseInput
 {
 
+    protected function getDefaultSpecs()
+    {
+        return array(
+            BaseInput::WIDGET => 'text'
+        );
+    }
 }
