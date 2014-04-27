@@ -57,7 +57,7 @@ class Specs extends \ArrayObject
      */
     function getData($name = null) {
         if (null === $name) {
-            return $this['data'];
+            return isset($this['data']) ? $this['data'] : array();
         }
         if (isset($this['data'][$name])) {
             return $this['data'][$name];

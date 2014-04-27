@@ -137,7 +137,7 @@ abstract class Element extends Specs
      * @return array
      */
     function getOptions() {
-        return $this[Element::OPTIONS] ?: array();
+        return isset($this[Element::OPTIONS]) ? $this[Element::OPTIONS] : array();
     }
 
     /**
@@ -157,7 +157,7 @@ abstract class Element extends Specs
      * @return null
      */
     function getFirstOption() {
-        return $this[Element::FIRST_OPTION] ?: null;
+        return isset($this[Element::FIRST_OPTION]) ? $this[Element::FIRST_OPTION] : null;
     }
 
 
