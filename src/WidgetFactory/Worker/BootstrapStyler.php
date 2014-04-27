@@ -9,6 +9,11 @@ use Sirius\Forms\WidgetFactory\Task;
 use Sirius\Forms\WidgetFactory\WorkerInterface;
 
 class BootstrapStyler implements WorkerInterface {
+    const CONTAINER_CLASS = 'form-group';
+    const ERROR_CLASS = 'bg-danger';
+    const HINT_CLASS = 'help-block';
+    const HORIZONTAL_FORM_CLASS = 'form-horizontal';
+    const INLINE_FORM_CLASS = 'form-inline';
 
     /**
      * Process a widget factory task
@@ -26,15 +31,19 @@ class BootstrapStyler implements WorkerInterface {
     }
 
     protected function applyFormStyles(Form $form) {
-        if (!$form->hasClass('form-inline') && !$form->hasClass('form-horizontal')) {
-            $form->addClass('form-horizontal');
+        if (!$form->hasClass(static::INLINE_FORM_CLASS) && !$form->hasClass(static::HORIZONTAL_FORM_CLASS)) {
+            $form->addClass(static::HORIZONTAL_FORM_CLASS);
         }
     }
 
     protected function applyInputStyles(Input $widget) {
-        $widget->addClass('form-group');
-        $widget->getHint()->addClass('help-block');
-        $widget->getError()->addClass('bg-danger');
+        $widget->addClass(static::CONTAINER_CLASS);
+        if ($widget->getHint()) {
+            $widget->getHint()->addClass(static::HINT_CLASS);
+        }
+        if ($widget->getError()) {
+            $widget->getError()->addClass(static::ERROR_CLASS);
+        }
     }
 
 }
