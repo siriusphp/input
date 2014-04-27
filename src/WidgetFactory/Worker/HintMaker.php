@@ -24,13 +24,12 @@ class HintMaker implements WorkerInterface
         }
         $hint = new Div();
         $hint->setAttributes($element->getHintAttributes());
-        $hint->addClass('hint');
         $hint->setText($element->getHint());
         $task->getResult()->setHint($hint);
     }
 
     protected function canHandleTask(Task $task)
     {
-        return is_object($taks->getResult()) && $task->getResult() instanceof HasHintTrait;
+        return is_object($task->getResult()) && method_exists($task->getResult(), 'setHint');
     }
 }

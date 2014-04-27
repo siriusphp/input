@@ -36,6 +36,6 @@ class LabelMaker implements WorkerInterface
 
     protected function canHandleTask(Task $task)
     {
-        return is_object($task->getResult()) && $task->getResult() instanceof HasLabelTrait;
+        return is_object($task->getResult()) && method_exists($task->getResult(), 'setLabel');
     }
 }

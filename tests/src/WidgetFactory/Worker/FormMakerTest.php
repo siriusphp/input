@@ -9,12 +9,13 @@
 namespace Sirius\Forms\WidgetFactory\Worker;
 
 
+use Sirius\Forms\Form;
 use Sirius\Forms\WidgetFactory\Task;
 
 class FormMakerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Sirius\Forms\Form
+     * @var Form
      */
     protected $form;
     /**
@@ -28,7 +29,7 @@ class FormMakerTest extends \PHPUnit_Framework_TestCase
     protected $widgetFactory;
 
     function setUp() {
-        $this->form = new \Sirius\Forms\Form;
+        $this->form = new Form;
         $this->form->setAttributes(array(
             'method' => 'post',
             'action' => 'url'
@@ -49,4 +50,16 @@ class FormMakerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($widget->getAttributes(), $this->form->getAttributes());
         $this->assertEquals($widget->getData(), $this->form->getData());
     }
+
+    function testFormWidgetNotCreatedIfTheTaskHasAlreadyAResult()
+    {
+        $task = new Task($this->widgetFactory, $this->form);
+        $firstWidget = new \Sirius\Forms\Widget\Form();
+        $task->setResult($firstWidget);
+        $this->worker->processTask($task);
+        $widget = $task->getResult();
+
+        $this->assertEquals($firstWidget, $widget);
+    }
+
 }

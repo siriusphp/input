@@ -23,10 +23,6 @@ class BootstrapStyler implements WorkerInterface {
         } else if ($currentResult instanceof Input) {
             $this->applyInputStyles($currentResult);
         }
-
-        if ($currentResult instanceof HasChildrenTrait) {
-            $this->applyInputStylesToChildren($currentResult);
-        }
     }
 
     protected function applyFormStyles(Form $form) {
@@ -35,10 +31,10 @@ class BootstrapStyler implements WorkerInterface {
         }
     }
 
-    protected function applyInputStyles(Input $input) {
-        $input->addClass('form-group');
-        $input->getHint()->addClass('help-block');
-        $input->getError()->addClass('bg-danger');
+    protected function applyInputStyles(Input $widget) {
+        $widget->addClass('form-group');
+        $widget->getHint()->addClass('help-block');
+        $widget->getError()->addClass('bg-danger');
     }
 
 }

@@ -24,13 +24,14 @@ class ErrorMaker implements WorkerInterface
             return;
         }
         $error = new Div();
-        $error->addClass('form-error');
+        $error->addClass('error');
+        $error->setData('messages', $errorMessages);
         $error->setText(implode('<br>', $errorMessages));
         $task->getResult()->setError($error);
     }
 
     protected function canHandleTask(Task $task)
     {
-        return is_object($task->getResult()) && $task->getResult() instanceof HasErrorTrait;
+        return is_object($task->getResult()) && method_exists($task->getResult(), 'setError');
     }
 }

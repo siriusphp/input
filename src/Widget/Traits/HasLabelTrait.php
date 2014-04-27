@@ -26,7 +26,7 @@ trait HasLabelTrait
     /**
      * Get the label HTML element for this input/fieldset/etc
      *
-     * @return mixed
+     * @return ExtendedTag
      */
     function getLabel()
     {

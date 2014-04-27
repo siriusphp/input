@@ -65,39 +65,46 @@ class InputMaker implements WorkerInterface
                 $input = $this->createText($element);
                 break;
         }
+
         if (!$input) {
             return null;
         }
+
+        // pass data from the form element to the widget's input HTML tag
+        $input->setData($element->getData());
+        $input->setAttributes($element->getAttributes());
+        $input->setAttribute('name', $element->getName());
+
         $widget->setInput($input);
-        if ($element instanceof HasContainerTrait) {
+
+        if (method_exists($element, 'getContainerAttributes')) {
             $widget->setAttributes($element->getContainerAttributes());
         }
+
+        // set the value and raw value to the widget, not the input HTML tag
+        // when the widget is going to be rendered it will make sure to pass that to the input
         $widget->setValue($form->getValue($element->getName()));
         $widget->setRawValue($form->getRawValue($element->getName()));
         return $widget;
     }
 
-    protected function createTextarea(Element $element) {
+    protected function createTextarea() {
         $input = new Textarea();
-        $input->setAttributes($element->getAttributes());
         return $input;
     }
 
-    protected function createText(Element $element) {
+    protected function createText() {
         $input = new Text();
-        $input->setAttributes($element->getAttributes());
         return $input;
     }
 
-    protected function createPassword(Element $element) {
+    protected function createPassword() {
         $input = new Password();
-        $input->setAttributes($element->getAttributes());
         return $input;
     }
 
     protected function createSelect(Element $element) {
         $input = new Select();
-        $input->setAttributes($element->getAttributes());
         $input->setData('options', $element->getOptions());
         $input->setData('first_option', $element->getFirstOption());
         return $input;
@@ -105,15 +112,13 @@ class InputMaker implements WorkerInterface
 
     protected function createMultiSelect(Element $element) {
         $input = new MultiSelect();
-        $input->setAttributes($element->getAttributes());
         $input->setData('options', $element->getOptions());
         $input->setData('first_option', $element->getFirstOption());
         return $input;
     }
 
-    protected function createFile(Element $element) {
+    protected function createFile() {
         $input = new File();
-        $input->setAttributes($element->getAttributes());
         return $input;
     }
 
