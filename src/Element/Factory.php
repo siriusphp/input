@@ -2,6 +2,7 @@
 namespace Sirius\Forms\Element;
 
 use Sirius\Forms\Element\Input;
+use Sirius\Forms\Element;
 
 class Factory
 {
@@ -13,9 +14,9 @@ class Factory
         'select' => '\Sirius\Forms\Element\Input\Select',
         'multiselect' => '\Sirius\Forms\Element\Input\MultiSelect',
         'checkbox' => '\Sirius\Forms\Element\Input\Checkbox',
-        'button' => '\Sirius\Forms\Element\Input\Button',
-        'submit' => '\Sirius\Forms\Element\Input\Submit',
-        'reset' => '\Sirius\Forms\Element\Input\Reset'
+        'button' => '\Sirius\Forms\Element\Button',
+        'submit' => '\Sirius\Forms\Element\Button\Submit',
+        'reset' => '\Sirius\Forms\Element\Button\Reset'
     );
 
     function registerElementType($type, $classOrClosure)
@@ -65,7 +66,7 @@ class Factory
             $element = new $class($name, $options);
         }
 
-        if (!$element instanceof Input) {
+        if (!$element instanceof Element) {
             throw new \RuntimeException('Cannot create a valid form element based on the data provided');
         }
 

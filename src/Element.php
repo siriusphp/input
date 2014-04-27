@@ -160,6 +160,68 @@ abstract class Element extends Specs
         return isset($this[Element::FIRST_OPTION]) ? $this[Element::FIRST_OPTION] : null;
     }
 
+    /**
+     * Sets the group this element belongs to
+     *
+     * @param null|string $group
+     *
+     * @return $this
+     */
+    function setGroup($group = null) {
+        $this[Element::GROUP] = (string) $group;
+        return $this;
+    }
+
+    /**
+     * Retrieve the group this element belongs to
+     *
+     * @return null|string
+     */
+    function getGroup() {
+        return isset($this[Element::GROUP]) ? $this[Element::GROUP] : null;
+    }
+
+    /**
+     * Sets the widget for this element
+     *
+     * @param null|string $widget
+     *
+     * @return $this
+     */
+    function setWidget($widget = null) {
+        $this[Element::WIDGET] = (string) $widget;
+        return $this;
+    }
+
+    /**
+     * Retrieve the widget type for this element
+     *
+     * @return string
+     */
+    function getWidget() {
+        return isset($this[Element::WIDGET]) ? $this[Element::WIDGET] : null;
+    }
+
+    /**
+     * Sets the display priority for this element
+     *
+     * @param integer $priority
+     *
+     * @return $this
+     */
+    function setPriority($priority = 0) {
+        $this[Element::PRIORITY] = (int) $priority;
+        return $this;
+    }
+
+    /**
+     * Retrieve display priority for this element
+     *
+     * @return null
+     */
+    function getPriority() {
+        return isset($this[Element::PRIORITY]) ? $this[Element::PRIORITY] : 0;
+    }
 
 
     /**

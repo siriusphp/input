@@ -75,6 +75,6 @@ class PriorityList implements \IteratorAggregate
         foreach ($this->list as $entry) {
             $items[] = $entry['item'];
         }
-        return $items;
+        return new \ArrayIterator($items);
     }
 }

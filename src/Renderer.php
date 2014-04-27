@@ -6,8 +6,12 @@ use Sirius\Forms\Form;
 use Sirius\Forms\Html\ExtendedTag;
 use Sirius\Forms\WidgetFactory\Base as BaseFactory;
 use Sirius\Forms\WidgetFactory\Worker\BootstrapStyler;
+use Sirius\Forms\WidgetFactory\Worker\ChildrenComposer;
 use Sirius\Forms\WidgetFactory\Worker\ErrorMaker;
+use Sirius\Forms\WidgetFactory\Worker\FormMaker;
 use Sirius\Forms\WidgetFactory\Worker\HintMaker;
+use Sirius\Forms\WidgetFactory\Worker\IdAttributeAttacher;
+use Sirius\Forms\WidgetFactory\Worker\InputMaker;
 use Sirius\Forms\WidgetFactory\Worker\LabelMaker;
 use Sirius\Forms\WidgetFactory\Worker\WidgetMaker;
 use Sirius\Forms\WidgetFactory\Worker\WidgetMissingAlerter;
@@ -38,11 +42,13 @@ class Renderer
 
     function init() {
         $this->widgetFactory->addWorker(new FormMaker(), PHP_INT_MAX - 1000);
+        $this->widgetFactory->addWorker(new InputMaker(), PHP_INT_MAX - 1500);
         $this->widgetFactory->addWorker(new LabelMaker(), PHP_INT_MAX - 2000);
         $this->widgetFactory->addWorker(new ErrorMaker(), PHP_INT_MAX - 3000);
         $this->widgetFactory->addWorker(new HintMaker(), PHP_INT_MAX - 4000);
-        $this->widgetFactory->addWorker(new BootstrapStyler(), PHP_INT_MAX - 5000);
-        $this->widgetFactory->addWorker(new IdAttributeAttacher(), PHP_INT_MAX - 6000);
+        $this->widgetFactory->addWorker(new ChildrenComposer(), PHP_INT_MAX - 5000);
+        $this->widgetFactory->addWorker(new BootstrapStyler());
+        $this->widgetFactory->addWorker(new IdAttributeAttacher());
         $this->widgetFactory->addWorker(new WidgetMissingAlerter(), -PHP_INT_MAX + 1000); // close to the bottom
     }
 

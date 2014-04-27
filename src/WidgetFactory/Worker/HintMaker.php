@@ -19,7 +19,7 @@ class HintMaker implements WorkerInterface
         }
         /* @var $element \Sirius\Forms\Element */
         $element = $task->getElement();
-        if (!$element->getHint()) {
+        if (!$element || !$element->getHint()) {
             return;
         }
         $hint = new Div();
