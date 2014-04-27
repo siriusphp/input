@@ -1,4 +1,4 @@
-# Upload handling
+# Uploads
 
 The **Sirius\Forms** library uses the [Sirius\Upload](http://github.com/siriusphp/upload) library.
 
@@ -30,7 +30,7 @@ The container can be a local folder or an instance of `Sirius\Upload\Container\C
 
 **Important!** Files are uploaded under a name that is equal to: `__upload_` + the form's element name. So, in the example above the `$_FILES` array should contain a `__upload_picture` entry.
 
-This is done to prevent name collisions in modern apps that use Javascript upload. In such apps an Ajax uploader will populate the field `picture` with the result of the successful upload which is actually the desired end result (to populate the use'
+This is done to prevent name collisions in modern apps that use Javascript upload. In such apps an Ajax uploader will populate the field `picture` with the result of the successful upload which is actually the desired end result (to populate the user's `picture` attribute with the uploaded file).
 
 
 [Learn more about Sirius\Upload](http://github.com/siriusphp/upload)

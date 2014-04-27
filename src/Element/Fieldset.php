@@ -25,7 +25,7 @@ class Fieldset extends Input implements ElementFactoryAwareInterface
     use HasValidationRulesTrait;
 
     /**
-     * @var \Sirius\Form\Element\Factory
+     * @var \Sirius\Forms\Element\Factory
      */
     protected $elementFactory;
 
