@@ -14,6 +14,13 @@ trait HasChildrenTrait
     protected $elements = array();
 
     /**
+     * Value to keep track of the order the elements were added
+     *
+     * @var int
+     */
+    protected $elementsIndex = PHP_INT_MAX;
+
+    /**
      * Generates the actual name that will be used to identify the element in the form
      * For forms the name of the child is the same as the name provided,
      * For field-sets the name of the child is prefixed/name-spaced with the name of the field-set
@@ -41,6 +48,10 @@ trait HasChildrenTrait
         $element = $specsOrElement;
         if (is_array($specsOrElement)) {
             $element = $this->elementFactory->createFromOptions($name, $specsOrElement);
+        }
+        // add the index for sorting
+        if (!isset($element['__index'])) {
+            $element['__index'] = ($this->elementsIndex--);
         }
         $this->elements[$name] = $element;
         return $this;
@@ -94,14 +105,20 @@ trait HasChildrenTrait
      */
     protected function childComparator($childA, $childB)
     {
-        if ($childA->getPriority() < $childB->getPriority()) {
+        if ($childA->getPosition() < $childB->getPosition()) {
             return -1;
         }
-        if ($childA->getPriority() > $childB->getPriority()) {
+        if ($childA->getPosition() > $childB->getPosition()) {
+            return 1;
+        }
+        if ($childA->get('__index') > $childB->get('__index')) {
+            return -1;
+        }
+        if ($childA->get('__index') < $childB->get('__index')) {
             return 1;
         }
         // if the priority is the same, childB is first
-        return 1;
+        return -1;
     }
 
     /**

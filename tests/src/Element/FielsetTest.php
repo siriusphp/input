@@ -26,19 +26,19 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
         $this->input->add(
             'city',
             array(
-                'priority' => 2
+                'position' => 2
             )
         );
         $this->input->add(
             'street',
             array(
-                'priority' => 1
+                'position' => 1
             )
         );
         $this->input->add(
             'state',
             array(
-                'priority' => 2
+                'position' => 2
             )
         );
 
@@ -57,7 +57,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
         $this->input->add(
             'city',
             array(
-                'priority' => 2
+                'position' => 2
             )
         );
         $this->assertTrue($this->input->has('city'));

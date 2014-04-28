@@ -21,19 +21,19 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         $this->input->add(
             'quantity',
             array(
-                'priority' => 2
+                'position' => 2
             )
         );
         $this->input->add(
             'product',
             array(
-                'priority' => 1
+                'position' => 1
             )
         );
         $this->input->add(
             'price',
             array(
-                'priority' => 2
+                'position' => 2
             )
         );
 
@@ -52,7 +52,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         $this->input->add(
             'product',
             array(
-                'priority' => 2
+                'position' => 2
             )
         );
         $this->assertTrue($this->input->has('product'));

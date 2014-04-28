@@ -39,7 +39,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $element = $this->factory->createFromOptions(
             'city',
             array(
-                'element_type' => 'autocomplete'
+                'type' => 'autocomplete'
             )
         );
         $this->assertTrue($element instanceof \Sirius\Forms\Element\Input\Select);
@@ -57,7 +57,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $element = $this->factory->createFromOptions(
             'city',
             array(
-                'element_type' => 'dropdown'
+                'type' => 'dropdown'
             )
         );
         $this->assertTrue($element instanceof \Sirius\Forms\Element\Input\Select);

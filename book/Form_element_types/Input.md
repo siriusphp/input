@@ -42,4 +42,4 @@ The **Sirius\Forms** library comes packed with a variaty of input fields the cov
 
 They diverge very little from the base **Element\Input** class so, by looking at their code, you'll be able to understand what it takes to create your own custom fields.
 
-**Reminder!** The type of form elements have little to do how they are displayed. The renderer is responsible for the visual representation of the form and its elements.
+**Reminder!** The type of form elements have little to do how they are displayed. The renderer is responsible for the visual representation of the form and its elements. So you can choose to render a `Select` element as a dropdown (using the SELECT tag) or a set of radio buttons.

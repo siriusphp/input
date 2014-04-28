@@ -102,7 +102,7 @@ class InputTest extends \PHPUnit_Framework_TestCase
         $this->form->add(
             'email',
             array(
-                Input::ELEMENT_TYPE => 'text',
+                Input::TYPE => 'text',
                 Input::LABEL => 'Email',
                 Input::FILTERS => array(
                     'stringtrim',

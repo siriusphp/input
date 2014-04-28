@@ -51,9 +51,9 @@ class Factory
     function createFromOptions($name, $options = array())
     {
         $type = 'text';
-        if (isset($options[Input::ELEMENT_TYPE]) && isset($this->types[$options[Input::ELEMENT_TYPE]])) {
-            $type = $options[Input::ELEMENT_TYPE];
-            unset($options[Input::ELEMENT_TYPE]);
+        if (isset($options[Input::TYPE]) && isset($this->types[$options[Input::TYPE]])) {
+            $type = $options[Input::TYPE];
+            unset($options[Input::TYPE]);
         }
         if (!isset($this->types[$type])) {
             throw new \RuntimeException('The ElementFactory does not have a default way to create elements');

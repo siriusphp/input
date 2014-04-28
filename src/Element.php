@@ -47,7 +47,7 @@ abstract class Element extends Specs
 
     const LABEL_ATTRIBUTES = 'label_attributes';
 
-    const PRIORITY = 'priority';
+    const POSITION = 'position';
 
     const GROUP = 'group';
 
@@ -63,7 +63,9 @@ abstract class Element extends Specs
 
     const WIDGET = 'widget';
 
-    const ELEMENT_TYPE = 'element_type';
+    const ELEMENT_TYPE = 'type';
+
+    const TYPE = 'type';
 
     const OPTIONS = 'options';
 
@@ -209,18 +211,18 @@ abstract class Element extends Specs
      *
      * @return $this
      */
-    function setPriority($priority = 0) {
-        $this[Element::PRIORITY] = (int) $priority;
+    function setPosition($priority = 0) {
+        $this[Element::POSITION] = (int) $priority;
         return $this;
     }
 
     /**
-     * Retrieve display priority for this element
+     * Retrieve display position for this element
      *
-     * @return null
+     * @return integer
      */
-    function getPriority() {
-        return isset($this[Element::PRIORITY]) ? $this[Element::PRIORITY] : 0;
+    function getPosition() {
+        return isset($this[Element::POSITION]) ? $this[Element::POSITION] : 0;
     }
 
 

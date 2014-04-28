@@ -32,7 +32,7 @@ The list below contains the specs that are used by the library during the build 
 
 The format of the list contains the key of the specs in the definition array, its associated constant (in order help your IDE help you) and its corresponding getter/setter (in paranthesis).
 
-##### `element_type` | Element::ELEMENT_TYPE
+##### `type` | Element::TYPE
 
 This is required only by the ElementFactory to determine the type of element to be instantiated (defaults to 'text').
 
@@ -75,17 +75,17 @@ Information text to help the user fill out the form
 
 The HTML attributes of the hint element
 
-#####  `priority` | Element::PRIORITY (getPriority/setPriority)
+#####  `position` | Element::POSITION (getPosition/setPosition)
 
-The display order of the form element. This allows decouples the element definition order in time from its order in the rendered form
+The display order of the form element. This allows decouples the element definition order in time from its order in the rendered form. The default priority is zero. The elements of a form/fieldse/collection/group will be ordered ascending by position.
 
 #####  `group` | Element::GROUP (getGroup/setGroup)
 
 Sometimes you want to visually group certain elements. The value of this attribute is the name of the element that will group other elements
 
-##### `widge` | Element::WIDGET
+##### `widget` | Element::WIDGET
 
-This is will instruct the renderer to display the form element in a certain way. You may choose to display a date as a single field or a group of selects, there is no need to tie the form element type to its visual representation
+This is will instruct the renderer how to display the form element (the type of widget the widget factory will compose). You may choose to display a date as a single field or a group of selects, there is no need to tie the form element type to its visual representation
 
 ##### `validation_rules` | Element::VALIDATION_RULES (getValidationRules/setValidationRules)
 

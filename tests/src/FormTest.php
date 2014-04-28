@@ -20,7 +20,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertFalse($this->form->has('email'));
 
-        $this->form->add('email', array(Element::ELEMENT_TYPE => 'text'));
+        $this->form->add('email', array(Element::TYPE => 'text'));
 
         $this->assertTrue($this->form->has('email'));
 
@@ -34,14 +34,14 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->form->add(
             'email',
             array(
-                Element::ELEMENT_TYPE => 'text',
+                Element::TYPE => 'text',
                 Element::VALIDATION_RULES => array('required', 'email')
             )
         );
         $this->form->add(
             'picture',
             array(
-                Element::ELEMENT_TYPE => 'file',
+                Element::TYPE => 'file',
                 Element::UPLOAD_CONTAINER => '/var/www',
                 Element::UPLOAD_RULES => array('image')
             )
@@ -67,7 +67,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->form->add(
             'email',
             array(
-                Element::ELEMENT_TYPE => 'text',
+                Element::TYPE => 'text',
                 Element::VALIDATION_RULES => array('required', 'email'),
                 Element::FILTERS => array('stringtrim', 'nullify')
             )
@@ -122,5 +122,34 @@ class FormTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals($file['name'], $this->form->getValue('picture'));
+    }
+
+    function testGetChildrenOrder()
+    {
+        $this->form->add(
+            'email',
+            array(
+                Element::TYPE => 'text',
+                Element::POSITION => 8
+            )
+        );
+        $this->form->add(
+            'email_confirmation',
+            array(
+                Element::TYPE => 'text',
+                Element::POSITION => 8
+            )
+        );
+        $this->form->add(
+            'name',
+            array(
+                Element::TYPE => 'text',
+            )
+        );
+
+        $children = array_keys($this->form->getChildren());
+        $this->assertSame('name', $children[0]);
+        $this->assertSame('email', $children[1]);
+        $this->assertSame('email_confirmation', $children[2]);
     }
 }

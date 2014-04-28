@@ -1,6 +1,6 @@
 # Form element types
 
-Before looking at the form's element types you must understand that **form elements are not widgets!**
+Before looking at the form's element types you must understand that **form elements are not widgets!** That means the visual representation of a form element has very little to do with the element as a value holder.
 
 _Ideally_, all the data that a user sends to your app should be in a format that is understandable by the system without any additional preparation. But there are many situations when that is not going to happen
 
@@ -9,9 +9,7 @@ _Ideally_, all the data that a user sends to your app should be in a format that
 
 **Important!** From **Sirius\Forms**' point of view there is no connection between the type of the element (ie: the value of the `Element::TYPE` attribute) and how that element is rendered to the user (ie: the value of the `Element::WIDGET` attribute).
 
-This means that when you define a form element you must be aware of how it is going to be displayed and add additional properties.
-
-In the case of the date input that is displayed as a 3 selects you must:
+This means that when you define a form element you must be aware of how it is going to be displayed and add additional properties. In the case of the date input that is displayed as a 3 selects you must:
 
 1. add a filter to convert that array into a string
 2. make sure your renderer will be able to extract construct an array from the string date.

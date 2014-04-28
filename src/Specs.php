@@ -5,25 +5,48 @@ namespace Sirius\Forms;
 class Specs extends \ArrayObject
 {
 
-    protected function inflectUnderscore($var) {
+    protected function inflectClassToUnderscore($var) {
         $var = preg_replace('/[A-Z]{1}/', '_$0', $var);
         $var = strtolower($var);
         $var = trim($var, '_');
         return $var;
     }
 
+    protected function inflectUnderscoreToClass($var) {
+        $var = str_replace('_', ' ', $var);
+        $var = ucwords($var);
+        return $var;
+    }
+
     function __call($method, $args) {
         if (substr($method, 0, 3) === 'set') {
-            $dataName = $this->inflectUnderscore(substr($method, 3));
+            $dataName = $this->inflectClassToUnderscore(substr($method, 3));
             return $this->setData($dataName, $args[0]);
         }
 
         if (substr($method, 0, 3) === 'get') {
-            $dataName = $this->inflectUnderscore(substr($method, 3));
+            $dataName = $this->inflectClassToUnderscore(substr($method, 3));
             return $this->getData($dataName);
         }
 
         throw new \BadMethodCallException(sprintf('Method %s does not exist on this object', $method));
+    }
+
+    function get($key) {
+        $method = 'get' . $this->inflectUnderscoreToClass($key);
+        if (method_exists($this, $method)) {
+            return $this->{$method}();
+        }
+        return isset($this[$key]) ? $this[$key] : null;
+    }
+
+    function set($key, $value) {
+        $method = 'set' . $this->inflectUnderscoreToClass($key);
+        if (method_exists($this, $method)) {
+            return $this->{$method}($value);
+        }
+        $this[$key] = $value;
+        return $this;
     }
 
     /**
