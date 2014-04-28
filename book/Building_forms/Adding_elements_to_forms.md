@@ -1,6 +1,8 @@
-# Adding elements to forms
+# Add elements to forms
 
-Adding elements to a form is as simple as telling the form the name of the element (so it can later be retrieved) and the element' specifications:
+### Elements as specs
+
+If you want the element factory to create the elements that you add to the form you only need to provide the name of the element (so it can later be retrieved) and the element' specifications:
 
 ```php
 use Sirius\Forms\Element;
@@ -13,24 +15,30 @@ $specs = array(
 $form->add('email', $specs);
 ```
 
-The `Element` class has a lot of constats that you can use when definining the element specifications.
+### Element instances
 
-When you add an element to the form the `ElementFactory` converts the specifications into an `Element` object that you can manipulate.
+If you want to create the form element by yourself you can do that as well
 
 ```php
-$email = $form->get('email');
-$email->addClass('full-width');
-$email->addLabelClass('required');
+use Sirius\Forms\Element\Input\Text;
 
+$email = new Text('email', array(
+    Element::TYPE => 'text',
+	Element::LABEL => 'Your email address'
+));
+$form->add($email);
 ```
 
-Usually you don't need to do this but if your app uses events (or other mechanism) to alter the forms between their construction and rendering, this is the way to go.
+As you will see bellow, the `Element` class has a lot of constats that you can use when definining the element specifications.
 
 ## The `Element` specs and API
 
 The list below contains the specs that are used by the library during the build process, validation and rendering of the form.
 
-The format of the list contains the key of the specs in the definition array, its associated constant (in order help your IDE help you) and its corresponding getter/setter (in paranthesis).
+The format of the list contains:
+1. the key of the specs in the definition array
+2. the constant associated with that key associated constant (in order help your IDE help you)
+3. the key's corresponding getter/setter (in paranthesis).
 
 ##### `type` | Element::TYPE
 
@@ -115,7 +123,7 @@ A set of options to be used by SELECT elements, checkbox/radio groups
 
 The empty option to be displayed in the list (eg: 'select from list...')
 
-#### `data` | Element::DATA (getData/setData)
+##### `data` | Element::DATA (getData/setData)
 
 Similarly to jQuery you can add random data to your elements.
 
@@ -129,7 +137,7 @@ $email->getData('key'); //value
 $email->getData(); // get everything
 ```
 
-### Other magic methods
+## Other magic methods
 
 As you can see from the above list there are some properties of an element which get 2 getters and 2 setters. The `attributes` and any property that ends with `_attributes` will get this special behaviour. This allows you to do something like:
 
@@ -148,7 +156,7 @@ Besides these nice utilities there are 3 more methods that can be used to alter 
 
 These magic methods are also available to any property that ends with `_attributes`.
 
-### Custom element specs
+## Custom element specs
 
 You can set any other properties to an element and you will get access to a getter and a setter. If your custom render engine can interpret an attribute like `autocomplete_url` the Sirius\Forms library will construct the element which will have the `getAutocompleteUrl()` and `setAutocompleteUrl()` methods.
 

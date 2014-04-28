@@ -74,7 +74,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
     function testPrepareForm()
     {
-        $this->form->add('invoice_lines', $this->input);
+        $this->form->add($this->input);
         $this->input->add(
             'product',
             array(

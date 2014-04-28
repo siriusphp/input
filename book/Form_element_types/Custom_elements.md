@@ -12,7 +12,9 @@ class DatePicker extends \Sirius\Forms\Element\Input\Text
         // the specs defined here are merged with the one you
         // provide to the form's add() method
         return array(
-            'class' => 'datepicker'
+            Element::ATTRIBUTES => array(
+                'class' => 'datepicker'
+            ),
             'format' => 'Y-m-d'
         );
     }
@@ -22,7 +24,7 @@ class DatePicker extends \Sirius\Forms\Element\Input\Text
         parent::prepareFormFiltration($form);
         $filtrator = $form->getFiltrator();
         // add a custom filter to the form's filtrator to normalize the incoming value
-        $filtrator->add($this->getName(), /* filter callback */
+        $filtrator->add($this->getName(), /* filter callback */);
     }
 }
 ```

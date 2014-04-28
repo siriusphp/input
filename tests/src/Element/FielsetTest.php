@@ -79,7 +79,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
 
     function testPrepareForm()
     {
-        $this->form->add('address', $this->input);
+        $this->form->add($this->input);
         $this->input->add(
             'city',
             array(

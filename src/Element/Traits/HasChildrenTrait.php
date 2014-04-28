@@ -3,6 +3,7 @@
 namespace Sirius\Forms\Element\Traits;
 
 use Sirius\Forms\Element\Input;
+use Sirius\Forms\Element;
 
 trait HasChildrenTrait
 {
@@ -37,17 +38,21 @@ trait HasChildrenTrait
     /**
      * Add an element to the children list
      *
-     * @param string $name
-     * @param \Sirius\Forms\Element|array $specsOrElement
+     * @param string|\Sirius\Forms\Element $nameOrElement
+     * @param array $specs
      * @throws \RuntimeException
-     * @return Form
+     * @return $this
      */
-    function add($name, $specsOrElement)
+    function add($nameOrElement, $specs = array())
     {
-        $name = $this->getFullChildName($name);
-        $element = $specsOrElement;
-        if (is_array($specsOrElement)) {
-            $element = $this->elementFactory->createFromOptions($name, $specsOrElement);
+        if (is_string($nameOrElement)) {
+            $name = $this->getFullChildName($nameOrElement);
+            $element = $this->elementFactory->createFromOptions($name, $specs);
+        } elseif ($nameOrElement instanceof Element) {
+            $element = $nameOrElement;
+            $name = $element->getName();
+        } else {
+            throw new \RuntimeException(sprintf('Variable $nameorElement must be a string or an instance of the Element class'));
         }
         // add the index for sorting
         if (!isset($element['__index'])) {

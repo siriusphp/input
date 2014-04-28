@@ -57,7 +57,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
                     'callback' => array($this->input, 'filterValue')
                 )
             );
-        $this->form->add('select', $this->input);
+        $this->form->add($this->input);
         $this->form->prepare();
     }
 

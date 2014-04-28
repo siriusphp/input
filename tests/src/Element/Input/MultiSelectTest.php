@@ -58,7 +58,7 @@ class MultiSelectTest extends \PHPUnit_Framework_TestCase
                 ),
                 true
             );
-        $this->form->add('select', $this->input);
+        $this->form->add($this->input);
         $this->form->prepare();
     }
 

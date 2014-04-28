@@ -10,13 +10,13 @@ For each element that is of type `file` the library will construct an __"upload 
 
 ```php
 $form->add('picture', array(
-    'label' => 'Picture'
-	'upload_container' => 'images/products/'
-	'upload_rules' => array(
-		['image', ['type' = > ['jpg', 'png'], 'File must be a JPG or PNG']
+    Element::LABEL => 'Picture'
+	Element::UPLOAD_CONTAINER => 'images/products/'
+	Element::UPLOAD_RULES => array(
+		['image', ['type' = > ['jpg', 'png']], 'File must be a JPG or PNG']
 		['width', ['max' => 1000], 'No more than {max} pixels wide please']
 	),
-	'upload_options' => [
+	Element::UPLOAD_OPTIONS => [
 		// prefix for the uploaded file
 		'prefix' => time(),
 		// overwrite if a file with the same name is already there

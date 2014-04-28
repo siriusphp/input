@@ -7,26 +7,16 @@ This is how you add an element to a form (you do the same for fieldsets and coll
 ```php
 // the code below relies on the element factory to instanciate the element
 $formOrFieldsetOrCollection->add('email', array(
-    'label' => 'Your email'
-	'hint' => 'We will send you an account activation email after registration',
-	'rules' => array(
+    Element::LABEL => 'Your email'
+	Element::HINT => 'We will send you an account activation email after registration',
+	Element::VALIDATION_RULES => array(
 		'required',
 		'email'
 	),
-	'filters' => array(
+	Element::FILTERS => array(
 		'stringtrim'
 	)
 ));
-```
-You can get hold of the element like so:
-
-```php
-$email = $formOrFieldsetOrCollection->get('email');
-
-// and alter it through the build it methods
-$email->setLabel('Email address')
-	->addLabelClass('important');
-
 ```
 
 ## Built-in input fields
@@ -42,4 +32,4 @@ The **Sirius\Forms** library comes packed with a variaty of input fields the cov
 
 They diverge very little from the base **Element\Input** class so, by looking at their code, you'll be able to understand what it takes to create your own custom fields.
 
-**Reminder!** The type of form elements have little to do how they are displayed. The renderer is responsible for the visual representation of the form and its elements. So you can choose to render a `Select` element as a dropdown (using the SELECT tag) or a set of radio buttons.
+**Reminder!** The type of form elements have little to do how they are displayed. The renderer is responsible for the visual representation of the form and its elements. So you can choose to render a `Select` element as a dropdown (using the SELECT tag), an autocomplete jQuery UI widget or a set of radio buttons.
