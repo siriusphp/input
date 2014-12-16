@@ -5,7 +5,9 @@ use Sirius\Filtration\Filtrator;
 use Sirius\Filtration\FiltratorInterface;
 use Sirius\Forms\Element\AbstractElement;
 use Sirius\Forms\Element\Factory as ElementFactory;
-use Sirius\Forms\Element\Traits\HasChildrenTrait as ElementContainerTrait;
+use Sirius\Forms\Traits\HasChildrenTrait;
+use Sirius\Forms\Traits\HasAttributesTrait;
+use Sirius\Forms\Traits\HasFiltersTrait;
 use Sirius\Forms\Util\Arr;
 use Sirius\Upload\Handler;
 use Sirius\Upload\HandlerAggregate;
@@ -14,7 +16,9 @@ use Sirius\Validation\ValidatorInterface;
 
 class Form extends Specs
 {
-    use ElementContainerTrait;
+    use HasChildrenTrait;
+    use HasAttributesTrait;
+    use HasFiltersTrait;
 
     /**
      * Uploaded files will have their names prefixed with this value
@@ -64,9 +68,9 @@ class Form extends Specs
      */
     protected $uploadHandlers = array();
 
-    protected $rawData = array();
+    protected $rawValues = array();
 
-    protected $data = array();
+    protected $values = array();
 
     function __construct(
         ElementFactory $elementFactory = null,
@@ -87,6 +91,7 @@ class Form extends Specs
             $filtrator = new Filtrator();
         }
         $this->filtrator = $filtrator;
+        $this->setAttribute('method', 'post');
     }
 
     /**
@@ -123,7 +128,7 @@ class Form extends Specs
     {
         return $this->elementFactory;
     }
-
+    
     /**
      * Prepare the form's validator, filtrator and upload handlers objects
      *
@@ -162,13 +167,29 @@ class Form extends Specs
         // reset upload handler
         $this->uploadHandlers = null;
 
-        foreach ($this->getChildren() as $element) {
+        foreach ($this->getElements() as $element) {
             if (method_exists($element, 'prepareForm')) {
                 $element->prepareForm($this);
             }
         }
+        $this->prepareFiltration();
         $this->isPrepared = true;
         return $this;
+    }
+    
+    protected function prepareFiltration()
+    {
+        $filters = $this->getFilters();
+        if (!$filters || !is_array($filters)) {
+            return;
+        }
+        $filtrator = $this->getFiltrator();
+        foreach ($filters as $filter) {
+            $params = is_array($filter) ? $filter : array($filter);
+            if (isset($params[0])) {
+                $filtrator->add(Filtrator::SELECTOR_ROOT, $params[0], @$params[1], @$params[2], @$params[3]);
+            }
+        }
     }
 
     /**
@@ -232,43 +253,29 @@ class Form extends Specs
     /**
      * Populates a form with values. If you have uploads you must merge data from POST and FILES.
      *
-     * @param array $data
+     * @param array $values
      * @throws \LogicException
      */
-    function populate($data = array())
+    function populate($values = array())
     {
         $this->prepare();
         if (!$this->isPrepared()) {
-            throw new \LogicException('Form is not prepared and cannot receive data');
+            throw new \LogicException('Form was not prepared and cannot receive data');
         }
 
-        // set raw data and data
-        $this->rawData = $data;
-        $this->data = $this->getFiltrator()->filter($this->rawData);
-        $uploadErrors = $this->processUploads();
-
-        // validate form values
-        $validator = $this->getValidator();
-        $validator->validate($this->data);
-
-        // add upload error messages to the validator
-        foreach ($uploadErrors as $key => $messages) {
-            foreach ($messages as $message) {
-                $validator->addMessage($key, $message);
-            }
-        }
+        // set raw values
+        $this->rawValues = $values;
+        $this->values = array();
     }
 
     /**
      * Processes the uploaded files:
      * 1. Validates the files
      * 2. Confirms valid files
-     * 3. Returns validation errors
-     *
-     * @return array
+     * 3. Add the upload errors to the validation errors
      */
     protected function processUploads() {
-        $result = $this->getUploadHandlers()->process($this->data);
+        $result = $this->getUploadHandlers()->process($this->values);
         $errors = array();
         foreach ($result as $path => $file) {
             // remember!; $_FILES keys are prefixed with '__upload_'
@@ -276,31 +283,44 @@ class Form extends Specs
             /* @var $file \Sirius\Upload\Result\File */
             if ($file->isValid()) {
                 $file->confirm();
-                $this->data = Arr::setBySelector($this->data, $key, $file->name);
+                $this->values = Arr::setBySelector($this->values, $key, $file->name);
             } else {
                 $errors[$key] = $file->getMessages();
             }
         }
-        return $errors;
+        // add upload error messages to the validator
+        $validator = $this->getValidator();
+        foreach ($errors as $key => $messages) {
+            foreach ($messages as $message) {
+                $validator->addMessage($key, $message);
+            }
+        }
     }
 
 
     /**
      * Returns whether the form's data is valid.
-     * The validation was executed on populate()
+     * If filters the data, process the uploads and performs the validation
      *
      * @return bool
      */
     function isValid()
     {
+        $this->values = $this->getFiltrator()->filter($this->rawValues);
+
+        // validate form values
+        $validator = $this->getValidator();
+        $validator->validate($this->values);
+
+        $this->processUploads();
         return count($this->getValidator()->getMessages()) === 0;
     }
 
     function getValue($name) {
-        return Arr::getByPath($this->data, $name);
+        return empty($this->values) ? $this->getRawValue($name) : Arr::getByPath($this->values, $name);
     }
 
     function getRawValue($name) {
-        return Arr::getByPath($this->rawData, $name);
+        return Arr::getByPath($this->rawValues, $name);
     }
 }

@@ -18,26 +18,26 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
     function testAddingElements()
     {
-        $this->input->add(
+        $this->input->addElement(
             'quantity',
             array(
                 'position' => 2
             )
         );
-        $this->input->add(
+        $this->input->addElement(
             'product',
             array(
                 'position' => 1
             )
         );
-        $this->input->add(
+        $this->input->addElement(
             'price',
             array(
                 'position' => 2
             )
         );
 
-        $children = $this->input->getChildren();
+        $children = $this->input->getElements();
         $elementNames = array_keys($children);
 
         // test the element are in the correct order
@@ -48,34 +48,34 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
 
     function testRemovingElements()
     {
-        $this->assertFalse($this->input->has('product'));
-        $this->input->add(
+        $this->assertFalse($this->input->hasElement('product'));
+        $this->input->addElement(
             'product',
             array(
                 'position' => 2
             )
         );
-        $this->assertTrue($this->input->has('product'));
+        $this->assertTrue($this->input->hasElement('product'));
 
-        $this->input->remove('product');
+        $this->input->removeElement('product');
 
-        $this->assertEquals(0, count($this->input->getChildren()));
+        $this->assertEquals(0, count($this->input->getElements()));
     }
 
     function testDeepElement()
     {
-        $this->input->add('discount[percentage]', array());
+        $this->input->addElement('discount[percentage]', array());
         $this->assertEquals(
             'invoice_lines[*][discount][percentage]',
-            $this->input->get('discount[percentage]')
+            $this->input->getElement('discount[percentage]')
                 ->getName()
         );
     }
 
     function testPrepareForm()
     {
-        $this->form->add($this->input);
-        $this->input->add(
+        $this->form->addElement($this->input);
+        $this->input->addElement(
             'product',
             array(
                 Fieldset::VALIDATION_RULES => array(

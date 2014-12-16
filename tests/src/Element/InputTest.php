@@ -99,7 +99,7 @@ class InputTest extends \PHPUnit_Framework_TestCase
 
     function testPrepareFormValidation()
     {
-        $this->form->add(
+        $this->form->addElement(
             'email',
             array(
                 Input::TYPE => 'text',
@@ -123,7 +123,7 @@ class InputTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $email = $this->form->get('email');
+        $email = $this->form->getElement('email');
         foreach ($email->getValidationRules() as $rule) {
             if (!is_array($rule)) {
                 $rule = array(

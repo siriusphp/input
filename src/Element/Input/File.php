@@ -2,7 +2,7 @@
 namespace Sirius\Forms\Element\Input;
 
 use Sirius\Forms\Element\Input as BaseInput;
-use Sirius\Forms\Element\Traits\HasUploadTrait;
+use Sirius\Forms\Traits\HasUploadTrait;
 use Sirius\Forms\Form;
 use Sirius\Upload\Handler;
 

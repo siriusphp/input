@@ -27,7 +27,7 @@ class MultiSelectTest extends \PHPUnit_Framework_TestCase
     {
         $this->filtrator = m::mock('\Sirius\Filtration\Filtrator');
         $this->form = new \Sirius\Forms\Form(null, null, $this->filtrator);
-        $this->input = new MultiSelect('select');
+        $this->input = new MultiSelect('multiselect');
         $this->input->setOptions(array(
             'a' => 'A',
             'b' => 'B'
@@ -51,14 +51,13 @@ class MultiSelectTest extends \PHPUnit_Framework_TestCase
         $this->filtrator->shouldReceive('getFilters');
         $this->filtrator->shouldReceive('add')
             ->with(
-                'select',
+                'multiselect',
                 'callback',
                 array(
                     'callback' => array($this->input, 'filterValue')
-                ),
-                true
+                )
             );
-        $this->form->add($this->input);
+        $this->form->addElement($this->input);
         $this->form->prepare();
     }
 

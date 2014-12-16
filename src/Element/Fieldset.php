@@ -1,11 +1,11 @@
 <?php
 namespace Sirius\Forms\Element;
 
-use Sirius\Forms\Element\Traits\HasChildrenTrait;
-use Sirius\Forms\Element\Traits\HasLabelTrait;
-use Sirius\Forms\Element\Traits\HasHintTrait;
-use Sirius\Forms\Element\Traits\HasFiltersTrait;
-use Sirius\Forms\Element\Traits\HasValidationRulesTrait;
+use Sirius\Forms\Traits\HasChildrenTrait;
+use Sirius\Forms\Traits\HasLabelTrait;
+use Sirius\Forms\Traits\HasHintTrait;
+use Sirius\Forms\Traits\HasFiltersTrait;
+use Sirius\Forms\Traits\HasValidationRulesTrait;
 use Sirius\Forms\Element\Factory as ElementFactory;
 use Sirius\Forms\Element\FactoryAwareInterface as ElementFactoryAwareInterface;
 use Sirius\Forms\Form;
@@ -70,7 +70,7 @@ class Fieldset extends Input implements ElementFactoryAwareInterface
     function prepareForm(Form $form)
     {
         parent::prepareForm($form);
-        foreach ($this->getChildren() as $element) {
+        foreach ($this->getElements() as $element) {
             $element->prepareForm($form);
         }
     }

@@ -31,9 +31,9 @@ class Factory
         if (!class_exists($classOrClosure)) {
             throw new \RuntimeException(sprintf('Class %s does not exist', $classOrClosure));
         }
-        if (!is_subclass_of($classOrClosure, '\Sirius\Forms\Element\Input')) {
+        if (!is_subclass_of($classOrClosure, '\Sirius\Forms\Element')) {
             throw new \RuntimeException(
-                sprintf('Class %s must extend the \Sirius\Forms\Element\Input class', $classOrClosure)
+                sprintf('Class %s must extend the \Sirius\Forms\Element class', $classOrClosure)
             );
         }
         $this->types[$type] = $classOrClosure;

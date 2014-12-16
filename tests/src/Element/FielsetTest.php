@@ -23,26 +23,26 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
 
     function testAddingElements()
     {
-        $this->input->add(
+        $this->input->addElement(
             'city',
             array(
                 'position' => 2
             )
         );
-        $this->input->add(
+        $this->input->addElement(
             'street',
             array(
                 'position' => 1
             )
         );
-        $this->input->add(
+        $this->input->addElement(
             'state',
             array(
                 'position' => 2
             )
         );
 
-        $children = $this->input->getChildren();
+        $children = $this->input->getElements();
         $elementNames = array_keys($children);
 
         // test the element are in the correct order
@@ -53,34 +53,34 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
 
     function testRemovingElements()
     {
-        $this->assertFalse($this->input->has('city'));
-        $this->input->add(
+        $this->assertFalse($this->input->hasElement('city'));
+        $this->input->addElement(
             'city',
             array(
                 'position' => 2
             )
         );
-        $this->assertTrue($this->input->has('city'));
+        $this->assertTrue($this->input->hasElement('city'));
 
-        $this->input->remove('city');
+        $this->input->removeElement('city');
 
-        $this->assertEquals(0, count($this->input->getChildren()));
+        $this->assertEquals(0, count($this->input->getElements()));
     }
 
     function testDeepElement()
     {
-        $this->input->add('country[code]', array());
+        $this->input->addElement('country[code]', array());
         $this->assertEquals(
             'address[country][code]',
-            $this->input->get('country[code]')
+            $this->input->getElement('country[code]')
                 ->getName()
         );
     }
 
     function testPrepareForm()
     {
-        $this->form->add($this->input);
-        $this->input->add(
+        $this->form->addElement($this->input);
+        $this->input->addElement(
             'city',
             array(
                 Fieldset::VALIDATION_RULES => array(

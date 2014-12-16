@@ -1,6 +1,9 @@
 <?php
 namespace Sirius\Forms;
 
+use Sirius\Forms\Traits\HasAttributesTrait;
+use Sirius\Forms\Traits\HasDataTrait;
+
 /**
  *
  * @method Element getLabel() Get the label text
@@ -38,47 +41,9 @@ namespace Sirius\Forms;
  */
 abstract class Element extends Specs
 {
-    /**
-     * Constants to be used by setSpec(), getXXX(), setXXX()
-     */
-    const ATTRIBUTES = 'attributes';
-
-    const LABEL = 'label';
-
-    const LABEL_ATTRIBUTES = 'label_attributes';
-
-    const POSITION = 'position';
-
-    const GROUP = 'group';
-
-    const CONTAINER_ATTRIBUTES = 'container_attributes';
-
-    const HINT = 'hint';
-
-    const HINT_ATTRIBUTES = 'hint_attributes';
-
-    const VALIDATION_RULES = 'validation_rules';
-
-    const FILTERS = 'filters';
-
-    const WIDGET = 'widget';
-
-    const ELEMENT_TYPE = 'type';
-
-    const TYPE = 'type';
-
-    const OPTIONS = 'options';
-
-    const FIRST_OPTION = 'first_option';
-
-    const UNCHECKED_VALUE = 'unchecked_value';
-
-    const UPLOAD_CONTAINER = 'upload_container';
-
-    const UPLOAD_OPTIONS = 'upload_options';
-
-    const UPLOAD_RULES = 'upload_rules';
-
+    use HasAttributesTrait;
+    use HasDataTrait;
+    
     /**
      * Name of the field (identifier of the element in the form's child list)
      *
@@ -96,7 +61,9 @@ abstract class Element extends Specs
     function __construct($name, $specs = array())
     {
         $specs = array_merge($this->getDefaultSpecs(), $specs);
-        parent::__construct($specs, \ArrayObject::STD_PROP_LIST);
+        foreach ($specs as $key => $value) {
+            $this->set($key, $value);
+        }
         $this->name = $name;
     }
 
@@ -119,47 +86,6 @@ abstract class Element extends Specs
     function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Sets the options for elements like selects, radio buttons, checkboxes
-     *
-     * @param array $options
-     *
-     * @return $this
-     */
-    function setOptions($options = array()) {
-        $this[Element::OPTIONS] = $options;
-        return $this;
-    }
-
-    /**
-     * Retrieves the options for selects, radio button, checkboxes
-     *
-     * @return array
-     */
-    function getOptions() {
-        return isset($this[Element::OPTIONS]) ? $this[Element::OPTIONS] : array();
-    }
-
-    /**
-     * Sets the first option for SELECT widgets
-     *
-     * @param null $firstOption
-     *
-     * @return $this
-     */
-    function setFirstOption($firstOption = null) {
-        $this[Element::FIRST_OPTION] = $firstOption;
-        return $this;
-    }
-
-    /**
-     * Retrieve the first option for SELECT widgets
-     * @return null
-     */
-    function getFirstOption() {
-        return isset($this[Element::FIRST_OPTION]) ? $this[Element::FIRST_OPTION] : null;
     }
 
     /**

@@ -1,12 +1,12 @@
 <?php
 namespace Sirius\Forms\Element;
 
-use Sirius\Forms\Element\Traits\HasContainerTrait;
-use Sirius\Forms\Element\Traits\HasFiltersTrait;
-use Sirius\Forms\Element\Traits\HasLabelTrait;
+use Sirius\Forms\Traits\HasFiltersTrait;
+use Sirius\Forms\Traits\HasLabelTrait;
 use Sirius\Forms\Element;
-use Sirius\Forms\Element\Traits\HasValidationRulesTrait;
-use Sirius\Forms\Element\Traits\HasHintTrait;
+use Sirius\Forms\Traits\HasValidationRulesTrait;
+use Sirius\Forms\Traits\HasHintTrait;
+use Sirius\Forms\Traits\HasAttributesTrait;
 
 class Input extends Element
 {
@@ -14,7 +14,7 @@ class Input extends Element
     use HasValidationRulesTrait;
     use HasLabelTrait;
     use HasHintTrait;
-    use HasContainerTrait;
+    use HasAttributesTrait;
 
     /**
      * Name of the field (identifier of the element in the form's child list)

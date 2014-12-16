@@ -1,34 +1,21 @@
 <?php
 namespace Sirius\Forms\Element\Input;
 
-use Sirius\Forms\Element\Input as BaseInput;
 use Sirius\Forms\Form;
+use Sirius\Forms\Specs;
+use Sirius\Forms\Element\Input\Select;
 use Sirius\Filtration\Filter\Callback;
 
-class MultiSelect extends BaseInput
+class MultiSelect extends Select
 {
 
     protected function getDefaultSpecs()
     {
         return array(
-            BaseInput::WIDGET => 'multiselect',
-            BaseInput::ATTRIBUTES => array(
+            Specs::WIDGET => 'multiselect',
+            Specs::ATTRIBUTES => array(
                 'size' => '5'
             )
-        );
-    }
-
-    protected function prepareFormFiltration(Form $form)
-    {
-        parent::prepareFormFiltration($form);
-        $filtrator = $form->getFiltrator();
-        $filtrator->add(
-            $this->getName(),
-            'callback',
-            array(
-                Callback::OPTION_CALLBACK => array($this, 'filterValue')
-            ),
-            true // recursive
         );
     }
 

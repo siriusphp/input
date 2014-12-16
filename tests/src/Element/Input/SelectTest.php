@@ -1,5 +1,4 @@
 <?php
-
 namespace Sirius\Forms\Element\Input;
 
 use Sirius\Forms\Element\Input;
@@ -9,16 +8,19 @@ class SelectTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
+     *
      * @var \Sirius\Filtration\Filtrator
      */
     protected $filtrator;
 
     /**
+     *
      * @var \Sirius\Forms\Form
      */
     protected $form;
 
     /**
+     *
      * @var Select
      */
     protected $input;
@@ -41,27 +43,30 @@ class SelectTest extends \PHPUnit_Framework_TestCase
 
     function testDefaults()
     {
-
-        $this->assertEquals('select', $this->input[ Input::WIDGET ]);
+        $this->assertEquals('select', $this->input[Input::WIDGET]);
     }
 
+    function testFirstOption()
+    {
+    	$this->input->setFirstOption('select from list...');
+    	$this->assertEquals('select from list...', $this->input->getFirstOption());
+    }
 
     function testPrepareFormFiltration()
     {
         $this->filtrator->shouldReceive('getFilters');
-        $this->filtrator->shouldReceive('add')
-            ->with(
-                'select',
-                'callback',
-                array(
-                    'callback' => array($this->input, 'filterValue')
-                )
-            );
-        $this->form->add($this->input);
+        $this->filtrator->shouldReceive('add')->with('select', 'callback', array(
+            'callback' => array(
+                $this->input,
+                'filterValue'
+            )
+        ));
+        $this->form->addElement($this->input);
         $this->form->prepare();
     }
 
-    function testFilterValue() {
+    function testFilterValue()
+    {
         $this->assertEquals('a', $this->input->filterValue('a'));
         $this->assertEquals(null, $this->input->filterValue('c'));
     }
