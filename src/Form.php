@@ -316,6 +316,10 @@ class Form extends Specs
         return count($this->getValidator()->getMessages()) === 0;
     }
 
+    function getValues() {
+        return empty($this->values) ? $$this->rawValues : array();
+    }
+    
     function getValue($name) {
         return empty($this->values) ? $this->getRawValue($name) : Arr::getByPath($this->values, $name);
     }
@@ -323,4 +327,6 @@ class Form extends Specs
     function getRawValue($name) {
         return Arr::getByPath($this->rawValues, $name);
     }
+    
+    
 }

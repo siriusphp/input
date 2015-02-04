@@ -11,4 +11,4 @@ build/
 /vendor
 /composer.lock
 .idea/
-book/_book/
+atlassian-ide-plugin.xml
