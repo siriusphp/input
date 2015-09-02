@@ -1,8 +1,8 @@
 <?php
-namespace Sirius\Forms;
+namespace Sirius\Input;
 
-use Sirius\Forms\Traits\HasAttributesTrait;
-use Sirius\Forms\Traits\HasDataTrait;
+use Sirius\Input\Traits\HasAttributesTrait;
+use Sirius\Input\Traits\HasDataTrait;
 
 /**
  *

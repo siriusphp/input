@@ -1,8 +1,8 @@
 <?php
-namespace Sirius\Forms\Element\Button;
+namespace Sirius\Input\Element\Button;
 
-use Sirius\Forms\Element;
-use Sirius\Forms\Element\Button;
+use Sirius\Input\Element;
+use Sirius\Input\Element\Button;
 
 class Reset extends Button
 {

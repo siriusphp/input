@@ -1,8 +1,8 @@
 <?php
 
-namespace Sirius\Forms\Element;
+namespace Sirius\Input\Element;
 
-use Sirius\Forms\Element\Factory as ElementFactory;
+use Sirius\Input\Element\Factory as ElementFactory;
 
 interface FactoryAwareInterface
 {

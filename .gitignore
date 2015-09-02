@@ -12,3 +12,4 @@ build/
 /composer.lock
 .idea/
 atlassian-ide-plugin.xml
+docs/couscous.phar

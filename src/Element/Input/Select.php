@@ -1,10 +1,10 @@
 <?php
-namespace Sirius\Forms\Element\Input;
+namespace Sirius\Input\Element\Input;
 
-use Sirius\Forms\Element\Input as BaseInput;
-use Sirius\Forms\Specs;
+use Sirius\Input\Element\Input as BaseInput;
+use Sirius\Input\Specs;
 use Sirius\Filtration\Filter\Callback;
-use Sirius\Forms\Form;
+use Sirius\Input\Form;
 
 class Select extends BaseInput
 {
@@ -80,8 +80,11 @@ class Select extends BaseInput
      */
     function filterValue($value, $valueIdentifier = null)
     {
-        $allowedValues = $this->getOptions();
-        if (is_array($allowedValues) && isset($allowedValues[ $value ])) {
+        if (!$value) {
+            return null;
+        }
+        $allowedValues = array_keys($this->getOptions());
+        if (is_array($allowedValues) && in_array($value, $allowedValues)) {
             return $value;
         }
         return null;

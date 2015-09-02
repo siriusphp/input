@@ -1,16 +1,16 @@
 <?php
-namespace Sirius\Forms;
+namespace Sirius\Input;
 
 use Sirius\Filtration\Filtrator;
 use Sirius\Filtration\FiltratorInterface;
-use Sirius\Forms\Element\AbstractElement;
-use Sirius\Forms\Element\Factory as ElementFactory;
-use Sirius\Forms\Traits\HasChildrenTrait;
-use Sirius\Forms\Traits\HasAttributesTrait;
-use Sirius\Forms\Traits\HasFiltersTrait;
-use Sirius\Forms\Util\Arr;
-use Sirius\Upload\Handler;
-use Sirius\Upload\HandlerAggregate;
+use Sirius\Input\Element\AbstractElement;
+use Sirius\Input\Element\Factory as ElementFactory;
+use Sirius\Input\Traits\HasChildrenTrait;
+use Sirius\Input\Traits\HasAttributesTrait;
+use Sirius\Input\Traits\HasFiltersTrait;
+use Sirius\Input\Util\Arr;
+use Sirius\Upload\Handler as UploadHandler;
+use Sirius\Upload\HandlerAggregate as UploadHandlerAggregate;
 use Sirius\Validation\Validator;
 use Sirius\Validation\ValidatorInterface;
 
@@ -98,7 +98,7 @@ class Form extends Specs
      * Initialize the form
      * This is the place to put your form's definition (properties, elements)
      *
-     * @return \Sirius\Forms\Form
+     * @return \Sirius\Input\Form
      */
     function init()
     {
@@ -134,7 +134,7 @@ class Form extends Specs
      *
      * @param bool $force force the execution of the preparation code even if already prepared
      * @throws \LogicException
-     * @return \Sirius\Forms\Form
+     * @return \Sirius\Input\Form
      */
     function prepare($force = false)
     {
@@ -226,12 +226,12 @@ class Form extends Specs
     /**
      * Retrieves the upload handlers aggregate object
      *
-     * @return HandlerAggregate
+     * @return UploadHandlerAggregate
      */
     function getUploadHandlers()
     {
         if (!$this->uploadHandlers) {
-            $this->uploadHandlers = new HandlerAggregate;
+            $this->uploadHandlers = new UploadHandlerAggregate;
         }
         return $this->uploadHandlers;
     }
@@ -239,13 +239,14 @@ class Form extends Specs
     /**
      * Sets a upload handler to be executed on files with a specific selector
      * @example
+     *      $form->setUploadHandler('resume', $resumeHandler);
      *      $form->setUploadHandler('pictures[*]', $pictureHandler);
      *
      * @param $selector
-     * @param Handler $handler
+     * @param UploadHandler $handler
      * @return $this
      */
-    function setUploadHandler($selector, Handler $handler) {
+    function setUploadHandler($selector, UploadHandler $handler) {
         $this->getUploadHandlers()->addHandler($selector, $handler);
         return $this;
     }
@@ -265,7 +266,7 @@ class Form extends Specs
 
         // set raw values
         $this->rawValues = $values;
-        $this->values = array();
+        $this->values = $values;
     }
 
     /**
@@ -278,7 +279,7 @@ class Form extends Specs
         $result = $this->getUploadHandlers()->process($this->values);
         $errors = array();
         foreach ($result as $path => $file) {
-            // remember!; $_FILES keys are prefixed with '__upload_'
+            // remember!; $_FILES keys are prefixed with a value
             $key = substr($path, strlen(self::UPLOAD_PREFIX));
             /* @var $file \Sirius\Upload\Result\File */
             if ($file->isValid()) {
@@ -302,22 +303,31 @@ class Form extends Specs
      * Returns whether the form's data is valid.
      * If filters the data, process the uploads and performs the validation
      *
+     * @param bool $skipDataProcessing skip filtration and upload handling
      * @return bool
      */
-    function isValid()
+    function isValid($skipDataProcessing = false)
     {
-        $this->values = $this->getFiltrator()->filter($this->rawValues);
+        if (!$skipDataProcessing) {
+            $this->values = $this->getFiltrator()->filter($this->rawValues);
+        }
 
         // validate form values
         $validator = $this->getValidator();
         $validator->validate($this->values);
 
-        $this->processUploads();
+        if (!$skipDataProcessing) {
+            $this->processUploads();
+        }
         return count($this->getValidator()->getMessages()) === 0;
     }
 
+    function getErrors() {
+        return $this->getValidator()->getMessages();
+    }
+
     function getValues() {
-        return empty($this->values) ? $$this->rawValues : array();
+        return empty($this->values) ? $this->rawValues : array();
     }
     
     function getValue($name) {

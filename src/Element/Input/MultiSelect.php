@@ -1,9 +1,9 @@
 <?php
-namespace Sirius\Forms\Element\Input;
+namespace Sirius\Input\Element\Input;
 
-use Sirius\Forms\Form;
-use Sirius\Forms\Specs;
-use Sirius\Forms\Element\Input\Select;
+use Sirius\Input\Form;
+use Sirius\Input\Specs;
+use Sirius\Input\Element\Input\Select;
 use Sirius\Filtration\Filter\Callback;
 
 class MultiSelect extends Select
@@ -29,10 +29,13 @@ class MultiSelect extends Select
      */
     function filterValue($value, $valueIdentifier = null)
     {
-        $allowedValues = $this->getOptions();
-        if (is_array($allowedValues) && isset($allowedValues[$value])) {
-            return $value;
+        if (!$value) {
+            return null;
         }
-        return null;
+        if (!is_array($value)) {
+            $value = (array) $value;
+        }
+        $allowedValues = array_keys($this->getOptions());
+        return array_intersect($value, $allowedValues);
     }
 }

@@ -1,14 +1,14 @@
 <?php
-namespace Sirius\Forms\Element;
+namespace Sirius\Input\Element;
 
-use Sirius\Forms\Traits\HasChildrenTrait;
-use Sirius\Forms\Traits\HasLabelTrait;
-use Sirius\Forms\Traits\HasHintTrait;
-use Sirius\Forms\Traits\HasFiltersTrait;
-use Sirius\Forms\Traits\HasValidationRulesTrait;
-use Sirius\Forms\Element\Factory as ElementFactory;
-use Sirius\Forms\Element\FactoryAwareInterface as ElementFactoryAwareInterface;
-use Sirius\Forms\Form;
+use Sirius\Input\Traits\HasChildrenTrait;
+use Sirius\Input\Traits\HasLabelTrait;
+use Sirius\Input\Traits\HasHintTrait;
+use Sirius\Input\Traits\HasFiltersTrait;
+use Sirius\Input\Traits\HasValidationRulesTrait;
+use Sirius\Input\Element\Factory as ElementFactory;
+use Sirius\Input\Element\FactoryAwareInterface as ElementFactoryAwareInterface;
+use Sirius\Input\Form;
 
 class Collection extends Input implements ElementFactoryAwareInterface
 {

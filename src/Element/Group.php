@@ -1,5 +1,5 @@
 <?php
-namespace Sirius\Forms\Element;
+namespace Sirius\Input\Element;
 
 /**
  * A group is a container for other elements.

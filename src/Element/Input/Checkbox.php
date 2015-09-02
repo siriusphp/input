@@ -1,8 +1,8 @@
 <?php
-namespace Sirius\Forms\Element\Input;
+namespace Sirius\Input\Element\Input;
 
-use Sirius\Forms\Element\Input as BaseInput;
-use Sirius\Forms\Specs;
+use Sirius\Input\Element\Input as BaseInput;
+use Sirius\Input\Specs;
 
 class Checkbox extends BaseInput
 {

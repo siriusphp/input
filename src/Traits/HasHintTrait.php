@@ -1,8 +1,8 @@
 <?php
-namespace Sirius\Forms\Traits;
+namespace Sirius\Input\Traits;
 
-use Sirius\Forms\Specs;
-use Sirius\Forms\AttributesContainer;
+use Sirius\Input\Specs;
+use Sirius\Input\AttributesContainer;
 
 trait HasHintTrait
 {

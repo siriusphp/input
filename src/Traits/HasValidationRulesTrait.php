@@ -1,8 +1,8 @@
 <?php
-namespace Sirius\Forms\Traits;
+namespace Sirius\Input\Traits;
 
-use Sirius\Forms\Element\Input;
-use Sirius\Forms\Form;
+use Sirius\Input\Element\Input;
+use Sirius\Input\Form;
 
 trait HasValidationRulesTrait
 {

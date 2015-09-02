@@ -1,15 +1,15 @@
 <?php
-namespace Sirius\Forms\Element\Input;
+namespace Sirius\Input\Element\Input;
 
-use Sirius\Forms\Element\Input as BaseInput;
-use Sirius\Forms\Traits\HasUploadTrait;
-use Sirius\Forms\Form;
+use Sirius\Input\Element\Input as BaseInput;
+use Sirius\Input\Traits\HasUploadTrait;
+use Sirius\Input\Form;
 use Sirius\Upload\Handler;
 
 /**
  * File form element
  *
- * @package Sirius\Forms\Element\Input
+ * @package Sirius\Input\Element\Input
  */
 class File extends BaseInput
 {

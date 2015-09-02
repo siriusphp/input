@@ -1,5 +1,5 @@
 <?php
-namespace Sirius\Forms;
+namespace Sirius\Input;
 
 
 class Specs extends \ArrayObject

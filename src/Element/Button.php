@@ -1,7 +1,7 @@
 <?php
-namespace Sirius\Forms\Element;
+namespace Sirius\Input\Element;
 
-use Sirius\Forms\Element;
+use Sirius\Input\Element;
 
 class Button extends Element
 {

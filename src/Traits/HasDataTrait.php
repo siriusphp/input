@@ -1,8 +1,8 @@
 <?php
-namespace Sirius\Forms\Traits;
+namespace Sirius\Input\Traits;
 
-use Sirius\Forms\Specs;
-use Sirius\Forms\DataContainer;
+use Sirius\Input\Specs;
+use Sirius\Input\DataContainer;
 
 trait HasDataTrait
 {
@@ -17,7 +17,7 @@ trait HasDataTrait
     /**
      * Retrieve an attribute from the label
      *
-     * @param string $attr
+     * @param string $key
      * @return mixed
      */
     function getData($key = null)
@@ -32,7 +32,7 @@ trait HasDataTrait
     /**
      * Set/Unset a label attribute
      *
-     * @param string $attr
+     * @param string $keyOrArray
      * @param mixed|null $value
      * @return self
      */

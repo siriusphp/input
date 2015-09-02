@@ -1,9 +1,9 @@
 <?php
 
-namespace Sirius\Forms\Traits;
+namespace Sirius\Input\Traits;
 
-use Sirius\Forms\Element\Input;
-use Sirius\Forms\Element;
+use Sirius\Input\Element\Input;
+use Sirius\Input\Element;
 
 trait HasChildrenTrait
 {
@@ -38,7 +38,7 @@ trait HasChildrenTrait
     /**
      * Add an element to the children list
      *
-     * @param string|\Sirius\Forms\Element $nameOrElement
+     * @param string|\Sirius\Input\Element $nameOrElement
      * @param array $specs
      * @throws \RuntimeException
      * @return $this
@@ -66,7 +66,7 @@ trait HasChildrenTrait
      * Retrieve an element by name
      *
      * @param string $name
-     * @return \Sirius\Forms\Element
+     * @return \Sirius\Input\Element
      */
     function getElement($name)
     {

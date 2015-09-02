@@ -1,22 +1,22 @@
 <?php
-namespace Sirius\Forms\Element;
+namespace Sirius\Input\Element;
 
-use Sirius\Forms\Element\Input;
-use Sirius\Forms\Element;
+use Sirius\Input\Element\Input;
+use Sirius\Input\Element;
 
 class Factory
 {
 
     protected $types = array(
-        'text' => '\Sirius\Forms\Element\Input\Text',
-        'file' => '\Sirius\Forms\Element\Input\File',
-        'textarea' => '\Sirius\Forms\Element\Input\Textarea',
-        'select' => '\Sirius\Forms\Element\Input\Select',
-        'multiselect' => '\Sirius\Forms\Element\Input\MultiSelect',
-        'checkbox' => '\Sirius\Forms\Element\Input\Checkbox',
-        'button' => '\Sirius\Forms\Element\Button',
-        'submit' => '\Sirius\Forms\Element\Button\Submit',
-        'reset' => '\Sirius\Forms\Element\Button\Reset'
+        'text' => '\Sirius\Input\Element\Input\Text',
+        'file' => '\Sirius\Input\Element\Input\File',
+        'textarea' => '\Sirius\Input\Element\Input\Textarea',
+        'select' => '\Sirius\Input\Element\Input\Select',
+        'multiselect' => '\Sirius\Input\Element\Input\MultiSelect',
+        'checkbox' => '\Sirius\Input\Element\Input\Checkbox',
+        'button' => '\Sirius\Input\Element\Button',
+        'submit' => '\Sirius\Input\Element\Button\Submit',
+        'reset' => '\Sirius\Input\Element\Button\Reset'
     );
 
     function registerElementType($type, $classOrClosure)
@@ -31,9 +31,9 @@ class Factory
         if (!class_exists($classOrClosure)) {
             throw new \RuntimeException(sprintf('Class %s does not exist', $classOrClosure));
         }
-        if (!is_subclass_of($classOrClosure, '\Sirius\Forms\Element')) {
+        if (!is_subclass_of($classOrClosure, '\Sirius\Input\Element')) {
             throw new \RuntimeException(
-                sprintf('Class %s must extend the \Sirius\Forms\Element class', $classOrClosure)
+                sprintf('Class %s must extend the \Sirius\Input\Element class', $classOrClosure)
             );
         }
         $this->types[$type] = $classOrClosure;
@@ -45,7 +45,7 @@ class Factory
      *
      * @param $name
      * @param array $options
-     * @return \Sirius\Forms\Element
+     * @return \Sirius\Input\Element
      * @throws \RuntimeException
      */
     function createFromOptions($name, $options = array())
@@ -58,7 +58,7 @@ class Factory
         if (!isset($this->types[$type])) {
             throw new \RuntimeException('The ElementFactory does not have a default way to create elements');
         }
-        /* @var $element \Sirius\Forms\Element */
+        /* @var $element \Sirius\Input\Element */
         if ($this->types[$type] instanceof \Closure) {
             $element = call_user_func($this->types[$type], $name, $options);
         } else {
