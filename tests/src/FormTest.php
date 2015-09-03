@@ -48,7 +48,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
         ));
         $this->form->addElement('picture', array(
             Element::TYPE => 'file',
-            Element::UPLOAD_CONTAINER => '/var/www',
+            Element::UPLOAD_CONTAINER => __DIR__,
             Element::UPLOAD_RULES => array(
                 'image'
             )
