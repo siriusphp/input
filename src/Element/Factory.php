@@ -16,7 +16,10 @@ class Factory
         'checkbox' => '\Sirius\Input\Element\Input\Checkbox',
         'button' => '\Sirius\Input\Element\Button',
         'submit' => '\Sirius\Input\Element\Button\Submit',
-        'reset' => '\Sirius\Input\Element\Button\Reset'
+        'reset' => '\Sirius\Input\Element\Button\Reset',
+        'group' => '\Sirius\Input\Element\Group',
+        'collection' => '\Sirius\Input\Element\Collection',
+        'fieldset' => '\Sirius\Input\Element\Fieldset',
     );
 
     function registerElementType($type, $classOrClosure)
@@ -55,9 +58,6 @@ class Factory
             $type = $options[Input::TYPE];
             unset($options[Input::TYPE]);
         }
-        if (!isset($this->types[$type])) {
-            throw new \RuntimeException('The ElementFactory does not have a default way to create elements');
-        }
         /* @var $element \Sirius\Input\Element */
         if ($this->types[$type] instanceof \Closure) {
             $element = call_user_func($this->types[$type], $name, $options);
@@ -67,7 +67,7 @@ class Factory
         }
 
         if (!$element instanceof Element) {
-            throw new \RuntimeException('Cannot create a valid form element based on the data provided');
+            throw new \RuntimeException('Cannot create a valid input element based on the data provided');
         }
 
         // if the element is a fieldset/collection type, inject the element factory

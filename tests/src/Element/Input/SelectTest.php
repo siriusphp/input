@@ -1,7 +1,7 @@
 <?php
-namespace Sirius\Forms\Element\Input;
+namespace Sirius\Input\Element\Input;
 
-use Sirius\Forms\Element\Input;
+use Sirius\Input\Element\Input;
 use Mockery as m;
 
 class SelectTest extends \PHPUnit_Framework_TestCase
@@ -15,7 +15,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
 
     /**
      *
-     * @var \Sirius\Forms\Form
+     * @var \Sirius\Input\InputFilter
      */
     protected $form;
 
@@ -28,7 +28,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     function setUp()
     {
         $this->filtrator = m::mock('\Sirius\Filtration\Filtrator');
-        $this->form = new \Sirius\Forms\Form(null, null, $this->filtrator);
+        $this->form = new \Sirius\Input\InputFilter(null, null, $this->filtrator);
         $this->input = new Select('select');
         $this->input->setOptions(array(
             'a' => 'A',

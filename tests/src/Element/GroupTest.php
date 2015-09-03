@@ -1,8 +1,8 @@
 <?php
 
-namespace Sirius\Forms\Element;
+namespace Sirius\Input\Element;
 
-use Sirius\Forms\Element\Input;
+use Sirius\Input\Element\Input;
 
 class GroupTest extends \PHPUnit_Framework_TestCase
 {

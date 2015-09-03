@@ -1,8 +1,8 @@
 <?php
 
-namespace Sirius\Forms\Element\Input;
+namespace Sirius\Input\Element\Input;
 
-use Sirius\Forms\Element\Input;
+use Sirius\Input\Element\Input;
 
 class CheckboxTest extends \PHPUnit_Framework_TestCase
 {

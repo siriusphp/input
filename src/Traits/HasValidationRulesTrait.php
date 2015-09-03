@@ -1,8 +1,8 @@
 <?php
 namespace Sirius\Input\Traits;
 
-use Sirius\Input\Element\Input;
-use Sirius\Input\Form;
+use Sirius\Input\Specs;
+use Sirius\Input\InputFilter;
 
 trait HasValidationRulesTrait
 {
@@ -14,7 +14,7 @@ trait HasValidationRulesTrait
      */
     function getValidationRules()
     {
-        return isset($this[Input::VALIDATION_RULES]) ? $this[Input::VALIDATION_RULES] : array();
+        return isset($this[Specs::VALIDATION_RULES]) ? $this[Specs::VALIDATION_RULES] : array();
     }
 
     /**
@@ -26,24 +26,24 @@ trait HasValidationRulesTrait
      */
     function setValidationRules($rules = array())
     {
-        $this[Input::VALIDATION_RULES] = $rules;
+        $this[Specs::VALIDATION_RULES] = $rules;
         return $this;
     }
 
     /**
-     * Adds the element's validation rules to the form's validator object
+     * Adds the element's validation rules to the validator object
      *
-     * @param Form $form            
+     * @param InputFilter $input
      *
      * @throws \InvalidArgumentException
      */
-    protected function prepareFormValidation(Form $form)
+    protected function prepareValidator(InputFilter $input)
     {
         $validationRules = $this->getValidationRules();
         if (! $validationRules || ! is_array($validationRules)) {
             return;
         }
-        $validator = $form->getValidator();
+        $validator = $input->getValidator();
         foreach ($validationRules as $rule) {
             $params = is_array($rule) ? $rule : array(
                 $rule

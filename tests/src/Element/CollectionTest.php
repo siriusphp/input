@@ -1,6 +1,7 @@
 <?php
-namespace Sirius\Forms\Element;
+namespace Sirius\Input\Element;
 
+use Sirius\Input\Specs;
 use Mockery as m;
 
 class CollectionTest extends \PHPUnit_Framework_TestCase
@@ -10,11 +11,11 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
     {
         $this->validator = m::mock('\Sirius\Validation\Validator');
         $this->filtrator = m::mock('\Sirius\Filtration\Filtrator');
-        $this->form = new \Sirius\Forms\Form(null, $this->validator, $this->filtrator);
+        $this->form = new \Sirius\Input\InputFilter(null, $this->validator, $this->filtrator);
 
-        $this->input = new Collection('invoice_lines');
-        $this->input->setElementFactory($this->form->getElementFactory());
-    }
+        $this->form->addElement('invoice_lines', array(Specs::TYPE => 'collection'));
+        $this->input = $this->form->getElement('invoice_lines');
+}
 
     function testAddingElements()
     {

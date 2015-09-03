@@ -1,9 +1,7 @@
 <?php
 namespace Sirius\Input\Element\Input;
 
-use Sirius\Input\Form;
 use Sirius\Input\Specs;
-use Sirius\Input\Element\Input\Select;
 use Sirius\Filtration\Filter\Callback;
 
 class MultiSelect extends Select

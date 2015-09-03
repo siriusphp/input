@@ -5,7 +5,7 @@ namespace Sirius\Input;
 class Specs extends \ArrayObject
 {
     /**
-     * Attributes for the form, fieldset, input elements
+     * Attributes for the input and input elements
      */
     const DATA = 'data';
     
@@ -25,8 +25,9 @@ class Specs extends \ArrayObject
     
     const HINT_ATTRIBUTES = 'hint_attributes';
     
+    const VALIDATION = 'validation_rules';
     const VALIDATION_RULES = 'validation_rules';
-    
+
     const FILTERS = 'filters';
     
     const WIDGET = 'widget';

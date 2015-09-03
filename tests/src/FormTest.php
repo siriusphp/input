@@ -1,5 +1,5 @@
 <?php
-namespace Sirius\Forms;
+namespace Sirius\Input;
 
 use Mockery as m;
 
@@ -8,13 +8,13 @@ class FormTest extends \PHPUnit_Framework_TestCase
 
     /**
      *
-     * @var Form
+     * @var InputFilter
      */
     protected $form;
 
     function setUp()
     {
-        $this->form = new Form();
+        $this->form = new InputFilter();
     }
 
     function testExceptionThrownOnInvalidElements()
@@ -61,7 +61,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
         
         $uploadHandlers = $this->form->getUploadHandlers();
         $handlers = $uploadHandlers->getIterator();
-        $this->assertTrue(array_key_exists(Form::UPLOAD_PREFIX . 'picture', $handlers));
+        $this->assertTrue(array_key_exists($this->form->getUploadPrefix() . 'picture', $handlers));
     }
 
     function testPopulate()
@@ -120,14 +120,53 @@ class FormTest extends \PHPUnit_Framework_TestCase
         // first we need to prepare the form, then add the handler
         // otherwise the handlers will be cleared
         $this->form->prepare();
-        $this->form->getUploadHandlers()->addHandler(Form::UPLOAD_PREFIX . 'picture', $mockedUploadHandler);
+        $this->form->getUploadHandlers()->addHandler($this->form->getUploadPrefix() . 'picture', $mockedUploadHandler);
         
         $this->form->populate(array(
-            Form::UPLOAD_PREFIX . 'picture' => $uploadedFile
+            $this->form->getUploadPrefix() . 'picture' => $uploadedFile
         ));
         $this->form->isValid();
         
         $this->assertEquals($file['name'], $this->form->getValue('picture'));
+    }
+
+    function testFailedUpload()
+    {
+        /**
+         * The `picture` file element will upload the file as `__upload_picture` and, if the upload is successful
+         * the result will populate the `picture` value of the field
+         */
+        $uploadedFile = array(
+            'name' => 'pic.png', // PNGs are not allowed
+            'tmp_name' => '/tmp/php1234.tmp'
+        );
+
+        // the result of the upload; it has error messages
+        $file = $uploadedFile;
+        $file['original_name'] = $file['name'];
+        $file['messages'] = array('Invalid file');
+
+        $mockedUploadContainer = m::mock('\Sirius\Upload\Container\Local');
+        $mockedUploadContainer->shouldReceive('isWritable')->andReturn(true);
+        $mockedUploadContainer->shouldReceive('delete')->andReturn(true);
+
+        /* @var $mockedUploadHandler \Sirius\Upload\Handler */
+        $mockedUploadHandler = m::mock('\Sirius\Upload\Handler');
+        $mockedUploadHandler->shouldReceive('process')->andReturn(new \Sirius\Upload\Result\File($file, $mockedUploadContainer));
+
+        // first we need to prepare the form, then add the handler
+        // otherwise the handlers will be cleared
+        $this->form->prepare();
+        $this->form->getUploadHandlers()->addHandler($this->form->getUploadPrefix() . 'picture', $mockedUploadHandler);
+
+        $this->form->populate(array(
+            $this->form->getUploadPrefix() . 'picture' => $uploadedFile
+        ));
+        $this->form->isValid();
+
+        $this->assertEquals(null, $this->form->getValue('picture'));
+        $errors = $this->form->getErrors();
+        $this->assertNotEquals(null, $errors['picture']);
     }
 
     function testGetChildrenOrder()
@@ -148,5 +187,35 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('name', $children[0]);
         $this->assertSame('email', $children[1]);
         $this->assertSame('email_confirmation', $children[2]);
+    }
+
+    function testFormFilter() {
+        $this->form->addElement('email', array(
+            Element::TYPE => 'text',
+            Element::POSITION => 8
+        ));
+        $this->form->addElement('email_confirmation', array(
+            Element::TYPE => 'text',
+            Element::POSITION => 8
+        ));
+        // the filter will be set at
+        $this->form->setFilters(array(
+            array('stringtrim', array(), true, false)
+        ));
+
+        $rawValues = array(
+            'email' => '  abc',
+            'email_confirmation' => 'abc   '
+        );
+        $this->form->populate($rawValues);
+
+        $this->form->isValid();
+
+        $values = $this->form->getValues();
+        $this->assertEquals($rawValues, $this->form->getRawValues());
+        $this->assertEquals(array(
+            'email' => 'abc',
+            'email_confirmation' => 'abc'
+        ), $values);
     }
 }

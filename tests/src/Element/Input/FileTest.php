@@ -1,8 +1,8 @@
 <?php
 
-namespace Sirius\Forms\Element\Input;
+namespace Sirius\Input\Element\Input;
 
-use Sirius\Forms\Element\Input;
+use Sirius\Input\Element\Input;
 use Sirius\Upload\Handler;
 use Mockery as m;
 
@@ -10,7 +10,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var \Sirius\Forms\Form
+     * @var \Sirius\Input\InputFilter
      */
     protected $form;
 
@@ -21,7 +21,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     function setUp()
     {
-        $this->form = m::mock('\Sirius\Forms\Form');
+        $this->form = m::mock('\Sirius\Input\Input');
         $this->input = new File('picture');
         $this->input->setUploadContainer('/var/www');
         $this->input->setUploadOptions(array(

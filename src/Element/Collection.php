@@ -8,7 +8,7 @@ use Sirius\Input\Traits\HasFiltersTrait;
 use Sirius\Input\Traits\HasValidationRulesTrait;
 use Sirius\Input\Element\Factory as ElementFactory;
 use Sirius\Input\Element\FactoryAwareInterface as ElementFactoryAwareInterface;
-use Sirius\Input\Form;
+use Sirius\Input\InputFilter;
 
 class Collection extends Input implements ElementFactoryAwareInterface
 {
@@ -20,14 +20,14 @@ class Collection extends Input implements ElementFactoryAwareInterface
 
     /**
      *
-     * @var \Sirius\Form\ElementFactory
+     * @var ElementFactory
      */
     protected $elementFactory;
 
     protected function getDefaultSpecs()
     {
         return $defaultSpecs = array(
-            Input::WIDGET => 'fieldset'
+            InputFilter::WIDGET => 'fieldset'
         );
     }
 
@@ -53,11 +53,11 @@ class Collection extends Input implements ElementFactoryAwareInterface
         return $this;
     }
 
-    function prepareForm(Form $form)
+    function prepareInputFilter(InputFilter $inputFilter)
     {
-        parent::prepareForm($form);
+        parent::prepareInputFilter($inputFilter);
         foreach ($this->getElements() as $element) {
-            $element->prepareForm($form);
+            $element->prepareInputFilter($inputFilter);
         }
     }
 }

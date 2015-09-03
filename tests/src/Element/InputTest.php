@@ -1,14 +1,14 @@
 <?php
-namespace Sirius\Forms\Element;
+namespace Sirius\Input\Element;
 
 use Mockery as m;
-use Sirius\Forms\Form;
+use Sirius\Input\InputFilter;
 
 class InputTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var Input
+     * @var InputFilter
      */
     protected $element;
 
@@ -16,7 +16,7 @@ class InputTest extends \PHPUnit_Framework_TestCase
     {
         $this->validator = m::mock('\Sirius\Validation\Validator');
         $this->filtrator = m::mock('\Sirius\Filtration\Filtrator');
-        $this->form = new Form(null, $this->validator, $this->filtrator);
+        $this->form = new InputFilter(null, $this->validator, $this->filtrator);
         $this->element = new Input('username');
     }
 
@@ -53,10 +53,14 @@ class InputTest extends \PHPUnit_Framework_TestCase
     {
         // add CSS class
         $this->assertNull($this->element->getLabelAttribute('class'));
+        $this->element->removeLabelClass('missing');
+        $this->assertNull($this->element->getLabelAttribute('class'));
+
         $this->element->addLabelClass('required');
         $this->assertTrue($this->element->hasLabelClass('required'));
         $this->element->removeLabelClass('required');
         $this->assertEmpty($this->element->getLabelAttribute('class'));
+
         $this->element->toggleLabelClass('required');
         $this->assertTrue($this->element->hasLabelClass('required'));
     }
@@ -102,16 +106,16 @@ class InputTest extends \PHPUnit_Framework_TestCase
         $this->form->addElement(
             'email',
             array(
-                Input::TYPE => 'text',
-                Input::LABEL => 'Email',
-                Input::FILTERS => array(
+                InputFilter::TYPE => 'text',
+                InputFilter::LABEL => 'Email',
+                InputFilter::FILTERS => array(
                     'stringtrim',
                     array(
                         'truncate',
                         'limit=100'
                     )
                 ),
-                Input::VALIDATION_RULES => array(
+                InputFilter::VALIDATION_RULES => array(
                     'required',
                     'email',
                     array(

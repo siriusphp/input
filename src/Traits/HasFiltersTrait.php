@@ -2,8 +2,8 @@
 
 namespace Sirius\Input\Traits;
 
-use Sirius\Input\Element\Input;
-use Sirius\Input\Form;
+use Sirius\Input\Specs;
+use Sirius\Input\InputFilter;
 
 trait HasFiltersTrait {
 
@@ -13,7 +13,7 @@ trait HasFiltersTrait {
      * @return array
      */
     function getFilters() {
-        return isset($this[Input::FILTERS]) ? $this[Input::FILTERS] : array();
+        return isset($this[Specs::FILTERS]) ? $this[Specs::FILTERS] : array();
     }
 
     /**
@@ -24,24 +24,24 @@ trait HasFiltersTrait {
      * @return $this
      */
     function setFilters($filters = array()) {
-        $this[Input::FILTERS] = $filters;
+        $this[Specs::FILTERS] = $filters;
         return $this;
     }
 
     /**
-     * Attached the element's data filters to the form's filtrator object
+     * Attached the element's data filters to the filtrator object
      *
-     * @param Form $form
+     * @param InputFilter $input
      *
      * @throws \InvalidArgumentException
      */
-    protected function prepareFormFiltration(Form $form)
+    protected function prepareFiltrator(InputFilter $input)
     {
         $filters = $this->getFilters();
         if (!$filters || !is_array($filters)) {
             return;
         }
-        $filtrator = $form->getFiltrator();
+        $filtrator = $input->getFiltrator();
         foreach ($filters as $filter) {
             $params = is_array($filter) ? $filter : array($filter);
             if (isset($params[0])) {

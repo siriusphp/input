@@ -2,7 +2,6 @@
 
 namespace Sirius\Input\Traits;
 
-use Sirius\Input\Element\Input;
 use Sirius\Input\Element;
 
 trait HasChildrenTrait
@@ -22,8 +21,8 @@ trait HasChildrenTrait
     protected $elementsIndex = PHP_INT_MAX;
 
     /**
-     * Generates the actual name that will be used to identify the element in the form
-     * For forms the name of the child is the same as the name provided,
+     * Generates the actual name that will be used to identify the element in the input object
+     * For input objects the name of the child is the same as the name provided,
      * For field-sets the name of the child is prefixed/name-spaced with the name of the field-set
      * For collections the name of the child is prefixed with the name of the collection and an index placeholder
      *
@@ -79,7 +78,7 @@ trait HasChildrenTrait
      *
      * @param string $name
      * @throws \RuntimeException
-     * @return Form
+     * @return $this
      */
     function removeElement($name)
     {

@@ -14,7 +14,7 @@ use Sirius\Upload\HandlerAggregate as UploadHandlerAggregate;
 use Sirius\Validation\Validator;
 use Sirius\Validation\ValidatorInterface;
 
-class Form extends Specs
+class InputFilter extends Specs
 {
     use HasChildrenTrait;
     use HasAttributesTrait;
@@ -28,7 +28,7 @@ class Form extends Specs
      * This is done to prevent collisions with hidden fields that
      * might hold values from AJAX uploads.
      */
-    const UPLOAD_PREFIX = '__upload_';
+    protected $uploadPrefix = '__upload_';
 
     /**
      * @var boolean
@@ -96,7 +96,7 @@ class Form extends Specs
 
     /**
      * Initialize the form
-     * This is the place to put your form's definition (properties, elements)
+     * This is the place to put your definition (properties, elements)
      *
      * @return \Sirius\Input\Form
      */
@@ -128,9 +128,18 @@ class Form extends Specs
     {
         return $this->elementFactory;
     }
+
+    /**
+     * Get the prefix for elements that are of type upload
+     *
+     * @return string
+     */
+    function getUploadPrefix() {
+        return $this->uploadPrefix;
+    }
     
     /**
-     * Prepare the form's validator, filtrator and upload handlers objects
+     * Prepare the validator, filtrator and upload handlers objects
      *
      * @param bool $force force the execution of the preparation code even if already prepared
      * @throws \LogicException
@@ -143,7 +152,7 @@ class Form extends Specs
         }
         $this->init();
         if (!$this->isInitialized()) {
-            throw new \LogicException('Form was not properly initialized');
+            throw new \LogicException('Input was not properly initialized');
         }
 
         // remove validation rules
@@ -168,15 +177,18 @@ class Form extends Specs
         $this->uploadHandlers = null;
 
         foreach ($this->getElements() as $element) {
-            if (method_exists($element, 'prepareForm')) {
-                $element->prepareForm($this);
+            if (method_exists($element, 'prepareInputFilter')) {
+                $element->prepareInputFilter($this);
             }
         }
         $this->prepareFiltration();
         $this->isPrepared = true;
         return $this;
     }
-    
+
+    /**
+     * Populates the filtrator object with the filtering rules
+     */
     protected function prepareFiltration()
     {
         $filters = $this->getFilters();
@@ -193,7 +205,7 @@ class Form extends Specs
     }
 
     /**
-     * Return whether the form is prepared or not
+     * Return whether the input is prepared or not
      *
      * @return boolean
      */
@@ -204,7 +216,7 @@ class Form extends Specs
 
 
     /**
-     * Returns the form's validator object
+     * Returns the input's validator object
      *
      * @return \Sirius\Validation\Validator
      */
@@ -214,7 +226,7 @@ class Form extends Specs
     }
 
     /**
-     * Returns the form's filtrator object
+     * Returns the filtrator object
      *
      * @return \Sirius\Filtration\Filtrator
      */
@@ -261,12 +273,11 @@ class Form extends Specs
     {
         $this->prepare();
         if (!$this->isPrepared()) {
-            throw new \LogicException('Form was not prepared and cannot receive data');
+            throw new \LogicException('Input was not prepared and cannot receive data');
         }
 
         // set raw values
         $this->rawValues = $values;
-        $this->values = $values;
     }
 
     /**
@@ -280,7 +291,7 @@ class Form extends Specs
         $errors = array();
         foreach ($result as $path => $file) {
             // remember!; $_FILES keys are prefixed with a value
-            $key = substr($path, strlen(self::UPLOAD_PREFIX));
+            $key = substr($path, strlen($this->getUploadPrefix()));
             /* @var $file \Sirius\Upload\Result\File */
             if ($file->isValid()) {
                 $file->confirm();
@@ -300,7 +311,7 @@ class Form extends Specs
 
 
     /**
-     * Returns whether the form's data is valid.
+     * Returns whether the data is valid.
      * If filters the data, process the uploads and performs the validation
      *
      * @param bool $skipDataProcessing skip filtration and upload handling
@@ -322,21 +333,44 @@ class Form extends Specs
         return count($this->getValidator()->getMessages()) === 0;
     }
 
+    /**
+     * Get the errors from the validator object
+     *
+     * @return array
+     */
     function getErrors() {
         return $this->getValidator()->getMessages();
     }
 
+    /**
+     * @return array
+     */
     function getValues() {
-        return empty($this->values) ? $this->rawValues : array();
+        return empty($this->values) ? $this->rawValues : $this->values;
     }
-    
+
+    /**
+     * @param $name
+     *
+     * @return mixed
+     */
     function getValue($name) {
         return empty($this->values) ? $this->getRawValue($name) : Arr::getByPath($this->values, $name);
     }
 
+    /**
+     * @param $name
+     *
+     * @return mixed
+     */
     function getRawValue($name) {
         return Arr::getByPath($this->rawValues, $name);
     }
-    
-    
+
+    /**
+     * @return array
+     */
+    function getRawValues() {
+        return $this->rawValues;
+    }
 }

@@ -3,38 +3,42 @@ namespace Sirius\Input\Element\Input;
 
 use Sirius\Input\Element\Input as BaseInput;
 use Sirius\Input\Traits\HasUploadTrait;
-use Sirius\Input\Form;
+use Sirius\Input\InputFilter;
 use Sirius\Upload\Handler;
 
 /**
- * File form element
- *
- * @package Sirius\Input\Element\Input
+ * File element
  */
 class File extends BaseInput
 {
 
     use HasUploadTrait;
-
     protected function getDefaultSpecs()
     {
+
         return array(
             BaseInput::WIDGET => 'file'
         );
     }
 
     /**
-     * Attaches the upload handlers to the form
+     * Attaches the upload handlers to the input object
      *
-     * @param Form $form
+     * @param InputFilter $inputFilter
      */
-    protected function prepareFormUploadHandling(Form $form)
+    protected function prepareUploadHandlers(InputFilter $inputFilter)
     {
+        $uploadValidator = new \Sirius\Validation\ValueValidator(
+            $inputFilter->getValidator()->getRuleFactory(),
+            $inputFilter->getValidator()->getErroMessagePrototype(),
+            $this->getLabel()
+        );
+
         // create the upload handler
         $uploadHandler = new Handler(
             $this->getUploadContainer(),
-            $form->getValidator()->getErroMessagePrototype(),
-            $this->getUploadOptions()
+            $this->getUploadOptions(),
+            $uploadValidator
         );
         if (is_array($this->getUploadRules())) {
             foreach ($this->getUploadRules() as $rule) {
@@ -48,7 +52,7 @@ class File extends BaseInput
                 $uploadHandler->addRule($name, $options, $message, $label);
             }
         }
-        $form->setUploadHandler(Form::UPLOAD_PREFIX . $this->getName(), $uploadHandler);
+        $inputFilter->setUploadHandler($inputFilter->getUploadPrefix() . $this->getName(), $uploadHandler);
     }
 
 }

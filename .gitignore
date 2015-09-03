@@ -13,3 +13,4 @@ build/
 .idea/
 atlassian-ide-plugin.xml
 docs/couscous.phar
+docs/.couscous/

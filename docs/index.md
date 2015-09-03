@@ -19,7 +19,7 @@ It depends on:
 ##Elevator pitch
 
 ```php
-$form = new \Sirius\Input\Input;
+$form = new \Sirius\Input\Input();
 
 $form->add('name', [
 	'type' => 'text',
@@ -50,3 +50,11 @@ if ($form->isValid()) {
 	$view->set('errors', $form->getErrors());
 }
 ```
+
+The `Sirius\Input` library doesn't render the forms for 3 reasons:
+
+1. the library can be used for handling data coming from APIs. In this case a more appropriate "render target" would be the API documentation
+2. different frameworks implement different ways to render things. Think about how to handle CSS/JS dependencies.
+3. Single Responsibility Principle
+
+But because rendering forms is such a big part in any project we creates [`Sirius\FormsRenderer`](http://www.sirius.ro/php/sirius/formsrenderer/) as a starting base for such task.

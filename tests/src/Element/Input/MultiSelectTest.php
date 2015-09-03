@@ -1,8 +1,8 @@
 <?php
 
-namespace Sirius\Forms\Element\Input;
+namespace Sirius\Input\Element\Input;
 
-use Sirius\Forms\Element\Input;
+use Sirius\Input\Element\Input;
 use Mockery as m;
 
 class MultiSelectTest extends \PHPUnit_Framework_TestCase
@@ -14,7 +14,7 @@ class MultiSelectTest extends \PHPUnit_Framework_TestCase
     protected $filtrator;
 
     /**
-     * @var \Sirius\Forms\Form
+     * @var \Sirius\Input\InputFilter
      */
     protected $form;
 
@@ -26,7 +26,7 @@ class MultiSelectTest extends \PHPUnit_Framework_TestCase
     function setUp()
     {
         $this->filtrator = m::mock('\Sirius\Filtration\Filtrator');
-        $this->form = new \Sirius\Forms\Form(null, null, $this->filtrator);
+        $this->form = new \Sirius\Input\InputFilter(null, null, $this->filtrator);
         $this->input = new MultiSelect('multiselect');
         $this->input->setOptions(array(
             'a' => 'A',
@@ -62,7 +62,7 @@ class MultiSelectTest extends \PHPUnit_Framework_TestCase
     }
 
     function testFilterValue() {
-        $this->assertEquals('a', $this->input->filterValue('a'));
-        $this->assertEquals(null, $this->input->filterValue('c'));
+        $this->assertEquals(array('a'), $this->input->filterValue('a'));
+        $this->assertEquals(array(), $this->input->filterValue('c'));
     }
 }

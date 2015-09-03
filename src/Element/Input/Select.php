@@ -4,7 +4,7 @@ namespace Sirius\Input\Element\Input;
 use Sirius\Input\Element\Input as BaseInput;
 use Sirius\Input\Specs;
 use Sirius\Filtration\Filter\Callback;
-use Sirius\Input\Form;
+use Sirius\Input\InputFilter;
 
 class Select extends BaseInput
 {
@@ -57,10 +57,10 @@ class Select extends BaseInput
         return isset($this[Specs::FIRST_OPTION]) ? $this[Specs::FIRST_OPTION] : null;
     }
 
-    protected function prepareFormFiltration(Form $form)
+    protected function prepareFiltrator(InputFilter $input)
     {
-        parent::prepareFormFiltration($form);
-        $filtrator = $form->getFiltrator();
+        parent::prepareFiltrator($input);
+        $filtrator = $input->getFiltrator();
         $filtrator->add(
             $this->getName(),
             'callback',

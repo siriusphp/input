@@ -8,10 +8,10 @@ use Sirius\Input\Traits\HasFiltersTrait;
 use Sirius\Input\Traits\HasValidationRulesTrait;
 use Sirius\Input\Element\Factory as ElementFactory;
 use Sirius\Input\Element\FactoryAwareInterface as ElementFactoryAwareInterface;
-use Sirius\Input\Form;
+use Sirius\Input\InputFilter;
 
 /**
- * A fielset is a special kind of form element that has a namespace
+ * A fielset is a special kind of input element that has a namespace
  * If a fielset contains an address its name will be `address` and will contain
  * children like `street_name`, `city`, `zip_code` etc.
  * Children will be rendered as `address[street_name]`, `address[city]` etc
@@ -33,7 +33,7 @@ class Fieldset extends Input implements ElementFactoryAwareInterface
     protected function getDefaultSpecs()
     {
         return $defaultSpecs = array(
-            Input::WIDGET => 'fieldset'
+            InputFilter::WIDGET => 'fieldset'
         );
     }
 
@@ -55,7 +55,7 @@ class Fieldset extends Input implements ElementFactoryAwareInterface
 
     /**
      * Sets the element factory object.
-     * This is passed from the form to other objects that may have children
+     * This is passed from the input to other objects that may have children
      *
      * @param ElementFactory $elementFactory
      * @return $this
@@ -67,11 +67,11 @@ class Fieldset extends Input implements ElementFactoryAwareInterface
     }
 
 
-    function prepareForm(Form $form)
+    function prepareInputFilter(InputFilter $inputFilter)
     {
-        parent::prepareForm($form);
+        parent::prepareInputFilter($inputFilter);
         foreach ($this->getElements() as $element) {
-            $element->prepareForm($form);
+            $element->prepareInputFilter($inputFilter);
         }
     }
 }

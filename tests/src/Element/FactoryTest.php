@@ -1,6 +1,6 @@
 <?php
 
-namespace Sirius\Forms\Element;
+namespace Sirius\Input\Element;
 
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
@@ -33,7 +33,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $this->factory->registerElementType(
             'autocomplete',
             function ($specs) {
-                return new \Sirius\Forms\Element\Input\Select($specs);
+                return new \Sirius\Input\Element\Input\Select($specs);
             }
         );
         $element = $this->factory->createFromOptions(
@@ -42,24 +42,24 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
                 'type' => 'autocomplete'
             )
         );
-        $this->assertTrue($element instanceof \Sirius\Forms\Element\Input\Select);
+        $this->assertTrue($element instanceof \Sirius\Input\Element\Input\Select);
     }
 
     function testDefaultElementCreation()
     {
         $element = $this->factory->createFromOptions('address');
-        $this->assertTrue($element instanceof \Sirius\Forms\Element\Input\Text);
+        $this->assertTrue($element instanceof \Sirius\Input\Element\Input\Text);
     }
 
     function testElementCreationThroughClasses()
     {
-        $this->factory->registerElementType('dropdown', '\Sirius\Forms\Element\Input\Select');
+        $this->factory->registerElementType('dropdown', '\Sirius\Input\Element\Input\Select');
         $element = $this->factory->createFromOptions(
             'city',
             array(
                 'type' => 'dropdown'
             )
         );
-        $this->assertTrue($element instanceof \Sirius\Forms\Element\Input\Select);
+        $this->assertTrue($element instanceof \Sirius\Input\Element\Input\Select);
     }
 }

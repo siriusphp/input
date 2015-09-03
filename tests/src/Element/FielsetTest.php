@@ -1,5 +1,5 @@
 <?php
-namespace Sirius\Forms\Element;
+namespace Sirius\Input\Element;
 
 use Mockery as m;
 
@@ -10,7 +10,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     {
         $this->validator = m::mock('\Sirius\Validation\Validator');
         $this->filtrator = m::mock('\Sirius\Filtration\Filtrator');
-        $this->form = new \Sirius\Forms\Form(null, $this->validator, $this->filtrator);
+        $this->form = new \Sirius\Input\InputFilter(null, $this->validator, $this->filtrator);
 
         $this->input = new Fieldset('address');
         $this->input->setElementFactory($this->form->getElementFactory());

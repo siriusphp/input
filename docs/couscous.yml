@@ -12,7 +12,7 @@ exclude:
 
 # Base URL of the published website (no "/" at the end!)
 # You are advised to set and use this variable to write your links in the HTML layouts
-baseUrl: http://www.sirius.ro/php/sirius/validation
+baseUrl: http://www.sirius.ro/php/sirius/input
 
 projectName: Sirius\Input
 title: Sirius\Input
@@ -42,45 +42,85 @@ menu:
                 simple_example:
                     text: Simple example
                     relativeUrl: simple_example.html
-                validators:
-                    text: Built-in rules
-                    relativeUrl: validation_rules.html
-                helper:
-                    text: Validation helper
-                    relativeUrl: validation_helper.html
-                validator:
-                    text: Validator object
-                    relativeUrl: validator.html
-                syntactic_sugar:
-                    text: Syntactic sugar
-                    relativeUrl: syntactic_sugar.html
+#                validators:
+#                    text: Built-in rules
+#                    relativeUrl: validation_rules.html
+#                helper:
+#                    text: Validation helper
+#                    relativeUrl: validation_helper.html
+#                validator:
+#                    text: Validator object
+#                    relativeUrl: validator.html
+#                syntactic_sugar:
+#                    text: Syntactic sugar
+#                    relativeUrl: syntactic_sugar.html
 #                value_validator:
 #                    text: Value validator
 #                    relativeUrl: value_validator.html
+        about_forms:
+            name: About forms
+            items:
+                understanding_forms:
+                    text: Understanding forms
+                    relativeUrl: understanding_forms.html
+                form_lifecycle:
+                    text: The form's lifecycle
+                    relativeUrl: form_lifecycle.html
         advanced:
             name: Advanced topics
             items:
-                rule_factory:
-                    text: The rule factory
-                    relativeUrl: rule_factory.html
-                error_message:
-                    text: The error message
-                    relativeUrl: error_message.html
-                validation_rule:
-                    text: The anatomy of a validation rule
-                    relativeUrl: rule_anatomy.html
-                validation_context:
-                    text: The validation context
-                    relativeUrl: validation_context.html
+                form_creation:
+                    text: Creating forms
+                    relativeUrl: form_creation.html
+                add_elements:
+                    text: Adding elements
+                    relativeUrl: add_elements.html
+                change_elements:
+                    text: Changing elements
+                    relativeUrl: change_elements.html
+                specs_list:
+                    text: The list of specs
+                    relativeUrl: specs_list.html
+                element_factory:
+                    text: The element factory
+                    relativeUrl: element_factory.html
+        element_types:
+            name: Element types
+            relativeUrl: element_types/index.html
+            items:
+                input:
+                    text: Input
+                    relativeUrl: element_types/input.html
+                button:
+                    text: Button
+                    relativeUrl: element_types/button.html
+                group:
+                    text: Group
+                    relativeUrl: element_types/group.html
+                fielset:
+                    text: Fieldset
+                    relativeUrl: element_types/fieldset.html
+                collection:
+                    text: Collection
+                    relativeUrl: element_types/collection.html
+        processing:
+            name: Processing incoming data
+            items:
+                filtration:
+                    text: Filtration
+                    relativeUrl: filtration.html
+                validation:
+                    text: Validation
+                    relativeUrl: validation.html
+                uploads:
+                    text: Uploads
+                    relativeUrl: uploads.html
         cookbook:
             name: Cookbook
             items:
-                complex_validator:
-                    text: Complex validators
-                    relativeUrl: complex_validators.html
-                custome_rule:
-                    text: Custom validation rule
-                    relativeUrl: custom_rule.html
-                translate_messages:
-                    text: Translating the error messages
-                    relativeUrl: translate_messages.html
+                custom_element:
+                    text: Custom elements
+                    relativeUrl: custom_element.html
+                rendering:
+                    text: Rendering
+                    relativeUrl: rendering.html

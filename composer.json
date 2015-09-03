@@ -22,9 +22,9 @@
         }
     ],
     "require": {
-        "siriusphp/validation": "~2.*",
-        "siriusphp/filtration": "~1.*",
-        "siriusphp/upload": "~2.*",
+        "siriusphp/validation": "2.*",
+        "siriusphp/filtration": "1.*",
+        "siriusphp/upload": "2.*",
         "php": ">=5.4"
     },
     "require-dev": {

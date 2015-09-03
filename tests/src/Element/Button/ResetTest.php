@@ -1,8 +1,8 @@
 <?php
 
-namespace Sirius\Forms\Element\Button;
+namespace Sirius\Input\Element\Button;
 
-use Sirius\Forms\Element;
+use Sirius\Input\Element;
 
 class ResetTest extends \PHPUnit_Framework_TestCase
 {

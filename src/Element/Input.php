@@ -17,7 +17,7 @@ class Input extends Element
     use HasAttributesTrait;
 
     /**
-     * Name of the field (identifier of the element in the form's child list)
+     * Name of the field (identifier of the element in the child list)
      *
      * @var string
      */
@@ -28,7 +28,7 @@ class Input extends Element
     /**
      *
      * @param string $name
-     *            Name of the form element that will make it identifiable
+     *            Name of the input element that will make it identifiable
      * @param array $specs
      *            Specification for the element (attributes, parents, etc)
      */
@@ -53,16 +53,4 @@ class Input extends Element
             )
         );
     }
-
-    function getValue()
-    {
-        return $this->value;
-    }
-
-    function setValue($value)
-    {
-        $this->value = $value;
-        return $this;
-    }
-
 }
