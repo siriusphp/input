@@ -11,11 +11,11 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
     {
         $this->validator = m::mock('\Sirius\Validation\Validator');
         $this->filtrator = m::mock('\Sirius\Filtration\Filtrator');
-        $this->form = new \Sirius\Input\InputFilter(null, $this->validator, $this->filtrator);
+        $this->form      = new \Sirius\Input\InputFilter(null, $this->validator, $this->filtrator);
 
-        $this->form->addElement('invoice_lines', array(Specs::TYPE => 'collection'));
+        $this->form->addElement('invoice_lines', array( Specs::TYPE => 'collection' ));
         $this->input = $this->form->getElement('invoice_lines');
-}
+    }
 
     function testAddingElements()
     {
@@ -38,7 +38,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $children = $this->input->getElements();
+        $children     = $this->input->getElements();
         $elementNames = array_keys($children);
 
         // test the element are in the correct order
@@ -70,7 +70,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             'invoice_lines[*][discount][percentage]',
             $this->input->getElement('discount[percentage]')
-                ->getName()
+                        ->getName()
         );
     }
 
@@ -89,8 +89,8 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         $this->validator->shouldReceive('getRules');
         $this->validator->shouldReceive('remove');
         $this->validator->shouldReceive('add')
-            ->with('invoice_lines[*][product]', 'required', null, null, null)
-            ->andReturn($this->validator);
+                        ->with('invoice_lines[*][product]', 'required', null, null, null)
+                        ->andReturn($this->validator);
 
         $this->filtrator->shouldReceive('getFilters');
         $this->filtrator->shouldReceive('remove');

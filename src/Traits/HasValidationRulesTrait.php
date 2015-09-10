@@ -20,13 +20,14 @@ trait HasValidationRulesTrait
     /**
      * Set the element value validation rules
      *
-     * @param array $rules            
+     * @param array $rules
      *
      * @return $this
      */
     function setValidationRules($rules = array())
     {
         $this[Specs::VALIDATION_RULES] = $rules;
+
         return $this;
     }
 
@@ -40,7 +41,7 @@ trait HasValidationRulesTrait
     protected function prepareValidator(InputFilter $input)
     {
         $validationRules = $this->getValidationRules();
-        if (! $validationRules || ! is_array($validationRules)) {
+        if ( ! $validationRules || ! is_array($validationRules)) {
             return;
         }
         $validator = $input->getValidator();

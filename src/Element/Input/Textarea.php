@@ -10,7 +10,7 @@ class Textarea extends BaseInput
     protected function getDefaultSpecs()
     {
         return array(
-            Element::WIDGET => 'textarea',
+            Element::WIDGET     => 'textarea',
             Element::ATTRIBUTES => array(
                 'rows' => '5',
                 'cols' => '100'

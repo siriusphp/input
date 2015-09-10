@@ -9,7 +9,7 @@ trait HasHintTrait
 
     protected function ensureHintAttributes()
     {
-        if (!isset($this[Specs::HINT_ATTRIBUTES])) {
+        if ( ! isset($this[Specs::HINT_ATTRIBUTES])) {
             $this[Specs::HINT_ATTRIBUTES] = new AttributesContainer();
         }
     }
@@ -27,12 +27,14 @@ trait HasHintTrait
     /**
      * Sets the hint's text
      *
-     * @param string $hint            
+     * @param string $hint
+     *
      * @return self
      */
     function setHint($hint)
     {
         $this[Specs::HINT] = $hint;
+
         return $this;
     }
 
@@ -44,71 +46,82 @@ trait HasHintTrait
     function getHintAttributes()
     {
         $this->ensureHintAttributes();
+
         return $this[Specs::HINT_ATTRIBUTES]->getAll();
     }
 
     /**
      * Sets multiple attributes for the hint
      *
-     * @param array $attrs            
+     * @param array $attrs
+     *
      * @return mixed
      */
     function setHintAttributes($attrs)
     {
         $this->ensureHintAttributes();
         $this[Specs::HINT_ATTRIBUTES]->set($attrs);
+
         return $this;
     }
 
     /**
      * Retrieve an attribute from the hint
      *
-     * @param string $attr            
+     * @param string $attr
+     *
      * @return mixed
      */
     function getHintAttribute($attr)
     {
         $this->ensureHintAttributes();
+
         return $this[Specs::HINT_ATTRIBUTES]->get($attr);
     }
 
     /**
      * Set/Unset a hint attribute
      *
-     * @param string $attr            
-     * @param mixed|null $value            
+     * @param string $attr
+     * @param mixed|null $value
+     *
      * @return self
      */
     function setHintAttribute($attr, $value = null)
     {
         $this->ensureHintAttributes();
         $this[Specs::HINT_ATTRIBUTES]->set($attr, $value);
+
         return $this;
     }
 
     /**
      * Adds a CSS class to the hint's "class" attribute
      *
-     * @param string $class            
+     * @param string $class
+     *
      * @return self
      */
     function addHintClass($class)
     {
         $this->ensureHintAttributes();
         $this[Specs::HINT_ATTRIBUTES]->addClass($class);
+
         return $this;
     }
 
     /**
      * Removes a CSS class from the hint's "class" attribute
      *
-     * @param string $class            
+     * @param string $class
+     *
      * @return self
      */
     function removeHintClass($class)
     {
         $this->ensureHintAttributes();
         $this[Specs::HINT_ATTRIBUTES]->removeClass($class);
+
         return $this;
     }
 
@@ -117,12 +130,14 @@ trait HasHintTrait
      *
      * @param
      *            $class
+     *
      * @return self
      */
     function toggleHintClass($class)
     {
         $this->ensureHintAttributes();
-        $this[Specs::HINT_ATTRIBUTES]->toggleClass($class);        
+        $this[Specs::HINT_ATTRIBUTES]->toggleClass($class);
+
         return $this;
     }
 
@@ -131,11 +146,13 @@ trait HasHintTrait
      *
      * @param
      *            $class
+     *
      * @return bool
      */
     function hasHintClass($class)
     {
         $this->ensureHintAttributes();
-        return $this[Specs::HINT_ATTRIBUTES]->hasClass($class);        
+
+        return $this[Specs::HINT_ATTRIBUTES]->hasClass($class);
     }
 }

@@ -43,7 +43,7 @@ abstract class Element extends Specs
 {
     use HasAttributesTrait;
     use HasDataTrait;
-    
+
     /**
      * Name of the field (identifier of the element in the form's child list)
      *
@@ -95,8 +95,10 @@ abstract class Element extends Specs
      *
      * @return $this
      */
-    function setGroup($group = null) {
+    function setGroup($group = null)
+    {
         $this[Element::GROUP] = (string) $group;
+
         return $this;
     }
 
@@ -105,7 +107,8 @@ abstract class Element extends Specs
      *
      * @return null|string
      */
-    function getGroup() {
+    function getGroup()
+    {
         return isset($this[Element::GROUP]) ? $this[Element::GROUP] : null;
     }
 
@@ -116,8 +119,10 @@ abstract class Element extends Specs
      *
      * @return $this
      */
-    function setWidget($widget = null) {
+    function setWidget($widget = null)
+    {
         $this[Element::WIDGET] = (string) $widget;
+
         return $this;
     }
 
@@ -126,7 +131,8 @@ abstract class Element extends Specs
      *
      * @return string
      */
-    function getWidget() {
+    function getWidget()
+    {
         return isset($this[Element::WIDGET]) ? $this[Element::WIDGET] : null;
     }
 
@@ -137,8 +143,10 @@ abstract class Element extends Specs
      *
      * @return $this
      */
-    function setPosition($priority = 0) {
+    function setPosition($priority = 0)
+    {
         $this[Element::POSITION] = (int) $priority;
+
         return $this;
     }
 
@@ -147,7 +155,8 @@ abstract class Element extends Specs
      *
      * @return integer
      */
-    function getPosition() {
+    function getPosition()
+    {
         return isset($this[Element::POSITION]) ? $this[Element::POSITION] : 0;
     }
 

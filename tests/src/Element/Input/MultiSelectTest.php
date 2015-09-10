@@ -26,8 +26,8 @@ class MultiSelectTest extends \PHPUnit_Framework_TestCase
     function setUp()
     {
         $this->filtrator = m::mock('\Sirius\Filtration\Filtrator');
-        $this->form = new \Sirius\Input\InputFilter(null, null, $this->filtrator);
-        $this->input = new MultiSelect('multiselect');
+        $this->form      = new \Sirius\Input\InputFilter(null, null, $this->filtrator);
+        $this->input     = new MultiSelect('multiselect');
         $this->input->setOptions(array(
             'a' => 'A',
             'b' => 'B'
@@ -42,7 +42,7 @@ class MultiSelectTest extends \PHPUnit_Framework_TestCase
     function testDefaults()
     {
 
-        $this->assertEquals('multiselect', $this->input[ Input::WIDGET ]);
+        $this->assertEquals('multiselect', $this->input[Input::WIDGET]);
     }
 
 
@@ -50,19 +50,20 @@ class MultiSelectTest extends \PHPUnit_Framework_TestCase
     {
         $this->filtrator->shouldReceive('getFilters');
         $this->filtrator->shouldReceive('add')
-            ->with(
-                'multiselect',
-                'callback',
-                array(
-                    'callback' => array($this->input, 'filterValue')
-                )
-            );
+                        ->with(
+                            'multiselect',
+                            'callback',
+                            array(
+                                'callback' => array( $this->input, 'filterValue' )
+                            )
+                        );
         $this->form->addElement($this->input);
         $this->form->prepare();
     }
 
-    function testFilterValue() {
-        $this->assertEquals(array('a'), $this->input->filterValue('a'));
+    function testFilterValue()
+    {
+        $this->assertEquals(array( 'a' ), $this->input->filterValue('a'));
         $this->assertEquals(array(), $this->input->filterValue('c'));
     }
 }

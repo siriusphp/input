@@ -11,6 +11,7 @@ interface FactoryAwareInterface
      * Sets the element factory
      *
      * @param ElementFactory $elementFactory
+     *
      * @return self
      */
     public function setElementFactory(ElementFactory $elementFactory);

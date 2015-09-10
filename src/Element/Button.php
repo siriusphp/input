@@ -6,12 +6,15 @@ use Sirius\Input\Element;
 class Button extends Element
 {
 
-    function getLabel() {
+    function getLabel()
+    {
         return isset($this[Element::LABEL]) ? $this[Element::LABEL] : null;
     }
 
-    function setLabel($label) {
+    function setLabel($label)
+    {
         $this[Element::LABEL] = $label;
+
         return $this;
     }
 

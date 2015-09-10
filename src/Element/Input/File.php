@@ -13,6 +13,7 @@ class File extends BaseInput
 {
 
     use HasUploadTrait;
+
     protected function getDefaultSpecs()
     {
 
@@ -42,13 +43,13 @@ class File extends BaseInput
         );
         if (is_array($this->getUploadRules())) {
             foreach ($this->getUploadRules() as $rule) {
-                if (!is_array($rule)) {
-                    $rule = array($rule);
+                if ( ! is_array($rule)) {
+                    $rule = array( $rule );
                 }
-                $name = $rule[0];
+                $name    = $rule[0];
                 $options = isset($rule[1]) ? $rule[1] : null;
                 $message = isset($rule[2]) ? $rule[2] : null;
-                $label = $this->getLabel();
+                $label   = $this->getLabel();
                 $uploadHandler->addRule($name, $options, $message, $label);
             }
         }

@@ -77,17 +77,17 @@ class InputFilter extends Specs
         ValidatorInterface $validator = null,
         FiltratorInterface $filtrator = null
     ) {
-        if (!$elementFactory) {
+        if ( ! $elementFactory) {
             $elementFactory = new ElementFactory();
         }
         $this->elementFactory = $elementFactory;
 
-        if (!$validator) {
+        if ( ! $validator) {
             $validator = new Validator();
         }
         $this->validator = $validator;
 
-        if (!$filtrator) {
+        if ( ! $filtrator) {
             $filtrator = new Filtrator();
         }
         $this->filtrator = $filtrator;
@@ -106,6 +106,7 @@ class InputFilter extends Specs
             return $this;
         }
         $this->isInitialized = true;
+
         return $this;
     }
 
@@ -134,29 +135,31 @@ class InputFilter extends Specs
      *
      * @return string
      */
-    function getUploadPrefix() {
+    function getUploadPrefix()
+    {
         return $this->uploadPrefix;
     }
-    
+
     /**
      * Prepare the validator, filtrator and upload handlers objects
      *
      * @param bool $force force the execution of the preparation code even if already prepared
+     *
      * @throws \LogicException
      * @return \Sirius\Input\Form
      */
     function prepare($force = false)
     {
-        if ($this->isPrepared && !$force) {
+        if ($this->isPrepared && ! $force) {
             return $this;
         }
         $this->init();
-        if (!$this->isInitialized()) {
+        if ( ! $this->isInitialized()) {
             throw new \LogicException('Input was not properly initialized');
         }
 
         // remove validation rules
-        $validator = $this->getValidator();
+        $validator       = $this->getValidator();
         $validationRules = $validator->getRules();
         if (is_array($validationRules)) {
             foreach (array_keys($validationRules) as $selector) {
@@ -166,7 +169,7 @@ class InputFilter extends Specs
 
         // remove filtration rules
         $filtrator = $this->getFiltrator();
-        $filters = $filtrator->getFilters();
+        $filters   = $filtrator->getFilters();
         if (is_array($filters)) {
             foreach (array_keys($filters) as $selector) {
                 $filtrator->remove($selector);
@@ -184,6 +187,7 @@ class InputFilter extends Specs
         }
         $this->prepareFiltration();
         $this->isPrepared = true;
+
         return $this;
     }
 
@@ -193,12 +197,12 @@ class InputFilter extends Specs
     protected function prepareFiltration()
     {
         $filters = $this->getFilters();
-        if (!$filters || !is_array($filters)) {
+        if ( ! $filters || ! is_array($filters)) {
             return;
         }
         $filtrator = $this->getFiltrator();
         foreach ($filters as $filter) {
-            $params = is_array($filter) ? $filter : array($filter);
+            $params = is_array($filter) ? $filter : array( $filter );
             if (isset($params[0])) {
                 $filtrator->add(Filtrator::SELECTOR_ROOT, $params[0], @$params[1], @$params[2], @$params[3]);
             }
@@ -243,9 +247,10 @@ class InputFilter extends Specs
      */
     function getUploadHandlers()
     {
-        if (!$this->uploadHandlers) {
+        if ( ! $this->uploadHandlers) {
             $this->uploadHandlers = new UploadHandlerAggregate;
         }
+
         return $this->uploadHandlers;
     }
 
@@ -257,10 +262,13 @@ class InputFilter extends Specs
      *
      * @param $selector
      * @param UploadHandler $handler
+     *
      * @return $this
      */
-    function setUploadHandler($selector, UploadHandler $handler) {
+    function setUploadHandler($selector, UploadHandler $handler)
+    {
         $this->getUploadHandlers()->addHandler($selector, $handler);
+
         return $this;
     }
 
@@ -268,12 +276,13 @@ class InputFilter extends Specs
      * Populates a form with values. If you have uploads you must merge data from POST and FILES.
      *
      * @param array $values
+     *
      * @throws \LogicException
      */
     function populate($values = array())
     {
         $this->prepare();
-        if (!$this->isPrepared()) {
+        if ( ! $this->isPrepared()) {
             throw new \LogicException('Input was not prepared and cannot receive data');
         }
 
@@ -287,7 +296,8 @@ class InputFilter extends Specs
      * 2. Confirms valid files
      * 3. Add the upload errors to the validation errors
      */
-    protected function processUploads() {
+    protected function processUploads()
+    {
         $result = $this->getUploadHandlers()->process($this->values);
         $errors = array();
         foreach ($result as $path => $file) {
@@ -316,11 +326,12 @@ class InputFilter extends Specs
      * If filters the data, process the uploads and performs the validation
      *
      * @param bool $skipDataProcessing skip filtration and upload handling
+     *
      * @return bool
      */
     function isValid($skipDataProcessing = false)
     {
-        if (!$skipDataProcessing) {
+        if ( ! $skipDataProcessing) {
             $this->values = $this->getFiltrator()->filter($this->rawValues);
         }
 
@@ -328,9 +339,10 @@ class InputFilter extends Specs
         $validator = $this->getValidator();
         $validator->validate($this->values);
 
-        if (!$skipDataProcessing) {
+        if ( ! $skipDataProcessing) {
             $this->processUploads();
         }
+
         return count($this->getValidator()->getMessages()) === 0;
     }
 
@@ -339,14 +351,16 @@ class InputFilter extends Specs
      *
      * @return array
      */
-    function getErrors() {
+    function getErrors()
+    {
         return $this->getValidator()->getMessages();
     }
 
     /**
      * @return array
      */
-    function getValues() {
+    function getValues()
+    {
         return empty($this->values) ? $this->rawValues : $this->values;
     }
 
@@ -355,7 +369,8 @@ class InputFilter extends Specs
      *
      * @return mixed
      */
-    function getValue($name) {
+    function getValue($name)
+    {
         return empty($this->values) ? $this->getRawValue($name) : Arr::getByPath($this->values, $name);
     }
 
@@ -364,14 +379,16 @@ class InputFilter extends Specs
      *
      * @return mixed
      */
-    function getRawValue($name) {
+    function getRawValue($name)
+    {
         return Arr::getByPath($this->rawValues, $name);
     }
 
     /**
      * @return array
      */
-    function getRawValues() {
+    function getRawValues()
+    {
         return $this->rawValues;
     }
 }

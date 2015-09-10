@@ -23,8 +23,10 @@ class Select extends BaseInput
      *
      * @return $this
      */
-    function setOptions($options = array()) {
+    function setOptions($options = array())
+    {
         $this[Specs::OPTIONS] = $options;
+
         return $this;
     }
 
@@ -33,7 +35,8 @@ class Select extends BaseInput
      *
      * @return array
      */
-    function getOptions() {
+    function getOptions()
+    {
         return isset($this[Specs::OPTIONS]) ? $this[Specs::OPTIONS] : array();
     }
 
@@ -44,8 +47,10 @@ class Select extends BaseInput
      *
      * @return $this
      */
-    function setFirstOption($firstOption = null) {
+    function setFirstOption($firstOption = null)
+    {
         $this[Specs::FIRST_OPTION] = $firstOption;
+
         return $this;
     }
 
@@ -53,7 +58,8 @@ class Select extends BaseInput
      * Retrieve the first option for SELECT widgets
      * @return null
      */
-    function getFirstOption() {
+    function getFirstOption()
+    {
         return isset($this[Specs::FIRST_OPTION]) ? $this[Specs::FIRST_OPTION] : null;
     }
 
@@ -65,7 +71,7 @@ class Select extends BaseInput
             $this->getName(),
             'callback',
             array(
-                Callback::OPTION_CALLBACK => array($this, 'filterValue')
+                Callback::OPTION_CALLBACK => array( $this, 'filterValue' )
             )
         );
     }
@@ -80,13 +86,14 @@ class Select extends BaseInput
      */
     function filterValue($value, $valueIdentifier = null)
     {
-        if (!$value) {
+        if ( ! $value) {
             return null;
         }
         $allowedValues = array_keys($this->getOptions());
         if (is_array($allowedValues) && in_array($value, $allowedValues)) {
             return $value;
         }
+
         return null;
     }
 }

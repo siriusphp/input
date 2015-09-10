@@ -28,8 +28,8 @@ class SelectTest extends \PHPUnit_Framework_TestCase
     function setUp()
     {
         $this->filtrator = m::mock('\Sirius\Filtration\Filtrator');
-        $this->form = new \Sirius\Input\InputFilter(null, null, $this->filtrator);
-        $this->input = new Select('select');
+        $this->form      = new \Sirius\Input\InputFilter(null, null, $this->filtrator);
+        $this->input     = new Select('select');
         $this->input->setOptions(array(
             'a' => 'A',
             'b' => 'B'
@@ -48,8 +48,8 @@ class SelectTest extends \PHPUnit_Framework_TestCase
 
     function testFirstOption()
     {
-    	$this->input->setFirstOption('select from list...');
-    	$this->assertEquals('select from list...', $this->input->getFirstOption());
+        $this->input->setFirstOption('select from list...');
+        $this->assertEquals('select from list...', $this->input->getFirstOption());
     }
 
     function testPrepareFormFiltration()

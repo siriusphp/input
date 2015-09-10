@@ -19,8 +19,8 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
 
     function setUp()
     {
-        $this->validator = m::mock('\Sirius\Validation\Validator');
-        $this->filtrator = m::mock('\Sirius\Filtration\Filtrator');
+        $this->validator   = m::mock('\Sirius\Validation\Validator');
+        $this->filtrator   = m::mock('\Sirius\Filtration\Filtrator');
         $this->inputFilter = new \Sirius\Input\InputFilter(null, $this->validator, $this->filtrator);
 
         $this->input = new Fieldset('address');
@@ -53,7 +53,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $children = $this->input->getElements();
+        $children     = $this->input->getElements();
         $elementNames = array_keys($children);
 
         // test the element are in the correct order
@@ -84,7 +84,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             'address[country][code]',
             $this->input->getElement('country[code]')
-                ->getName()
+                        ->getName()
         );
     }
 
@@ -103,8 +103,8 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
         $this->validator->shouldReceive('getRules');
         $this->validator->shouldReceive('remove');
         $this->validator->shouldReceive('add')
-            ->with('address[city]', 'required', null, null, null)
-            ->andReturn($this->validator);
+                        ->with('address[city]', 'required', null, null, null)
+                        ->andReturn($this->validator);
 
         $this->filtrator->shouldReceive('getFilters');
         $this->filtrator->shouldReceive('remove');
@@ -112,17 +112,18 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
         $this->inputFilter->prepare();
     }
 
-    function testChildrenAddedFromSpecs() {
+    function testChildrenAddedFromSpecs()
+    {
         $this->inputFilter->addElement('address', [
-            Specs::TYPE => 'fieldset',
+            Specs::TYPE     => 'fieldset',
             Specs::CHILDREN => [
                 'street' => [
                     Specs::TYPE => 'text',
                 ],
-                'city' => [
+                'city'   => [
                     Specs::TYPE => 'text',
                 ],
-                'zip' => [
+                'zip'    => [
                     Specs::TYPE => 'text',
                 ]
             ]

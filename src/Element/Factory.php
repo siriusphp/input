@@ -9,38 +9,40 @@ class Factory
 {
 
     protected $types = array(
-        'text' => '\Sirius\Input\Element\Input\Text',
-        'file' => '\Sirius\Input\Element\Input\File',
-        'textarea' => '\Sirius\Input\Element\Input\Textarea',
-        'select' => '\Sirius\Input\Element\Input\Select',
+        'text'        => '\Sirius\Input\Element\Input\Text',
+        'file'        => '\Sirius\Input\Element\Input\File',
+        'textarea'    => '\Sirius\Input\Element\Input\Textarea',
+        'select'      => '\Sirius\Input\Element\Input\Select',
         'multiselect' => '\Sirius\Input\Element\Input\MultiSelect',
-        'checkbox' => '\Sirius\Input\Element\Input\Checkbox',
-        'button' => '\Sirius\Input\Element\Button',
-        'submit' => '\Sirius\Input\Element\Button\Submit',
-        'reset' => '\Sirius\Input\Element\Button\Reset',
-        'group' => '\Sirius\Input\Element\Group',
-        'collection' => '\Sirius\Input\Element\Collection',
-        'fieldset' => '\Sirius\Input\Element\Fieldset',
+        'checkbox'    => '\Sirius\Input\Element\Input\Checkbox',
+        'button'      => '\Sirius\Input\Element\Button',
+        'submit'      => '\Sirius\Input\Element\Button\Submit',
+        'reset'       => '\Sirius\Input\Element\Button\Reset',
+        'group'       => '\Sirius\Input\Element\Group',
+        'collection'  => '\Sirius\Input\Element\Collection',
+        'fieldset'    => '\Sirius\Input\Element\Fieldset',
     );
 
     function registerElementType($type, $classOrClosure)
     {
         if ($classOrClosure instanceof \Closure) {
             $this->types[$type] = $classOrClosure;
+
             return $this;
         }
-        if (!is_string($classOrClosure)) {
+        if ( ! is_string($classOrClosure)) {
             throw new \RuntimeException('Input type must be a class or a closure');
         }
-        if (!class_exists($classOrClosure)) {
+        if ( ! class_exists($classOrClosure)) {
             throw new \RuntimeException(sprintf('Class %s does not exist', $classOrClosure));
         }
-        if (!is_subclass_of($classOrClosure, '\Sirius\Input\Element')) {
+        if ( ! is_subclass_of($classOrClosure, '\Sirius\Input\Element')) {
             throw new \RuntimeException(
                 sprintf('Class %s must extend the \Sirius\Input\Element class', $classOrClosure)
             );
         }
         $this->types[$type] = $classOrClosure;
+
         return $this;
     }
 
@@ -49,6 +51,7 @@ class Factory
      *
      * @param $name
      * @param array $options
+     *
      * @return \Sirius\Input\Element
      * @throws \RuntimeException
      */
@@ -63,11 +66,11 @@ class Factory
         if ($this->types[$type] instanceof \Closure) {
             $element = call_user_func($this->types[$type], $name, $options);
         } else {
-            $class = $this->types[$type];
+            $class   = $this->types[$type];
             $element = new $class($name, $options);
         }
 
-        if (!$element instanceof Element) {
+        if ( ! $element instanceof Element) {
             throw new \RuntimeException('Cannot create a valid element based on the data provided');
         }
 

@@ -15,7 +15,8 @@ class ButtonTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    function testLabel() {
+    function testLabel()
+    {
         $button = new Button('submit');
 
         $this->assertNull($button->getLabel());

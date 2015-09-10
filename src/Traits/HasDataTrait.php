@@ -9,15 +9,16 @@ trait HasDataTrait
 
     protected function ensureData()
     {
-        if (!isset($this[Specs::DATA])) {
+        if ( ! isset($this[Specs::DATA])) {
             $this[Specs::DATA] = new DataContainer();
         }
     }
-    
+
     /**
      * Retrieve an attribute from the label
      *
      * @param string $key
+     *
      * @return mixed
      */
     function getData($key = null)
@@ -26,21 +27,24 @@ trait HasDataTrait
         if ($key === null) {
             return $this[Specs::DATA]->getAll();
         }
+
         return $this[Specs::DATA]->get($key);
     }
-    
+
     /**
      * Set/Unset a label attribute
      *
      * @param string $keyOrArray
      * @param mixed|null $value
+     *
      * @return self
      */
     function setData($keyOrArray, $value = null)
     {
         $this->ensureData();
         $this[Specs::DATA]->set($keyOrArray, $value);
+
         return $this;
     }
-    
+
 }

@@ -28,6 +28,7 @@ trait HasChildrenTrait
      * For collections the name of the child is prefixed with the name of the collection and an index placeholder
      *
      * @param string $name
+     *
      * @return string
      */
     protected function getFullChildName($name)
@@ -40,36 +41,39 @@ trait HasChildrenTrait
      *
      * @param string|\Sirius\Input\Element $nameOrElement
      * @param array $specs
+     *
      * @throws \RuntimeException
      * @return $this
      */
     function addElement($nameOrElement, $specs = array())
     {
         if (is_string($nameOrElement)) {
-            $name = $nameOrElement;
+            $name    = $nameOrElement;
             $element = $this->elementFactory->createFromOptions($this->getFullChildName($nameOrElement), $specs);
         } elseif ($nameOrElement instanceof Element) {
             $element = $nameOrElement;
             // for an element with the name 'address[street]' we get only the 'street'
             // because we assume the element has the name constructed using the rule in getFullChildName()
             $parts = explode('[', str_replace(']', '', $element->getName()));
-            $name = array_pop($parts);
+            $name  = array_pop($parts);
         } else {
             throw new \RuntimeException(sprintf('Variable $nameorElement must be a string or an instance of the Element class'));
         }
         // add the index for sorting
-        if (!isset($element['__index'])) {
-            $element['__index'] = ($this->elementsIndex--);
+        if ( ! isset($element['__index'])) {
+            $element['__index'] = ($this->elementsIndex --);
         }
         $this->elements[$name] = $element;
+
         return $this;
     }
 
     /**
      *
      */
-    protected function createChildren() {
-        if (!$this instanceof FactoryAwareInterface) {
+    protected function createChildren()
+    {
+        if ( ! $this instanceof FactoryAwareInterface) {
             if (isset($this[Specs::CHILDREN])) {
                 foreach ($this[Specs::CHILDREN] as $name => $options) {
                     $this->addElement($name, $options);
@@ -82,6 +86,7 @@ trait HasChildrenTrait
      * Retrieve an element by name
      *
      * @param string $name
+     *
      * @return \Sirius\Input\Element
      */
     function getElement($name)
@@ -93,6 +98,7 @@ trait HasChildrenTrait
      * Removes an element from the children list
      *
      * @param string $name
+     *
      * @throws \RuntimeException
      * @return $this
      */
@@ -101,6 +107,7 @@ trait HasChildrenTrait
         if (isset($this->elements[$name])) {
             unset($this->elements[$name]);
         }
+
         return $this;
     }
 
@@ -108,6 +115,7 @@ trait HasChildrenTrait
      * Returns whether an element exist in the children list
      *
      * @param string $name
+     *
      * @return boolean
      */
     function hasElement($name)
@@ -120,24 +128,26 @@ trait HasChildrenTrait
      *
      * @param \ArrayObject $childA
      * @param \ArrayObject $childB
+     *
      * @return number
      */
     protected function childComparator($childA, $childB)
     {
         if ($childA->getPosition() < $childB->getPosition()) {
-            return -1;
+            return - 1;
         }
         if ($childA->getPosition() > $childB->getPosition()) {
             return 1;
         }
         if ($childA->get('__index') > $childB->get('__index')) {
-            return -1;
+            return - 1;
         }
         if ($childA->get('__index') < $childB->get('__index')) {
             return 1;
         }
+
         // if the priority is the same, childB is first
-        return -1;
+        return - 1;
     }
 
     /**
@@ -148,7 +158,8 @@ trait HasChildrenTrait
     function getElements()
     {
         // first sort the children so they are retrieved by priority
-        uasort($this->elements, array($this, 'childComparator'));
+        uasort($this->elements, array( $this, 'childComparator' ));
+
         return $this->elements;
     }
 
@@ -156,10 +167,11 @@ trait HasChildrenTrait
     /**
      * Unset the group property for elements without a valid group (ie: existing group)
      */
-    protected function cleanUpMissingGroups() {
+    protected function cleanUpMissingGroups()
+    {
         foreach ($this->elements as $element) {
             $group = $element->getGroup();
-            if ($group && !isset($this->elements[$group])) {
+            if ($group && ! isset($this->elements[$group])) {
                 $element->setGroup(null);
             }
         }

@@ -41,6 +41,7 @@ class Fieldset extends Input implements ElementFactoryAwareInterface
      * Generate the namespaced field name of an element inside the  fielset
      *
      * @param string $name
+     *
      * @return string
      */
     protected function getFullChildName($name)
@@ -48,8 +49,9 @@ class Fieldset extends Input implements ElementFactoryAwareInterface
         $firstOpenBracket = strpos($name, '[');
         // the name is already at least 2 levels deep like street[name]
         if ($firstOpenBracket !== false) {
-            $name = substr($name, 0, $firstOpenBracket) . '][' . substr($name, $firstOpenBracket + 1, -1);
+            $name = substr($name, 0, $firstOpenBracket) . '][' . substr($name, $firstOpenBracket + 1, - 1);
         }
+
         return $this->getName() . '[' . $name . ']';
     }
 
@@ -58,12 +60,14 @@ class Fieldset extends Input implements ElementFactoryAwareInterface
      * This is passed from the input to other objects that may have children
      *
      * @param ElementFactory $elementFactory
+     *
      * @return $this
      */
     function setElementFactory(ElementFactory $elementFactory)
     {
         $this->elementFactory = $elementFactory;
         $this->createChildren();
+
         return $this;
     }
 

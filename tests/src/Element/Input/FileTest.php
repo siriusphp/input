@@ -21,7 +21,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     function setUp()
     {
-        $this->form = m::mock('\Sirius\Input\Input');
+        $this->form  = m::mock('\Sirius\Input\Input');
         $this->input = new File('picture');
         $this->input->setUploadContainer('/var/www');
         $this->input->setUploadOptions(array(
@@ -43,7 +43,8 @@ class FileTest extends \PHPUnit_Framework_TestCase
     }
 
 
-    function testPrepareFormUploadHandling() {
+    function testPrepareFormUploadHandling()
+    {
         $this->form->shouldReceive('add');
         $this->form->shouldReceive('prepare');
         $this->form->shouldReceive('setUploadHandler');

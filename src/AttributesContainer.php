@@ -6,7 +6,7 @@ class AttributesContainer extends DataContainer
 
     function hasClass($className)
     {
-        return (bool)preg_match('/\b' . $className . '\b/i', $this->get('class'));
+        return (bool) preg_match('/\b' . $className . '\b/i', $this->get('class'));
     }
 
     function addClass($className)
@@ -19,7 +19,7 @@ class AttributesContainer extends DataContainer
 
     function removeClass($className)
     {
-        if (! $this->hasClass($className)) {
+        if ( ! $this->hasClass($className)) {
             return;
         }
         $classes = preg_replace('/\b' . $className . '\b/i', '', $this->get('class'));
@@ -31,6 +31,7 @@ class AttributesContainer extends DataContainer
     {
         if ($this->hasClass($className)) {
             $this->removeClass($className);
+
             return;
         }
         $this->addClass($className);

@@ -10,7 +10,7 @@ class Reset extends Button
     protected function getDefaultSpecs()
     {
         return array(
-            Element::WIDGET => 'button',
+            Element::WIDGET     => 'button',
             Element::ATTRIBUTES => array(
                 'type' => 'reset'
             )

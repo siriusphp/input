@@ -1,16 +1,19 @@
 <?php
 namespace Sirius\Input;
 
-class DataContainer extends \ArrayObject {
-    
-    function set($nameOrArray, $value = null) {
+class DataContainer extends \ArrayObject
+{
+
+    function set($nameOrArray, $value = null)
+    {
         if (is_array($nameOrArray)) {
             foreach ($nameOrArray as $k => $v) {
                 $this->set($k, $v);
             }
+
             return;
         }
-        if (!is_string($nameOrArray)) {
+        if ( ! is_string($nameOrArray)) {
             throw new \InvalidArgumentException('Only strings or arrays are accepted as first argument of the set() method of the DataContainer class');
         }
         if ($value !== null) {
@@ -19,15 +22,17 @@ class DataContainer extends \ArrayObject {
             unset($this[$nameOrArray]);
         }
     }
-    
-    function get($name) {
+
+    function get($name)
+    {
         return isset($this[$name])
-        ? $this[$name]
-        : null;
+            ? $this[$name]
+            : null;
     }
-    
-    function getAll() {
+
+    function getAll()
+    {
         return $this->getArrayCopy();
     }
-    
+
 }

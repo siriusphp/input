@@ -16,8 +16,8 @@ class InputTest extends \PHPUnit_Framework_TestCase
     {
         $this->validator = m::mock('\Sirius\Validation\Validator');
         $this->filtrator = m::mock('\Sirius\Filtration\Filtrator');
-        $this->form = new InputFilter(null, $this->validator, $this->filtrator);
-        $this->element = new Input('username');
+        $this->form      = new InputFilter(null, $this->validator, $this->filtrator);
+        $this->element   = new Input('username');
     }
 
     function tearDown()
@@ -25,7 +25,8 @@ class InputTest extends \PHPUnit_Framework_TestCase
         m::close();
     }
 
-    function testLabel() {
+    function testLabel()
+    {
         $this->element->setLabel('Username');
         $this->assertEquals('Username', $this->element['label']);
         $this->assertEquals('Username', $this->element->getLabel());
@@ -65,7 +66,8 @@ class InputTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->element->hasLabelClass('required'));
     }
 
-    function testHint() {
+    function testHint()
+    {
         $this->element->setHint('Your website nickname');
         $this->assertEquals('Your website nickname', $this->element['hint']);
         $this->assertEquals('Your website nickname', $this->element->getHint());
@@ -106,9 +108,9 @@ class InputTest extends \PHPUnit_Framework_TestCase
         $this->form->addElement(
             'email',
             array(
-                InputFilter::TYPE => 'text',
-                InputFilter::LABEL => 'Email',
-                InputFilter::FILTERS => array(
+                InputFilter::TYPE             => 'text',
+                InputFilter::LABEL            => 'Email',
+                InputFilter::FILTERS          => array(
                     'stringtrim',
                     array(
                         'truncate',
@@ -129,23 +131,23 @@ class InputTest extends \PHPUnit_Framework_TestCase
 
         $email = $this->form->getElement('email');
         foreach ($email->getValidationRules() as $rule) {
-            if (!is_array($rule)) {
+            if ( ! is_array($rule)) {
                 $rule = array(
                     $rule
                 );
             }
             $this->validator->shouldReceive('add')
-                ->with('email', $rule[0], @$rule[1], @$rule[2], $email->getLabel())
-                ->andReturn($this->validator);
+                            ->with('email', $rule[0], @$rule[1], @$rule[2], $email->getLabel())
+                            ->andReturn($this->validator);
         }
 
         foreach ($email->getFilters() as $filter) {
-            if (!is_array($filter)) {
-                $filter = array($filter);
+            if ( ! is_array($filter)) {
+                $filter = array( $filter );
             }
             $this->filtrator->shouldReceive('add')
-                ->with('email', $filter[0], @$filter[1], @$filter[2], @$filter[3])
-                ->andReturn($this->filtrator);
+                            ->with('email', $filter[0], @$filter[1], @$filter[2], @$filter[3])
+                            ->andReturn($this->filtrator);
         }
 
         $this->validator->shouldReceive('getRules');

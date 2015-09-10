@@ -27,19 +27,19 @@ class ElementTest extends \PHPUnit_Framework_TestCase
 
     function testSetAndGetForDefinedProperties()
     {
-    	$this->assertFalse($this->element->hasClass('required'));
-        $this->element->set('attributes', array('class' => 'required'));
-    	$this->assertTrue($this->element->hasClass('required'));
-    	$this->assertEquals('required', $this->element->get('attributes')['class']);
+        $this->assertFalse($this->element->hasClass('required'));
+        $this->element->set('attributes', array( 'class' => 'required' ));
+        $this->assertTrue($this->element->hasClass('required'));
+        $this->assertEquals('required', $this->element->get('attributes')['class']);
     }
 
     function testSettingAndGettingAttributes()
     {
         $attrs = array(
-            'class' => 'required',
+            'class'       => 'required',
             'placeholder' => 'email@domain.com'
         );
-        
+
         // on the element
         $this->element->setAttributes($attrs);
         $this->assertEquals($attrs, $this->element->getAttributes());
@@ -47,9 +47,9 @@ class ElementTest extends \PHPUnit_Framework_TestCase
 
     function testAttributes()
     {
-        $attr = 'class';
+        $attr  = 'class';
         $value = 'required';
-        
+
         // on the element
         $this->element->setAttribute($attr, $value);
         $this->assertEquals($value, $this->element->getAttribute($attr));
@@ -60,7 +60,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $this->element->setAttributes(array(
             'class' => 'required'
         ));
-        
+
         $this->element->setAttribute('class', null);
         $this->assertNull($this->element->getAttribute('class'));
     }
@@ -80,7 +80,7 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         );
         $this->element->setData($data);
         $this->assertEquals('b', $this->element->getData('a'));
-        
+
         $this->assertEquals($data, $this->element->getData());
     }
 
@@ -88,14 +88,14 @@ class ElementTest extends \PHPUnit_Framework_TestCase
     {
         $this->element->addClass('required');
         $this->assertEquals('required', $this->element['attributes']->get('class'));
-        
+
         // adding a class twice is not possible
         $this->element->addClass('required');
         $this->assertTrue($this->element->hasClass('required'));
-        
+
         $this->element->removeClass('required');
         $this->assertEquals('', $this->element->getAttribute('class'));
-        
+
         $this->element->toggleClass('required');
         $this->assertTrue($this->element->hasClass('required'));
         $this->element->toggleClass('required');

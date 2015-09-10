@@ -9,7 +9,7 @@ trait HasLabelTrait
 
     protected function ensureLabelAttributes()
     {
-        if (!isset($this[Specs::LABEL_ATTRIBUTES])) {
+        if ( ! isset($this[Specs::LABEL_ATTRIBUTES])) {
             $this[Specs::LABEL_ATTRIBUTES] = new AttributesContainer();
         }
     }
@@ -27,12 +27,14 @@ trait HasLabelTrait
     /**
      * Sets the label's text
      *
-     * @param string $label            
+     * @param string $label
+     *
      * @return self
      */
     function setLabel($label)
     {
         $this[Specs::LABEL] = $label;
+
         return $this;
     }
 
@@ -44,39 +46,45 @@ trait HasLabelTrait
     function getLabelAttributes()
     {
         $this->ensureLabelAttributes();
+
         return $this[Specs::LABEL_ATTRIBUTES]->getAll();
     }
 
     /**
      * Sets multiple attributes for the label
      *
-     * @param array $attrs            
+     * @param array $attrs
+     *
      * @return mixed
      */
     function setLabelAttributes($attrs)
     {
         $this->ensureLabelAttributes();
         $this[Specs::LABEL_ATTRIBUTES]->set($attrs);
+
         return $this;
     }
 
     /**
      * Retrieve an attribute from the label
      *
-     * @param string $attr            
+     * @param string $attr
+     *
      * @return mixed
      */
     function getLabelAttribute($attr)
     {
         $this->ensureLabelAttributes();
+
         return $this[Specs::LABEL_ATTRIBUTES]->get($attr);
     }
 
     /**
      * Set/Unset a label attribute
      *
-     * @param string $attr            
-     * @param mixed|null $value            
+     * @param string $attr
+     * @param mixed|null $value
+     *
      * @return self
      */
     function setLabelAttribute($attr, $value = null)
@@ -84,33 +92,38 @@ trait HasLabelTrait
         $this->ensureLabelAttributes();
         $this->ensureLabelAttributes();
         $this[Specs::LABEL_ATTRIBUTES]->set($attr, $value);
+
         return $this;
     }
 
     /**
      * Adds a CSS class to the label's "class" attribute
      *
-     * @param string $class            
+     * @param string $class
+     *
      * @return self
      */
     function addLabelClass($class)
     {
         $this->ensureLabelAttributes();
         $this[Specs::LABEL_ATTRIBUTES]->addClass($class);
-        return $this;        
+
+        return $this;
     }
 
     /**
      * Removes a CSS class from the label's "class" attribute
      *
-     * @param string $class            
+     * @param string $class
+     *
      * @return self
      */
     function removeLabelClass($class)
     {
         $this->ensureLabelAttributes();
         $this[Specs::LABEL_ATTRIBUTES]->removeClass($class);
-        return $this;        
+
+        return $this;
     }
 
     /**
@@ -118,12 +131,14 @@ trait HasLabelTrait
      *
      * @param
      *            $class
+     *
      * @return self
      */
     function toggleLabelClass($class)
     {
         $this->ensureLabelAttributes();
         $this[Specs::LABEL_ATTRIBUTES]->toggleClass($class);
+
         return $this;
     }
 
@@ -132,11 +147,13 @@ trait HasLabelTrait
      *
      * @param
      *            $class
+     *
      * @return bool
      */
     function hasLabelClass($class)
     {
         $this->ensureLabelAttributes();
+
         return $this[Specs::LABEL_ATTRIBUTES]->hasClass($class);
     }
 }

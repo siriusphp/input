@@ -10,7 +10,7 @@ class MultiSelect extends Select
     protected function getDefaultSpecs()
     {
         return array(
-            Specs::WIDGET => 'multiselect',
+            Specs::WIDGET     => 'multiselect',
             Specs::ATTRIBUTES => array(
                 'size' => '5'
             )
@@ -27,13 +27,14 @@ class MultiSelect extends Select
      */
     function filterValue($value, $valueIdentifier = null)
     {
-        if (!$value) {
+        if ( ! $value) {
             return null;
         }
-        if (!is_array($value)) {
+        if ( ! is_array($value)) {
             $value = (array) $value;
         }
         $allowedValues = array_keys($this->getOptions());
+
         return array_intersect($value, $allowedValues);
     }
 }
