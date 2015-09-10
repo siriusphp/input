@@ -217,5 +217,28 @@ class FormTest extends \PHPUnit_Framework_TestCase
             'email' => 'abc',
             'email_confirmation' => 'abc'
         ), $values);
+
+
+
+    }
+
+    function testUnsetMissingElementGroups() {
+        $this->form->addElement('email', array(
+            Element::TYPE => 'text',
+            Element::POSITION => 8,
+            Element::GROUP => 'missing'
+        ));
+        $this->form->addElement('email_confirmation', array(
+            Element::TYPE => 'text',
+            Element::POSITION => 8,
+            Element::GROUP => 'missing'
+        ));
+
+        $this->form->prepare();
+
+        $elements = $this->form->getElements();
+
+        $this->assertEquals(null, $elements['email']->getGroup());
+        $this->assertEquals(null, $elements['email_confirmation']->getGroup());
     }
 }

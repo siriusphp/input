@@ -49,6 +49,8 @@ class Specs extends \ArrayObject
     const UPLOAD_OPTIONS = 'upload_options';
     
     const UPLOAD_RULES = 'upload_rules';
+
+    const CHILDREN = 'children';
     
     
     protected function inflectUnderscoreToClass($var) {

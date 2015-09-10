@@ -176,6 +176,7 @@ class InputFilter extends Specs
         // reset upload handler
         $this->uploadHandlers = null;
 
+        $this->cleanUpMissingGroups();
         foreach ($this->getElements() as $element) {
             if (method_exists($element, 'prepareInputFilter')) {
                 $element->prepareInputFilter($this);

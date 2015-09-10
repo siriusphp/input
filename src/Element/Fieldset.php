@@ -63,6 +63,7 @@ class Fieldset extends Input implements ElementFactoryAwareInterface
     function setElementFactory(ElementFactory $elementFactory)
     {
         $this->elementFactory = $elementFactory;
+        $this->createChildren();
         return $this;
     }
 
@@ -70,6 +71,7 @@ class Fieldset extends Input implements ElementFactoryAwareInterface
     function prepareInputFilter(InputFilter $inputFilter)
     {
         parent::prepareInputFilter($inputFilter);
+        $this->cleanUpMissingGroups();
         foreach ($this->getElements() as $element) {
             $element->prepareInputFilter($inputFilter);
         }

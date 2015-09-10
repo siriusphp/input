@@ -2,18 +2,29 @@
 namespace Sirius\Input\Element;
 
 use Mockery as m;
+use Sirius\Input\InputFilter;
+use Sirius\Input\Specs;
 
 class FieldsetTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var InputFilter
+     */
+    protected $inputFilter;
+
+    /**
+     * @var Fieldset
+     */
+    protected $input;
 
     function setUp()
     {
         $this->validator = m::mock('\Sirius\Validation\Validator');
         $this->filtrator = m::mock('\Sirius\Filtration\Filtrator');
-        $this->form = new \Sirius\Input\InputFilter(null, $this->validator, $this->filtrator);
+        $this->inputFilter = new \Sirius\Input\InputFilter(null, $this->validator, $this->filtrator);
 
         $this->input = new Fieldset('address');
-        $this->input->setElementFactory($this->form->getElementFactory());
+        $this->input->setElementFactory($this->inputFilter->getElementFactory());
     }
 
     function tearDown()
@@ -46,9 +57,9 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
         $elementNames = array_keys($children);
 
         // test the element are in the correct order
-        $this->assertEquals('address[street]', $elementNames[0]);
-        $this->assertEquals('address[city]', $elementNames[1]);
-        $this->assertEquals('address[state]', $elementNames[2]);
+        $this->assertEquals('street', $elementNames[0]);
+        $this->assertEquals('city', $elementNames[1]);
+        $this->assertEquals('state', $elementNames[2]);
     }
 
     function testRemovingElements()
@@ -79,7 +90,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
 
     function testPrepareForm()
     {
-        $this->form->addElement($this->input);
+        $this->inputFilter->addElement($this->input);
         $this->input->addElement(
             'city',
             array(
@@ -98,6 +109,25 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
         $this->filtrator->shouldReceive('getFilters');
         $this->filtrator->shouldReceive('remove');
 
-        $this->form->prepare();
+        $this->inputFilter->prepare();
+    }
+
+    function testChildrenAddedFromSpecs() {
+        $this->inputFilter->addElement('address', [
+            Specs::TYPE => 'fieldset',
+            Specs::CHILDREN => [
+                'street' => [
+                    Specs::TYPE => 'text',
+                ],
+                'city' => [
+                    Specs::TYPE => 'text',
+                ],
+                'zip' => [
+                    Specs::TYPE => 'text',
+                ]
+            ]
+        ]);
+
+        $this->assertEquals(3, count($this->inputFilter->getElement('address')->getElements()));
     }
 }

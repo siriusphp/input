@@ -42,9 +42,9 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
         $elementNames = array_keys($children);
 
         // test the element are in the correct order
-        $this->assertEquals('invoice_lines[*][product]', $elementNames[0]);
-        $this->assertEquals('invoice_lines[*][quantity]', $elementNames[1]);
-        $this->assertEquals('invoice_lines[*][price]', $elementNames[2]);
+        $this->assertEquals('product', $elementNames[0]);
+        $this->assertEquals('quantity', $elementNames[1]);
+        $this->assertEquals('price', $elementNames[2]);
     }
 
     function testRemovingElements()
@@ -66,6 +66,7 @@ class CollectionTest extends \PHPUnit_Framework_TestCase
     function testDeepElement()
     {
         $this->input->addElement('discount[percentage]', array());
+        #print_r($this->input);
         $this->assertEquals(
             'invoice_lines[*][discount][percentage]',
             $this->input->getElement('discount[percentage]')

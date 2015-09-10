@@ -3,6 +3,7 @@ namespace Sirius\Input\Element;
 
 use Sirius\Input\Element\Input;
 use Sirius\Input\Element;
+use Sirius\Input\Specs;
 
 class Factory
 {
@@ -67,7 +68,7 @@ class Factory
         }
 
         if (!$element instanceof Element) {
-            throw new \RuntimeException('Cannot create a valid input element based on the data provided');
+            throw new \RuntimeException('Cannot create a valid element based on the data provided');
         }
 
         // if the element is a fieldset/collection type, inject the element factory
