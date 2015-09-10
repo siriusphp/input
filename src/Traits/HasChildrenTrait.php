@@ -3,6 +3,7 @@
 namespace Sirius\Input\Traits;
 
 use Sirius\Input\Element;
+use Sirius\Input\Element\FactoryAwareInterface;
 use Sirius\Input\Specs;
 
 trait HasChildrenTrait
@@ -73,7 +74,7 @@ trait HasChildrenTrait
      */
     protected function createChildren()
     {
-        if ( ! $this instanceof FactoryAwareInterface) {
+        if ($this instanceof FactoryAwareInterface) {
             if (isset($this[Specs::CHILDREN])) {
                 foreach ($this[Specs::CHILDREN] as $name => $options) {
                     $this->addElement($name, $options);
