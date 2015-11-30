@@ -42,12 +42,12 @@ trait HasFiltersTrait
     protected function prepareFiltrator(InputFilter $input)
     {
         $filters = $this->getFilters();
-        if ( ! $filters || ! is_array($filters)) {
+        if (!$filters || !is_array($filters)) {
             return;
         }
         $filtrator = $input->getFiltrator();
         foreach ($filters as $filter) {
-            $params = is_array($filter) ? $filter : array( $filter );
+            $params = is_array($filter) ? $filter : array($filter);
             if (isset($params[0])) {
                 $filtrator->add($this->getName(), $params[0], @$params[1], @$params[2], @$params[3]);
             }

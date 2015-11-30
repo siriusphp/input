@@ -19,7 +19,7 @@ class AttributesContainer extends DataContainer
 
     function removeClass($className)
     {
-        if ( ! $this->hasClass($className)) {
+        if (!$this->hasClass($className)) {
             return;
         }
         $classes = preg_replace('/\b' . $className . '\b/i', '', $this->get('class'));

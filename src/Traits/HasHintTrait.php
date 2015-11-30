@@ -9,7 +9,7 @@ trait HasHintTrait
 
     protected function ensureHintAttributes()
     {
-        if ( ! isset($this[Specs::HINT_ATTRIBUTES])) {
+        if (!isset($this[Specs::HINT_ATTRIBUTES])) {
             $this[Specs::HINT_ATTRIBUTES] = new AttributesContainer();
         }
     }
@@ -55,7 +55,7 @@ trait HasHintTrait
      *
      * @param array $attrs
      *
-     * @return mixed
+     * @return HasHintTrait
      */
     function setHintAttributes($attrs)
     {

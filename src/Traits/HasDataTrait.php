@@ -9,7 +9,7 @@ trait HasDataTrait
 
     protected function ensureData()
     {
-        if ( ! isset($this[Specs::DATA])) {
+        if (!isset($this[Specs::DATA])) {
             $this[Specs::DATA] = new DataContainer();
         }
     }

@@ -172,7 +172,7 @@ abstract class Element extends Specs
         $preparableMethods = array('prepareValidator', 'prepareFiltrator', 'prepareUploadHandlers');
         foreach ($preparableMethods as $method) {
             if (method_exists($this, $method)) {
-                call_user_func(array( $this, $method), $inputFilter);
+                call_user_func(array($this, $method), $inputFilter);
             }
         }
     }

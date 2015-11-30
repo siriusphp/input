@@ -13,7 +13,7 @@ class DataContainer extends \ArrayObject
 
             return;
         }
-        if ( ! is_string($nameOrArray)) {
+        if (!is_string($nameOrArray)) {
             throw new \InvalidArgumentException('Only strings or arrays are accepted as first argument of the set() method of the DataContainer class');
         }
         if ($value !== null) {
