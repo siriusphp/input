@@ -66,7 +66,7 @@ class InputFilter extends Specs
      *
      * @var HandlerAggregate
      */
-    protected $uploadHandlers = array();
+    protected $uploadHandlers;
 
     protected $rawValues = array();
 
@@ -193,11 +193,12 @@ class InputFilter extends Specs
 
     /**
      * Populates the filtrator object with the filtering rules
+     * associated with the InputFilter instance (not individual elements)
      */
     protected function prepareFiltration()
     {
         $filters = $this->getFilters();
-        if ( ! $filters || ! is_array($filters)) {
+        if ( ! is_array($filters) || empty($filters)) {
             return;
         }
         $filtrator = $this->getFiltrator();

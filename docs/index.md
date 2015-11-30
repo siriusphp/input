@@ -19,7 +19,7 @@ It depends on:
 ##Elevator pitch
 
 ```php
-$form = new \Sirius\Input\Input();
+$form = new \Sirius\Input\InputFilter();
 
 $form->add('name', [
 	'type' => 'text',

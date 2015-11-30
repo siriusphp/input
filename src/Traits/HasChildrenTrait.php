@@ -134,16 +134,18 @@ trait HasChildrenTrait
      */
     protected function childComparator($childA, $childB)
     {
-        if ($childA->getPosition() < $childB->getPosition()) {
+        $posA = isset($childA[Specs::POSITION]) ? $childA[Specs::POSITION] : 0;
+        $posB = isset($childB[Specs::POSITION]) ? $childB[Specs::POSITION] : 0;
+        if ($posA < $posB) {
             return - 1;
         }
-        if ($childA->getPosition() > $childB->getPosition()) {
+        if ($posA > $posB) {
             return 1;
         }
-        if ($childA->get('__index') > $childB->get('__index')) {
+        if ($childA['__index'] > $childB['__index']) {
             return - 1;
         }
-        if ($childA->get('__index') < $childB->get('__index')) {
+        if ($childA['__index'] < $childB['__index']) {
             return 1;
         }
 

@@ -16,7 +16,7 @@ In order for the element factory to be able to create custom elements you have t
 // first you need to get a hold of the element factory instance
 // which you can do before creating the form
 $elementFactory = new \Sirius\Input\Element\Factory;
-$input = new \Sirius\Input\Input($elementFactory);
+$input = new \Sirius\Input\InputFilter($elementFactory);
 ```
 
 It is recommended to use a single element factory for all of your application's forms. This way you will have to register form elements only once per application. If you use dependency injection that will be trivial.
@@ -70,4 +70,4 @@ $form->addElement('address', array(
 ));
 ```
 
-The element factory class is there so your app can be flexible and allow you to swap element types. If your app has autocomplete-type elements for which you use `MyApp\Input\Element\Autocomplete` as their `type` and you want to change it to `SomePlugin\Input\Element\Autocomplete` it will be difficult to make that change everywhere in your app. In this case, using the element factory is a better approach.
+The element factory class is there so your app can be flexible and allow you to swap element types. If your app has autocomplete-type elements for which you use `MyApp\Input\Element\Autocomplete` as their `type` and you want to change it to `SomePlugin\Input\Element\Autocomplete` it will be difficult to make that change everywhere in your app. In this case, by registering an `autocomplete` field with the element factory would be a better approach.

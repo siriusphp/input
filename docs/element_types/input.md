@@ -6,16 +6,16 @@ This is how you add an element to a form (you do the same for fieldsets and coll
 
 ```php
 // the code below relies on the element factory to instanciate the element
-$formOrFieldsetOrCollection->addElement('email', array(
-    Specs::LABEL => 'Your email'
-	Specs::HINT => 'We will send you an account activation email after registration',
-	Specs::VALIDATION_RULES => array(
-		'required',
-		'email'
-	),
-	Specs::FILTERS => array(
-		'stringtrim'
-	)
+$form->addElement('email', array(
+    Specs::LABEL => 'Your email',
+    Specs::HINT => 'We will send you an account activation email after registration',
+    Specs::VALIDATION_RULES => array(
+        'required',
+        'email'
+    ),
+    Specs::FILTERS => array(
+        'stringtrim'
+    )
 ));
 ```
 
@@ -23,7 +23,7 @@ $formOrFieldsetOrCollection->addElement('email', array(
 
 The **Sirius\Forms** library comes packed with a variaty of input fields the cover most of the use-cases:
 
-1. Text
+1. Text - the DEFAULT value
 2. Textarea - a text input displayed as a textarea
 3. Checkbox - an element that will have a specific value if the user checks it
 4. File - this is a special type of element as you will see in the ["uploads" section](Processing_forms/Uploads.md)

@@ -2,7 +2,7 @@
 
 namespace Sirius\Input\Traits;
 
-use Sirius\Input\Element\Input;
+use Sirius\Input\Specs;
 
 trait HasUploadTrait
 {
@@ -14,7 +14,7 @@ trait HasUploadTrait
      */
     function getUploadContainer()
     {
-        return isset($this[Input::UPLOAD_CONTAINER]) ? $this[Input::UPLOAD_CONTAINER] : null;
+        return isset($this[Specs::UPLOAD_CONTAINER]) ? $this[Specs::UPLOAD_CONTAINER] : null;
     }
 
     /**
@@ -26,7 +26,7 @@ trait HasUploadTrait
      */
     function setUploadContainer($container)
     {
-        $this[Input::UPLOAD_CONTAINER] = $container;
+        $this[Specs::UPLOAD_CONTAINER] = $container;
 
         return $this;
     }
@@ -39,7 +39,7 @@ trait HasUploadTrait
      */
     function getUploadOptions()
     {
-        return isset($this[Input::UPLOAD_OPTIONS]) ? $this[Input::UPLOAD_OPTIONS] : null;
+        return isset($this[Specs::UPLOAD_OPTIONS]) ? $this[Specs::UPLOAD_OPTIONS] : null;
     }
 
     /**
@@ -51,7 +51,7 @@ trait HasUploadTrait
      */
     function setUploadOptions($options = array())
     {
-        $this[Input::UPLOAD_OPTIONS] = $options;
+        $this[Specs::UPLOAD_OPTIONS] = $options;
 
         return $this;
     }
@@ -63,7 +63,7 @@ trait HasUploadTrait
      */
     function getUploadRules()
     {
-        return isset($this[Input::UPLOAD_RULES]) ? $this[Input::UPLOAD_RULES] : null;
+        return isset($this[Specs::UPLOAD_RULES]) ? $this[Specs::UPLOAD_RULES] : null;
     }
 
     /**
@@ -75,7 +75,7 @@ trait HasUploadTrait
      */
     function setUploadRules($rules = array())
     {
-        $this[Input::UPLOAD_RULES] = $rules;
+        $this[Specs::UPLOAD_RULES] = $rules;
 
         return $this;
     }

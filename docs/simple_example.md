@@ -11,7 +11,7 @@ The `Sirius\Input` library can be used to handle any data coming to your app but
 Let's consider a simple contact form that has the following field: `name`, `email`, `phone`, `message` and `source`.
 
 ```php
-use Sirius\Input;
+use Sirius\Input\InputFilter;
 
 $contactForm = new InputFilter();
 $contactForm->addElement('name', array(

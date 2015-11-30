@@ -69,7 +69,7 @@ menu:
                     text: The form's lifecycle
                     relativeUrl: form_lifecycle.html
         advanced:
-            name: Advanced topics
+            name: Basic usage
             items:
                 form_creation:
                     text: Creating forms

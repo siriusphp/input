@@ -46,7 +46,7 @@ The difference between a form and a fieldset is that the elements of a fieldset 
 
 If an input named `email` belongs to a form the rendered element will have the `name="email"` attribute but if it belongs to a fieldset named `credentials` it will have `name=credentials[email]`.
 
-**Important!** This will have implications on everything else related to the form: filtration and validation. The validator and filtrator will have rules for the  `credentials[email]` value selector.
+**Important!** This will have implications on everything else related to the form (filtration and validation), ie. the validator and filtrator will have rules for the  `credentials[email]` value selector.
 
 ## Fieldsets vs. groups
 

@@ -36,10 +36,10 @@ Obviously this is not a very good solution because
 1. it's application specific (if you want to switch from Bootstrap you need to refactor your whole code) and 
 2. it's not very flexible (for each new view layer instruction you need to change the code to take it into account)
 
-For these reasons we created the [`Sirius\FormsRenderer`](http://www.sirius.ro/php/sirius/formsrenderer) library which lets you render HTML forms from `InputFilter` objects while being 100% flexible.
+For these reasons we created the [`Sirius\FormsRenderer`](http://www.sirius.ro/php/sirius/formsrenderer) library which lets you render HTML forms from `Input` objects while being 100% flexible.
 
 # Rendering documentation
 
 Just like you need a library to convert an input filter list of specification to a form you can use a renderer to output it as a documentation (for an API entry point for example).
 
-If you think MVC, the `InputFilter` object is the `Model` and as long as you have a `View` you can get anything.
+If you think MVC, the `Input` object is the `Model` and as long as you have a `View` you can get anything.

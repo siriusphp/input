@@ -164,20 +164,16 @@ abstract class Element extends Specs
     /**
      * Prepares the input filter to receive data and be rendered
      * It attaches the filters, validation rules, upload handler for the element
-     * If the element has children the method is executed on the children as well
      *
      * @param InputFilter $inputFilter
      */
     function prepareInputFilter(InputFilter $inputFilter)
     {
-        if (method_exists($this, 'prepareValidator')) {
-            $this->prepareValidator($inputFilter);
-        }
-        if (method_exists($this, 'prepareFiltrator')) {
-            $this->prepareFiltrator($inputFilter);
-        }
-        if (method_exists($this, 'prepareUploadHandlers')) {
-            $this->prepareUploadHandlers($inputFilter);
+        $preparableMethods = array('prepareValidator', 'prepareFiltrator', 'prepareUploadHandlers');
+        foreach ($preparableMethods as $method) {
+            if (method_exists($this, $method)) {
+                call_user_func(array( $this, $method), $inputFilter);
+            }
         }
     }
 

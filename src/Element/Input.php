@@ -47,10 +47,7 @@ class Input extends Element
     protected function getDefaultSpecs()
     {
         return array(
-            static::WIDGET     => 'text',
-            static::ATTRIBUTES => array(
-                'type' => 'text'
-            )
+            static::WIDGET => 'text'
         );
     }
 }

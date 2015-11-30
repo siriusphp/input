@@ -7,7 +7,7 @@ title: A form's lifecycle
 During its existence a form goes through a few stages.
 
 ### 1.Creation
-**Sirius\Input\Input** forms have a few constructor dependencies (which have default values) but your application's forms might depend on other things. 
+**Sirius\Input\InputFilter** forms have a few constructor dependencies (which have default values) but your application's forms might depend on other things.
 
 ### 2. Initialization
 The `init()` method doesn't do anything by default but you can use it for your application form to define the form's properties and elements. 

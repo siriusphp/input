@@ -34,5 +34,4 @@ class DataContainer extends \ArrayObject
     {
         return $this->getArrayCopy();
     }
-
 }

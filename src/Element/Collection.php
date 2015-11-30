@@ -26,7 +26,7 @@ class Collection extends Input implements ElementFactoryAwareInterface
 
     protected function getDefaultSpecs()
     {
-        return $defaultSpecs = array(
+        return array(
             InputFilter::WIDGET => 'fieldset'
         );
     }

@@ -10,10 +10,10 @@ Forms are difficult because they cross-cut concerns: **data** and **presentation
 
 When data is entering your system it would be relatively easy to filter and validate it before persisting it to database or something. Similarly, if you were to render a form it would be relatively easy to create some view helpers to help you with producing labels, text inputs and the like. But this way the 2 processes are decoupled and limits the flexibility of your app (like adding custom fields via plugins). Another difficulty comes from the fact that data comes from 2 sources: $_FILES and $_POST.
 
-From the **Sirius\Input** point of view a form is:
+From the **Sirius\Input** point of view a form:
 
-1. a collection of elements (fields, fieldsets, buttons etc), where
-2. each elements specifies the expected structure of the incoming data, the transformations it requires before validation, its validation rules and
+1. is a collection of elements (fields, fieldsets, buttons etc), where
+2. each element specifies the expected structure of the incoming data, the transformations it requires before validation, its validation rules and
 3. has instructions for the view layer on how the it should be rendered (a HTML form, a template for a single-page-app etc)
 
 This approach has some consequences, explained below.
@@ -56,6 +56,6 @@ A date field may be rendered as a set of 3 input fields (day,month,year) so to c
 
 **Sirius\Input** treats file uploads as an intermediary step between the user's input and the system's input. Take the example of a profile form where you need to allow the user to upload its profile picture. You will get a `$_FILES['picture']` from the client but what you really want is pass the uploaded file name to an user's model `picture` property. If you were to have an AJAX uploader you would get the result of the AJAX upload as a string that you would use to populate a `<input type="hidden" name="picture">` field. With the advance of such techniques this is now pretty much the norm.
 
-This is exactly the approach **Sirius\Input** uses when handling file uploads; a specific procedure takes the uploaded files and tries to converted the result of the upload into a string (just like an AJAX uploader would do) that will become the value of the desired form field element. So, while there may be a `$_FILES['picture']` value, the end result will be similar to having a `$_POST['picture']` value. If there are upload processing errors (ie: at the $_FILES level) the form will received (and display) additional error messages
+This is exactly the approach **Sirius\Input** uses when handling file uploads; a specific procedure takes the uploaded files and tries to convert the result of the upload into a string (just like an AJAX uploader would do) that will become the value of the desired form field element. So, while there may be a `$_FILES['picture']` value, the end result will be similar to having a `$_POST['picture']` value. If there are upload processing errors (ie: at the $_FILES level) the form will received (and display) additional error messages
 
 **Sirius\Input** treats the processing of file uploads as a standalone operation. The processing of uploaded files consists of sanitizing the file names, validating the files against the upload rules and moving the valid uploads to their destination. This is done automatically through a set of _UploadHandlers_ provided by the **Sirius\Upload** library.

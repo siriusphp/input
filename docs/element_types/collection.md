@@ -45,7 +45,7 @@ $total->setAttribute('readonly', 'readonly');
 
 ## Collections vs fieldsets
 
-Similarly to fielsets, the child elements of a collection are namespaced. But they also have an index. In the example above the `quantity` inputs will have the `name` attribute set as `lines[{index}][quantity]`
+Similarly to fielsets, the child elements of a collection are namespaced. But they also have an index. In the example above the `quantity` inputs will have the `name` attribute set as `lines[{lines_index}][quantity]`
 
 **Important!** Just like in the case of [Fieldsets](Fieldset.md) this will have implications on the data validation and filtration.
 
