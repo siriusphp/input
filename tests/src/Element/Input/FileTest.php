@@ -21,7 +21,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     function setUp()
     {
-        $this->form  = m::mock('\Sirius\Input\InputFilter', array());
+        $this->form  = m::mock('\Sirius\Input\InputFilter');
         $this->input = new File('picture');
         $this->input->setUploadContainer('/var/www');
         $this->input->setUploadOptions(array(
