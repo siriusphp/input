@@ -2,7 +2,6 @@
 namespace Sirius\Input\Element\Input;
 
 use Sirius\Input\Specs;
-use Sirius\Filtration\Filter\Callback;
 
 class MultiSelect extends Select
 {
@@ -27,10 +26,10 @@ class MultiSelect extends Select
      */
     function filterValue($value, $valueIdentifier = null)
     {
-        if ( ! $value) {
+        if (!$value) {
             return null;
         }
-        if ( ! is_array($value)) {
+        if (!is_array($value)) {
             $value = (array) $value;
         }
         $allowedValues = array_keys($this->getOptions());

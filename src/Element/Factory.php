@@ -3,7 +3,6 @@ namespace Sirius\Input\Element;
 
 use Sirius\Input\Element\Input;
 use Sirius\Input\Element;
-use Sirius\Input\Specs;
 
 class Factory
 {
@@ -30,13 +29,13 @@ class Factory
 
             return $this;
         }
-        if ( ! is_string($classOrClosure)) {
+        if (!is_string($classOrClosure)) {
             throw new \RuntimeException('Input type must be a class or a closure');
         }
-        if ( ! class_exists($classOrClosure)) {
+        if (!class_exists($classOrClosure)) {
             throw new \RuntimeException(sprintf('Class %s does not exist', $classOrClosure));
         }
-        if ( ! is_subclass_of($classOrClosure, '\Sirius\Input\Element')) {
+        if (!is_subclass_of($classOrClosure, '\Sirius\Input\Element')) {
             throw new \RuntimeException(
                 sprintf('Class %s must extend the \Sirius\Input\Element class', $classOrClosure)
             );
@@ -70,7 +69,7 @@ class Factory
             $element = new $class($name, $options);
         }
 
-        if ( ! $element instanceof Element) {
+        if (!$element instanceof Element) {
             throw new \RuntimeException('Cannot create a valid element based on the data provided');
         }
 

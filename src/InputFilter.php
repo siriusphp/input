@@ -3,7 +3,6 @@ namespace Sirius\Input;
 
 use Sirius\Filtration\Filtrator;
 use Sirius\Filtration\FiltratorInterface;
-use Sirius\Input\Element\AbstractElement;
 use Sirius\Input\Element\Factory as ElementFactory;
 use Sirius\Input\Traits\HasChildrenTrait;
 use Sirius\Input\Traits\HasAttributesTrait;
@@ -77,17 +76,17 @@ class InputFilter extends Specs
         ValidatorInterface $validator = null,
         FiltratorInterface $filtrator = null
     ) {
-        if ( ! $elementFactory) {
+        if (!$elementFactory) {
             $elementFactory = new ElementFactory();
         }
         $this->elementFactory = $elementFactory;
 
-        if ( ! $validator) {
+        if (!$validator) {
             $validator = new Validator();
         }
         $this->validator = $validator;
 
-        if ( ! $filtrator) {
+        if (!$filtrator) {
             $filtrator = new Filtrator();
         }
         $this->filtrator = $filtrator;
@@ -98,7 +97,7 @@ class InputFilter extends Specs
      * Initialize the form
      * This is the place to put your definition (properties, elements)
      *
-     * @return \Sirius\Input\Form
+     * @return InputFilter
      */
     function init()
     {
@@ -146,15 +145,15 @@ class InputFilter extends Specs
      * @param bool $force force the execution of the preparation code even if already prepared
      *
      * @throws \LogicException
-     * @return \Sirius\Input\Form
+     * @return InputFilter
      */
     function prepare($force = false)
     {
-        if ($this->isPrepared && ! $force) {
+        if ($this->isPrepared && !$force) {
             return $this;
         }
         $this->init();
-        if ( ! $this->isInitialized()) {
+        if (!$this->isInitialized()) {
             throw new \LogicException('Input was not properly initialized');
         }
 
@@ -198,12 +197,12 @@ class InputFilter extends Specs
     protected function prepareFiltration()
     {
         $filters = $this->getFilters();
-        if ( ! is_array($filters) || empty($filters)) {
+        if (!is_array($filters) || empty($filters)) {
             return;
         }
         $filtrator = $this->getFiltrator();
         foreach ($filters as $filter) {
-            $params = is_array($filter) ? $filter : array( $filter );
+            $params = is_array($filter) ? $filter : array($filter);
             if (isset($params[0])) {
                 $filtrator->add(Filtrator::SELECTOR_ROOT, $params[0], @$params[1], @$params[2], @$params[3]);
             }
@@ -248,7 +247,7 @@ class InputFilter extends Specs
      */
     function getUploadHandlers()
     {
-        if ( ! $this->uploadHandlers) {
+        if (!$this->uploadHandlers) {
             $this->uploadHandlers = new UploadHandlerAggregate;
         }
 
@@ -261,7 +260,7 @@ class InputFilter extends Specs
      *      $form->setUploadHandler('resume', $resumeHandler);
      *      $form->setUploadHandler('pictures[*]', $pictureHandler);
      *
-     * @param $selector
+     * @param string $selector
      * @param UploadHandler $handler
      *
      * @return $this
@@ -283,7 +282,7 @@ class InputFilter extends Specs
     function populate($values = array())
     {
         $this->prepare();
-        if ( ! $this->isPrepared()) {
+        if (!$this->isPrepared()) {
             throw new \LogicException('Input was not prepared and cannot receive data');
         }
 
@@ -332,7 +331,7 @@ class InputFilter extends Specs
      */
     function isValid($skipDataProcessing = false)
     {
-        if ( ! $skipDataProcessing) {
+        if (!$skipDataProcessing) {
             $this->values = $this->getFiltrator()->filter($this->rawValues);
         }
 
@@ -340,7 +339,7 @@ class InputFilter extends Specs
         $validator = $this->getValidator();
         $validator->validate($this->values);
 
-        if ( ! $skipDataProcessing) {
+        if (!$skipDataProcessing) {
             $this->processUploads();
         }
 

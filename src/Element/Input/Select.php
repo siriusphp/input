@@ -71,7 +71,7 @@ class Select extends BaseInput
             $this->getName(),
             'callback',
             array(
-                Callback::OPTION_CALLBACK => array( $this, 'filterValue' )
+                Callback::OPTION_CALLBACK => array($this, 'filterValue')
             )
         );
     }
@@ -86,7 +86,7 @@ class Select extends BaseInput
      */
     function filterValue($value, $valueIdentifier = null)
     {
-        if ( ! $value) {
+        if (!$value) {
             return null;
         }
         $allowedValues = array_keys($this->getOptions());

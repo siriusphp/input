@@ -61,8 +61,8 @@ trait HasChildrenTrait
             throw new \RuntimeException(sprintf('Variable $nameorElement must be a string or an instance of the Element class'));
         }
         // add the index for sorting
-        if ( ! isset($element['__index'])) {
-            $element['__index'] = ($this->elementsIndex --);
+        if (!isset($element['__index'])) {
+            $element['__index'] = ($this->elementsIndex--);
         }
         $this->elements[$name] = $element;
 
@@ -130,7 +130,7 @@ trait HasChildrenTrait
      * @param \ArrayObject $childA
      * @param \ArrayObject $childB
      *
-     * @return number
+     * @return integer
      */
     protected function childComparator($childA, $childB)
     {
@@ -161,7 +161,7 @@ trait HasChildrenTrait
     function getElements()
     {
         // first sort the children so they are retrieved by priority
-        uasort($this->elements, array( $this, 'childComparator' ));
+        uasort($this->elements, array($this, 'childComparator'));
 
         return $this->elements;
     }
@@ -174,7 +174,7 @@ trait HasChildrenTrait
     {
         foreach ($this->elements as $element) {
             $group = $element->getGroup();
-            if ($group && ! isset($this->elements[$group])) {
+            if ($group && !isset($this->elements[$group])) {
                 $element->setGroup(null);
             }
         }

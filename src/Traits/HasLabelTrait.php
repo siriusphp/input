@@ -9,7 +9,7 @@ trait HasLabelTrait
 
     protected function ensureLabelAttributes()
     {
-        if ( ! isset($this[Specs::LABEL_ATTRIBUTES])) {
+        if (!isset($this[Specs::LABEL_ATTRIBUTES])) {
             $this[Specs::LABEL_ATTRIBUTES] = new AttributesContainer();
         }
     }
@@ -55,7 +55,7 @@ trait HasLabelTrait
      *
      * @param array $attrs
      *
-     * @return mixed
+     * @return HasLabelTrait
      */
     function setLabelAttributes($attrs)
     {

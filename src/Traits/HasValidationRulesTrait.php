@@ -41,7 +41,7 @@ trait HasValidationRulesTrait
     protected function prepareValidator(InputFilter $input)
     {
         $validationRules = $this->getValidationRules();
-        if ( ! $validationRules || ! is_array($validationRules)) {
+        if (!$validationRules || !is_array($validationRules)) {
             return;
         }
         $validator = $input->getValidator();

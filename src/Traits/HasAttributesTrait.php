@@ -9,7 +9,7 @@ trait HasAttributesTrait
 
     protected function ensureAttributes()
     {
-        if ( ! isset($this[Specs::ATTRIBUTES])) {
+        if (!isset($this[Specs::ATTRIBUTES])) {
             $this[Specs::ATTRIBUTES] = new AttributesContainer();
         }
     }
@@ -31,7 +31,7 @@ trait HasAttributesTrait
      *
      * @param array $attrs
      *
-     * @return mixed
+     * @return HasAttributesTrait
      */
     function setAttributes($attrs)
     {
@@ -59,7 +59,7 @@ trait HasAttributesTrait
      * Set/Unset a label attribute
      *
      * @param string $attr
-     * @param mixed|null $value
+     * @param string $value
      *
      * @return self
      */
