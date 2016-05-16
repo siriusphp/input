@@ -19,7 +19,7 @@ trait HasHintTrait
      *
      * @return string|null
      */
-    function getHint()
+    public function getHint()
     {
         return isset($this[Specs::HINT]) ? $this[Specs::HINT] : null;
     }
@@ -31,7 +31,7 @@ trait HasHintTrait
      *
      * @return self
      */
-    function setHint($hint)
+    public function setHint($hint)
     {
         $this[Specs::HINT] = $hint;
 
@@ -43,7 +43,7 @@ trait HasHintTrait
      *
      * @return mixed
      */
-    function getHintAttributes()
+    public function getHintAttributes()
     {
         $this->ensureHintAttributes();
 
@@ -57,7 +57,7 @@ trait HasHintTrait
      *
      * @return HasHintTrait
      */
-    function setHintAttributes($attrs)
+    public function setHintAttributes($attrs)
     {
         $this->ensureHintAttributes();
         $this[Specs::HINT_ATTRIBUTES]->set($attrs);
@@ -72,7 +72,7 @@ trait HasHintTrait
      *
      * @return mixed
      */
-    function getHintAttribute($attr)
+    public function getHintAttribute($attr)
     {
         $this->ensureHintAttributes();
 
@@ -87,7 +87,7 @@ trait HasHintTrait
      *
      * @return self
      */
-    function setHintAttribute($attr, $value = null)
+    public function setHintAttribute($attr, $value = null)
     {
         $this->ensureHintAttributes();
         $this[Specs::HINT_ATTRIBUTES]->set($attr, $value);
@@ -102,7 +102,7 @@ trait HasHintTrait
      *
      * @return self
      */
-    function addHintClass($class)
+    public function addHintClass($class)
     {
         $this->ensureHintAttributes();
         $this[Specs::HINT_ATTRIBUTES]->addClass($class);
@@ -117,7 +117,7 @@ trait HasHintTrait
      *
      * @return self
      */
-    function removeHintClass($class)
+    public function removeHintClass($class)
     {
         $this->ensureHintAttributes();
         $this[Specs::HINT_ATTRIBUTES]->removeClass($class);
@@ -133,7 +133,7 @@ trait HasHintTrait
      *
      * @return self
      */
-    function toggleHintClass($class)
+    public function toggleHintClass($class)
     {
         $this->ensureHintAttributes();
         $this[Specs::HINT_ATTRIBUTES]->toggleClass($class);
@@ -149,7 +149,7 @@ trait HasHintTrait
      *
      * @return bool
      */
-    function hasHintClass($class)
+    public function hasHintClass($class)
     {
         $this->ensureHintAttributes();
 

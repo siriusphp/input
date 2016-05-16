@@ -24,7 +24,7 @@ class MultiSelect extends Select
      *
      * @return mixed
      */
-    function filterValue($value, $valueIdentifier = null)
+    public function filterValue($value, $valueIdentifier = null)
     {
         if (!$value) {
             return null;

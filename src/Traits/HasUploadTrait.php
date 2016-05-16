@@ -12,7 +12,7 @@ trait HasUploadTrait
      *
      * @return null|mixed
      */
-    function getUploadContainer()
+    public function getUploadContainer()
     {
         return isset($this[Specs::UPLOAD_CONTAINER]) ? $this[Specs::UPLOAD_CONTAINER] : null;
     }
@@ -24,7 +24,7 @@ trait HasUploadTrait
      *
      * @return $this
      */
-    function setUploadContainer($container)
+    public function setUploadContainer($container)
     {
         $this[Specs::UPLOAD_CONTAINER] = $container;
 
@@ -37,7 +37,7 @@ trait HasUploadTrait
      * @see \Sirius\Upload\Handler
      * @return null|array
      */
-    function getUploadOptions()
+    public function getUploadOptions()
     {
         return isset($this[Specs::UPLOAD_OPTIONS]) ? $this[Specs::UPLOAD_OPTIONS] : null;
     }
@@ -49,7 +49,7 @@ trait HasUploadTrait
      *
      * @return $this
      */
-    function setUploadOptions($options = array())
+    public function setUploadOptions($options = array())
     {
         $this[Specs::UPLOAD_OPTIONS] = $options;
 
@@ -61,7 +61,7 @@ trait HasUploadTrait
      *
      * @return null|array
      */
-    function getUploadRules()
+    public function getUploadRules()
     {
         return isset($this[Specs::UPLOAD_RULES]) ? $this[Specs::UPLOAD_RULES] : null;
     }
@@ -73,7 +73,7 @@ trait HasUploadTrait
      *
      * @return $this
      */
-    function setUploadRules($rules = array())
+    public function setUploadRules($rules = array())
     {
         $this[Specs::UPLOAD_RULES] = $rules;
 

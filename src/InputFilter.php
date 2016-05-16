@@ -13,7 +13,7 @@ use Sirius\Upload\HandlerAggregate as UploadHandlerAggregate;
 use Sirius\Validation\Validator;
 use Sirius\Validation\ValidatorInterface;
 
-class InputFilter extends Specs
+class InputFilter extends \ArrayObject
 {
     use HasChildrenTrait;
     use HasAttributesTrait;
@@ -71,7 +71,7 @@ class InputFilter extends Specs
 
     protected $values = array();
 
-    function __construct(
+    public function __construct(
         ElementFactory $elementFactory = null,
         ValidatorInterface $validator = null,
         FiltratorInterface $filtrator = null
@@ -99,7 +99,7 @@ class InputFilter extends Specs
      *
      * @return InputFilter
      */
-    function init()
+    public function init()
     {
         if ($this->isInitialized) {
             return $this;
@@ -114,7 +114,7 @@ class InputFilter extends Specs
      *
      * @return boolean
      */
-    function isInitialized()
+    public function isInitialized()
     {
         return $this->isInitialized;
     }
@@ -124,7 +124,7 @@ class InputFilter extends Specs
      *
      * @return ElementFactory
      */
-    function getElementFactory()
+    public function getElementFactory()
     {
         return $this->elementFactory;
     }
@@ -134,7 +134,7 @@ class InputFilter extends Specs
      *
      * @return string
      */
-    function getUploadPrefix()
+    public function getUploadPrefix()
     {
         return $this->uploadPrefix;
     }
@@ -147,7 +147,7 @@ class InputFilter extends Specs
      * @throws \LogicException
      * @return InputFilter
      */
-    function prepare($force = false)
+    public function prepare($force = false)
     {
         if ($this->isPrepared && !$force) {
             return $this;
@@ -214,7 +214,7 @@ class InputFilter extends Specs
      *
      * @return boolean
      */
-    function isPrepared()
+    public function isPrepared()
     {
         return $this->isPrepared;
     }
@@ -225,7 +225,7 @@ class InputFilter extends Specs
      *
      * @return \Sirius\Validation\Validator
      */
-    function getValidator()
+    public function getValidator()
     {
         return $this->validator;
     }
@@ -235,7 +235,7 @@ class InputFilter extends Specs
      *
      * @return \Sirius\Filtration\Filtrator
      */
-    function getFiltrator()
+    public function getFiltrator()
     {
         return $this->filtrator;
     }
@@ -245,7 +245,7 @@ class InputFilter extends Specs
      *
      * @return UploadHandlerAggregate
      */
-    function getUploadHandlers()
+    public function getUploadHandlers()
     {
         if (!$this->uploadHandlers) {
             $this->uploadHandlers = new UploadHandlerAggregate;
@@ -265,7 +265,7 @@ class InputFilter extends Specs
      *
      * @return $this
      */
-    function setUploadHandler($selector, UploadHandler $handler)
+    public function setUploadHandler($selector, UploadHandler $handler)
     {
         $this->getUploadHandlers()->addHandler($selector, $handler);
 
@@ -279,7 +279,7 @@ class InputFilter extends Specs
      *
      * @throws \LogicException
      */
-    function populate($values = array())
+    public function populate($values = array())
     {
         $this->prepare();
         if (!$this->isPrepared()) {
@@ -329,7 +329,7 @@ class InputFilter extends Specs
      *
      * @return bool
      */
-    function isValid($skipDataProcessing = false)
+    public function isValid($skipDataProcessing = false)
     {
         if (!$skipDataProcessing) {
             $this->values = $this->getFiltrator()->filter($this->rawValues);
@@ -351,7 +351,7 @@ class InputFilter extends Specs
      *
      * @return array
      */
-    function getErrors()
+    public function getErrors()
     {
         return $this->getValidator()->getMessages();
     }
@@ -359,7 +359,7 @@ class InputFilter extends Specs
     /**
      * @return array
      */
-    function getValues()
+    public function getValues()
     {
         return empty($this->values) ? $this->rawValues : $this->values;
     }
@@ -369,7 +369,7 @@ class InputFilter extends Specs
      *
      * @return mixed
      */
-    function getValue($name)
+    public function getValue($name)
     {
         return empty($this->values) ? $this->getRawValue($name) : Arr::getByPath($this->values, $name);
     }
@@ -379,7 +379,7 @@ class InputFilter extends Specs
      *
      * @return mixed
      */
-    function getRawValue($name)
+    public function getRawValue($name)
     {
         return Arr::getByPath($this->rawValues, $name);
     }
@@ -387,7 +387,7 @@ class InputFilter extends Specs
     /**
      * @return array
      */
-    function getRawValues()
+    public function getRawValues()
     {
         return $this->rawValues;
     }

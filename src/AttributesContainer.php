@@ -4,12 +4,12 @@ namespace Sirius\Input;
 class AttributesContainer extends DataContainer
 {
 
-    function hasClass($className)
+    public function hasClass($className)
     {
         return (bool) preg_match('/\b' . $className . '\b/i', $this->get('class'));
     }
 
-    function addClass($className)
+    public function addClass($className)
     {
         if ($this->hasClass($className)) {
             return;
@@ -17,7 +17,7 @@ class AttributesContainer extends DataContainer
         $this->set('class', trim($this->get('class') . ' ' . $className));
     }
 
-    function removeClass($className)
+    public function removeClass($className)
     {
         if (!$this->hasClass($className)) {
             return;
@@ -27,7 +27,7 @@ class AttributesContainer extends DataContainer
         $this->set('class', $classes);
     }
 
-    function toggleClass($className)
+    public function toggleClass($className)
     {
         if ($this->hasClass($className)) {
             $this->removeClass($className);

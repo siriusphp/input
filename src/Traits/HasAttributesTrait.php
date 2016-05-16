@@ -19,7 +19,7 @@ trait HasAttributesTrait
      *
      * @return mixed
      */
-    function getAttributes()
+    public function getAttributes()
     {
         $this->ensureAttributes();
 
@@ -33,7 +33,7 @@ trait HasAttributesTrait
      *
      * @return HasAttributesTrait
      */
-    function setAttributes($attrs)
+    public function setAttributes($attrs)
     {
         $this->ensureAttributes();
         $this[Specs::ATTRIBUTES]->set($attrs);
@@ -48,7 +48,7 @@ trait HasAttributesTrait
      *
      * @return mixed
      */
-    function getAttribute($attr)
+    public function getAttribute($attr)
     {
         $this->ensureAttributes();
 
@@ -63,7 +63,7 @@ trait HasAttributesTrait
      *
      * @return self
      */
-    function setAttribute($attr, $value = null)
+    public function setAttribute($attr, $value = null)
     {
         $this->ensureAttributes();
         $this->ensureAttributes();
@@ -79,7 +79,7 @@ trait HasAttributesTrait
      *
      * @return self
      */
-    function addClass($class)
+    public function addClass($class)
     {
         $this->ensureAttributes();
         $this[Specs::ATTRIBUTES]->addClass($class);
@@ -94,7 +94,7 @@ trait HasAttributesTrait
      *
      * @return self
      */
-    function removeClass($class)
+    public function removeClass($class)
     {
         $this->ensureAttributes();
         $this[Specs::ATTRIBUTES]->removeClass($class);
@@ -110,7 +110,7 @@ trait HasAttributesTrait
      *
      * @return self
      */
-    function toggleClass($class)
+    public function toggleClass($class)
     {
         $this->ensureAttributes();
         $this[Specs::ATTRIBUTES]->toggleClass($class);
@@ -126,7 +126,7 @@ trait HasAttributesTrait
      *
      * @return bool
      */
-    function hasClass($class)
+    public function hasClass($class)
     {
         $this->ensureAttributes();
 

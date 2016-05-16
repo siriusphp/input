@@ -19,7 +19,7 @@ trait HasLabelTrait
      *
      * @return string null
      */
-    function getLabel()
+    public function getLabel()
     {
         return isset($this[Specs::LABEL]) ? $this[Specs::LABEL] : null;
     }
@@ -31,7 +31,7 @@ trait HasLabelTrait
      *
      * @return self
      */
-    function setLabel($label)
+    public function setLabel($label)
     {
         $this[Specs::LABEL] = $label;
 
@@ -43,7 +43,7 @@ trait HasLabelTrait
      *
      * @return mixed
      */
-    function getLabelAttributes()
+    public function getLabelAttributes()
     {
         $this->ensureLabelAttributes();
 
@@ -57,7 +57,7 @@ trait HasLabelTrait
      *
      * @return HasLabelTrait
      */
-    function setLabelAttributes($attrs)
+    public function setLabelAttributes($attrs)
     {
         $this->ensureLabelAttributes();
         $this[Specs::LABEL_ATTRIBUTES]->set($attrs);
@@ -72,7 +72,7 @@ trait HasLabelTrait
      *
      * @return mixed
      */
-    function getLabelAttribute($attr)
+    public function getLabelAttribute($attr)
     {
         $this->ensureLabelAttributes();
 
@@ -87,7 +87,7 @@ trait HasLabelTrait
      *
      * @return self
      */
-    function setLabelAttribute($attr, $value = null)
+    public function setLabelAttribute($attr, $value = null)
     {
         $this->ensureLabelAttributes();
         $this->ensureLabelAttributes();
@@ -103,7 +103,7 @@ trait HasLabelTrait
      *
      * @return self
      */
-    function addLabelClass($class)
+    public function addLabelClass($class)
     {
         $this->ensureLabelAttributes();
         $this[Specs::LABEL_ATTRIBUTES]->addClass($class);
@@ -118,7 +118,7 @@ trait HasLabelTrait
      *
      * @return self
      */
-    function removeLabelClass($class)
+    public function removeLabelClass($class)
     {
         $this->ensureLabelAttributes();
         $this[Specs::LABEL_ATTRIBUTES]->removeClass($class);
@@ -134,7 +134,7 @@ trait HasLabelTrait
      *
      * @return self
      */
-    function toggleLabelClass($class)
+    public function toggleLabelClass($class)
     {
         $this->ensureLabelAttributes();
         $this[Specs::LABEL_ATTRIBUTES]->toggleClass($class);
@@ -150,7 +150,7 @@ trait HasLabelTrait
      *
      * @return bool
      */
-    function hasLabelClass($class)
+    public function hasLabelClass($class)
     {
         $this->ensureLabelAttributes();
 

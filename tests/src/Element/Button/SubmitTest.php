@@ -2,17 +2,17 @@
 
 namespace Sirius\Input\Element\Button;
 
-use Sirius\Input\Element;
+use Sirius\Input\Specs;
 
 class SubmitTest extends \PHPUnit_Framework_TestCase
 {
 
-    function testDefaults()
+    public function testDefaults()
     {
         $input = new Submit('submit');
 
-        $this->assertEquals('button', $input[Element::WIDGET]);
-        $this->assertEquals('submit', $input[Element::ATTRIBUTES]['type']);
+        $this->assertEquals('button', $input[Specs::WIDGET]);
+        $this->assertEquals('submit', $input[Specs::ATTRIBUTES]['type']);
     }
 
 }

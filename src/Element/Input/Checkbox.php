@@ -14,26 +14,26 @@ class Checkbox extends BaseInput
         );
     }
 
-    function setUncheckedValue($val = null)
+    public function setUncheckedValue($val = null)
     {
         $this[Specs::UNCHECKED_VALUE] = (string) $val;
 
         return $this;
     }
 
-    function getUncheckedValue()
+    public function getUncheckedValue()
     {
         return isset($this[Specs::UNCHECKED_VALUE]) ? $this[Specs::UNCHECKED_VALUE] : null;
     }
 
-    function setCheckedValue($val = null)
+    public function setCheckedValue($val = null)
     {
         $this[Specs::CHECKED_VALUE] = (string) $val;
 
         return $this;
     }
 
-    function getCheckedValue()
+    public function getCheckedValue()
     {
         return isset($this[Specs::CHECKED_VALUE]) ? $this[Specs::CHECKED_VALUE] : null;
     }

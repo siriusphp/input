@@ -21,7 +21,7 @@ trait HasDataTrait
      *
      * @return mixed
      */
-    function getData($key = null)
+    public function getData($key = null)
     {
         $this->ensureData();
         if ($key === null) {
@@ -39,7 +39,7 @@ trait HasDataTrait
      *
      * @return self
      */
-    function setData($keyOrArray, $value = null)
+    public function setData($keyOrArray, $value = null)
     {
         $this->ensureData();
         $this[Specs::DATA]->set($keyOrArray, $value);

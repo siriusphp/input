@@ -3,6 +3,7 @@
 namespace Sirius\Input\Element;
 
 use Sirius\Input\Element;
+use Sirius\Input\Specs;
 
 class ButtonTest extends \PHPUnit_Framework_TestCase
 {
@@ -11,7 +12,7 @@ class ButtonTest extends \PHPUnit_Framework_TestCase
     {
         $button = new Button('submit');
 
-        $this->assertEquals('button', $button[Element::WIDGET]);
+        $this->assertEquals('button', $button[Specs::WIDGET]);
     }
 
 

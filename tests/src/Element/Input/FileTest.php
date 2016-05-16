@@ -5,6 +5,7 @@ namespace Sirius\Input\Element\Input;
 use Sirius\Input\Element\Input;
 use Sirius\Upload\Handler;
 use Mockery as m;
+use Sirius\Input\Specs;
 
 class FileTest extends \PHPUnit_Framework_TestCase
 {
@@ -39,7 +40,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
 
     function testDefaults()
     {
-        $this->assertEquals('file', $this->input[Input::WIDGET]);
+        $this->assertEquals('file', $this->input[Specs::WIDGET]);
     }
 
 

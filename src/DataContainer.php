@@ -4,7 +4,7 @@ namespace Sirius\Input;
 class DataContainer extends \ArrayObject
 {
 
-    function set($nameOrArray, $value = null)
+    public function set($nameOrArray, $value = null)
     {
         if (is_array($nameOrArray)) {
             foreach ($nameOrArray as $k => $v) {
@@ -23,14 +23,14 @@ class DataContainer extends \ArrayObject
         }
     }
 
-    function get($name)
+    public function get($name)
     {
         return isset($this[$name])
             ? $this[$name]
             : null;
     }
 
-    function getAll()
+    public function getAll()
     {
         return $this->getArrayCopy();
     }

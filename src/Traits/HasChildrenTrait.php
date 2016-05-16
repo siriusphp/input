@@ -46,7 +46,7 @@ trait HasChildrenTrait
      * @throws \RuntimeException
      * @return $this
      */
-    function addElement($nameOrElement, $specs = array())
+    public function addElement($nameOrElement, $specs = array())
     {
         if (is_string($nameOrElement)) {
             $name    = $nameOrElement;
@@ -90,7 +90,7 @@ trait HasChildrenTrait
      *
      * @return \Sirius\Input\Element
      */
-    function getElement($name)
+    public function getElement($name)
     {
         return isset($this->elements[$name]) ? $this->elements[$name] : null;
     }
@@ -103,7 +103,7 @@ trait HasChildrenTrait
      * @throws \RuntimeException
      * @return $this
      */
-    function removeElement($name)
+    public function removeElement($name)
     {
         if (isset($this->elements[$name])) {
             unset($this->elements[$name]);
@@ -119,7 +119,7 @@ trait HasChildrenTrait
      *
      * @return boolean
      */
-    function hasElement($name)
+    public function hasElement($name)
     {
         return null !== $this->getElement($name);
     }
@@ -158,7 +158,7 @@ trait HasChildrenTrait
      *
      * @return array
      */
-    function getElements()
+    public function getElements()
     {
         // first sort the children so they are retrieved by priority
         uasort($this->elements, array($this, 'childComparator'));

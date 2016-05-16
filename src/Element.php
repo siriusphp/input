@@ -3,6 +3,7 @@ namespace Sirius\Input;
 
 use Sirius\Input\Traits\HasAttributesTrait;
 use Sirius\Input\Traits\HasDataTrait;
+use Sirius\Input\Specs;
 
 /**
  *
@@ -39,7 +40,7 @@ use Sirius\Input\Traits\HasDataTrait;
  * @method Element getUploadRules() Get the upload validation rules
  * @method Element setUploadRules(array $rules) Set the upload validation rules
  */
-abstract class Element extends Specs
+abstract class Element extends \ArrayObject
 {
     use HasAttributesTrait;
     use HasDataTrait;
@@ -58,7 +59,7 @@ abstract class Element extends Specs
      * @param array $specs
      *            Specification for the element (attributes, parents, etc)
      */
-    function __construct($name, $specs = array())
+    public function __construct($name, $specs = array())
     {
         $specs = array_merge($this->getDefaultSpecs(), $specs);
         foreach ($specs as $key => $value) {
@@ -67,9 +68,39 @@ abstract class Element extends Specs
         $this->name = $name;
     }
 
+    protected function inflectUnderscoreToClass($var)
+    {
+        $var = str_replace('_', ' ', $var);
+        $var = ucwords($var);
+
+        return str_replace(' ', '', $var);
+    }
+
+    public function get($key)
+    {
+        $method = 'get' . $this->inflectUnderscoreToClass($key);
+        if (method_exists($this, $method)) {
+            return $this->{$method}();
+        }
+
+        return isset($this[$key]) ? $this[$key] : null;
+    }
+
+    public function set($key, $value)
+    {
+        $method = 'set' . $this->inflectUnderscoreToClass($key);
+        if (method_exists($this, $method)) {
+            return $this->{$method}($value);
+        }
+        $this[$key] = $value;
+
+        return $this;
+    }
+
+
     /**
      * Returns the default element specifications
-     * To be used for easily extending objects
+     * The default specs are merged with the constructor specs
      *
      * @return array
      */
@@ -83,7 +114,7 @@ abstract class Element extends Specs
      *
      * @return string
      */
-    function getName()
+    public function getName()
     {
         return $this->name;
     }
@@ -95,9 +126,9 @@ abstract class Element extends Specs
      *
      * @return $this
      */
-    function setGroup($group = null)
+    public function setGroup($group = null)
     {
-        $this[Element::GROUP] = (string) $group;
+        $this[Specs::GROUP] = (string) $group;
 
         return $this;
     }
@@ -107,9 +138,9 @@ abstract class Element extends Specs
      *
      * @return null|string
      */
-    function getGroup()
+    public function getGroup()
     {
-        return isset($this[Element::GROUP]) ? $this[Element::GROUP] : null;
+        return isset($this[Specs::GROUP]) ? $this[Specs::GROUP] : null;
     }
 
     /**
@@ -119,9 +150,9 @@ abstract class Element extends Specs
      *
      * @return $this
      */
-    function setWidget($widget = null)
+    public function setWidget($widget = null)
     {
-        $this[Element::WIDGET] = (string) $widget;
+        $this[Specs::WIDGET] = (string) $widget;
 
         return $this;
     }
@@ -131,9 +162,9 @@ abstract class Element extends Specs
      *
      * @return string
      */
-    function getWidget()
+    public function getWidget()
     {
-        return isset($this[Element::WIDGET]) ? $this[Element::WIDGET] : null;
+        return isset($this[Specs::WIDGET]) ? $this[Specs::WIDGET] : null;
     }
 
     /**
@@ -143,9 +174,9 @@ abstract class Element extends Specs
      *
      * @return $this
      */
-    function setPosition($priority = 0)
+    public function setPosition($priority = 0)
     {
-        $this[Element::POSITION] = (int) $priority;
+        $this[Specs::POSITION] = (int) $priority;
 
         return $this;
     }
@@ -155,9 +186,9 @@ abstract class Element extends Specs
      *
      * @return integer
      */
-    function getPosition()
+    public function getPosition()
     {
-        return isset($this[Element::POSITION]) ? $this[Element::POSITION] : 0;
+        return isset($this[Specs::POSITION]) ? $this[Specs::POSITION] : 0;
     }
 
 
@@ -167,7 +198,7 @@ abstract class Element extends Specs
      *
      * @param InputFilter $inputFilter
      */
-    function prepareInputFilter(InputFilter $inputFilter)
+    public function prepareInputFilter(InputFilter $inputFilter)
     {
         $preparableMethods = array('prepareValidator', 'prepareFiltrator', 'prepareUploadHandlers');
         foreach ($preparableMethods as $method) {

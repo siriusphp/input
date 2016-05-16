@@ -28,7 +28,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($this->form->hasElement('email'));
 
         $this->form->addElement('email', array(
-            Element::TYPE => 'text'
+            Specs::TYPE => 'text'
         ));
 
         $this->assertTrue($this->form->hasElement('email'));
@@ -40,16 +40,16 @@ class FormTest extends \PHPUnit_Framework_TestCase
     function testPrepare()
     {
         $this->form->addElement('email', array(
-            Element::TYPE             => 'text',
-            Element::VALIDATION_RULES => array(
+            Specs::TYPE             => 'text',
+            Specs::VALIDATION_RULES => array(
                 'required',
                 'email'
             )
         ));
         $this->form->addElement('picture', array(
-            Element::TYPE             => 'file',
-            Element::UPLOAD_CONTAINER => __DIR__,
-            Element::UPLOAD_RULES     => array(
+            Specs::TYPE             => 'file',
+            Specs::UPLOAD_CONTAINER => __DIR__,
+            Specs::UPLOAD_RULES     => array(
                 'image'
             )
         ));
@@ -72,12 +72,12 @@ class FormTest extends \PHPUnit_Framework_TestCase
          */
         $emailValue = '   ';
         $this->form->addElement('email', array(
-            Element::TYPE             => 'text',
-            Element::VALIDATION_RULES => array(
+            Specs::TYPE             => 'text',
+            Specs::VALIDATION_RULES => array(
                 'required',
                 'email'
             ),
-            Element::FILTERS          => array(
+            Specs::FILTERS          => array(
                 'stringtrim',
                 'nullify'
             )
@@ -174,15 +174,15 @@ class FormTest extends \PHPUnit_Framework_TestCase
     function testGetChildrenOrder()
     {
         $this->form->addElement('email', array(
-            Element::TYPE     => 'text',
-            Element::POSITION => 8
+            Specs::TYPE     => 'text',
+            Specs::POSITION => 8
         ));
         $this->form->addElement('email_confirmation', array(
-            Element::TYPE     => 'text',
-            Element::POSITION => 8
+            Specs::TYPE     => 'text',
+            Specs::POSITION => 8
         ));
         $this->form->addElement('name', array(
-            Element::TYPE => 'text'
+            Specs::TYPE => 'text'
         ));
 
         $children = array_keys($this->form->getElements());
@@ -194,12 +194,12 @@ class FormTest extends \PHPUnit_Framework_TestCase
     function testFormFilter()
     {
         $this->form->addElement('email', array(
-            Element::TYPE     => 'text',
-            Element::POSITION => 8
+            Specs::TYPE     => 'text',
+            Specs::POSITION => 8
         ));
         $this->form->addElement('email_confirmation', array(
-            Element::TYPE     => 'text',
-            Element::POSITION => 8
+            Specs::TYPE     => 'text',
+            Specs::POSITION => 8
         ));
         // the filter will be set at
         $this->form->setFilters(array(
@@ -227,14 +227,14 @@ class FormTest extends \PHPUnit_Framework_TestCase
     function testUnsetMissingElementGroups()
     {
         $this->form->addElement('email', array(
-            Element::TYPE     => 'text',
-            Element::POSITION => 8,
-            Element::GROUP    => 'missing'
+            Specs::TYPE     => 'text',
+            Specs::POSITION => 8,
+            Specs::GROUP    => 'missing'
         ));
         $this->form->addElement('email_confirmation', array(
-            Element::TYPE     => 'text',
-            Element::POSITION => 8,
-            Element::GROUP    => 'missing'
+            Specs::TYPE     => 'text',
+            Specs::POSITION => 8,
+            Specs::GROUP    => 'missing'
         ));
 
         $this->form->prepare();

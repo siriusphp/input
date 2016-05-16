@@ -9,6 +9,7 @@ use Sirius\Input\Traits\HasValidationRulesTrait;
 use Sirius\Input\Element\Factory as ElementFactory;
 use Sirius\Input\Element\FactoryAwareInterface as ElementFactoryAwareInterface;
 use Sirius\Input\InputFilter;
+use Sirius\Input\Specs;
 
 /**
  * A fielset is a special kind of input element that has a namespace
@@ -33,7 +34,7 @@ class Fieldset extends Input implements ElementFactoryAwareInterface
     protected function getDefaultSpecs()
     {
         return array(
-            InputFilter::WIDGET => 'fieldset'
+            Specs::WIDGET => 'fieldset'
         );
     }
 
@@ -63,7 +64,7 @@ class Fieldset extends Input implements ElementFactoryAwareInterface
      *
      * @return $this
      */
-    function setElementFactory(ElementFactory $elementFactory)
+    public function setElementFactory(ElementFactory $elementFactory)
     {
         $this->elementFactory = $elementFactory;
         $this->createChildren();
@@ -72,7 +73,7 @@ class Fieldset extends Input implements ElementFactoryAwareInterface
     }
 
 
-    function prepareInputFilter(InputFilter $inputFilter)
+    public function prepareInputFilter(InputFilter $inputFilter)
     {
         parent::prepareInputFilter($inputFilter);
         $this->cleanUpMissingGroups();

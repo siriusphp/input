@@ -2,85 +2,113 @@
 namespace Sirius\Input;
 
 
-class Specs extends \ArrayObject
+class Specs
 {
     /**
-     * Attributes for the input and input elements
+     * Extra options for the input element
      */
     const DATA = 'data';
 
+    /**
+     * Info used by the view layer to render the widget's input field section (eg: HTML attributes)
+     */
     const ATTRIBUTES = 'attributes';
 
+    /**
+     * The text of the input's label
+     */
     const LABEL = 'label';
 
+    /**
+     * Info used by the view layer to render the widget's label section (eg: HTML attributes)
+     */
     const LABEL_ATTRIBUTES = 'label_attributes';
 
+    /**
+     * The display order of the element inside it's container (form, group, fieldset)
+     */
     const POSITION = 'position';
 
+    /**
+     * The name of the element which visually includes the current element
+     */
     const GROUP = 'group';
 
+    /**
+     * Info used by the view layer to render the widget (eg: HTML attributes)
+     */
     const CONTAINER_ATTRIBUTES = 'container_attributes';
 
+    /**
+     * Instructions about filling out the input
+     */
     const HINT = 'hint';
 
+    /**
+     * Info used by the view layer to render the widget's hint section (eg: HTML attributes)
+     */
     const HINT_ATTRIBUTES = 'hint_attributes';
 
+    /**
+     * The validation rules used to verify the validity of a value
+     */
     const VALIDATION = 'validation_rules';
     const VALIDATION_RULES = 'validation_rules';
 
+    /**
+     * The list of filter rules to be applied to the value
+     */
     const FILTERS = 'filters';
 
+    /**
+     * The type of UI element
+     */
     const WIDGET = 'widget';
 
+    /**
+     * The type of Input element to be constructed
+     */
     const ELEMENT_TYPE = 'type';
-
     const TYPE = 'type';
 
+    /**
+     * The list of acceptable choices for "select" type of elements
+     */
     const OPTIONS = 'options';
 
+    /**
+     * The first option (the label for NULL) for "select" type of elements
+     */
     const FIRST_OPTION = 'first_option';
 
+    /**
+     * The value to be sent by the client when a "checkbox" is not checked
+     */
     const UNCHECKED_VALUE = 'unchecked_value';
 
+    /**
+     * The value to be sent by the client when a "checkbox" is checked
+     */
     const CHECKED_VALUE = 'checked_value';
 
+    /**
+     * The container for the uploaded files (@see \Sirius\Upload\Handler)
+     */
     const UPLOAD_CONTAINER = 'upload_container';
 
+    /**
+     * The upload options (@see \Sirius\Upload\Handler)
+     */
     const UPLOAD_OPTIONS = 'upload_options';
 
+    /**
+     * The validation rules for the uploaded files (@see \Sirius\Upload\Handler)
+     */
     const UPLOAD_RULES = 'upload_rules';
 
+    /**
+     * The children for FORMs or FIELDSETs
+     */
     const CHILDREN = 'children';
-
-
-    protected function inflectUnderscoreToClass($var)
-    {
-        $var = str_replace('_', ' ', $var);
-        $var = ucwords($var);
-
-        return str_replace(' ', '', $var);
-    }
-
-    function get($key)
-    {
-        $method = 'get' . $this->inflectUnderscoreToClass($key);
-        if (method_exists($this, $method)) {
-            return $this->{$method}();
-        }
-
-        return isset($this[$key]) ? $this[$key] : null;
-    }
-
-    function set($key, $value)
-    {
-        $method = 'set' . $this->inflectUnderscoreToClass($key);
-        if (method_exists($this, $method)) {
-            return $this->{$method}($value);
-        }
-        $this[$key] = $value;
-
-        return $this;
-    }
-
 
 }

@@ -94,7 +94,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
         $this->input->addElement(
             'city',
             array(
-                Fieldset::VALIDATION_RULES => array(
+                Specs::VALIDATION_RULES => array(
                     'required',
                 )
             )

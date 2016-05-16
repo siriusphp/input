@@ -2,6 +2,7 @@
 namespace Sirius\Input\Element\Input;
 
 use Sirius\Input\Element\Input;
+use Sirius\Input\Specs;
 use Mockery as m;
 
 class SelectTest extends \PHPUnit_Framework_TestCase
@@ -43,7 +44,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
 
     function testDefaults()
     {
-        $this->assertEquals('select', $this->input[Input::WIDGET]);
+        $this->assertEquals('select', $this->input[Specs::WIDGET]);
     }
 
     function testFirstOption()

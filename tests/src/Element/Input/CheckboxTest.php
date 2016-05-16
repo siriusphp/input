@@ -3,6 +3,7 @@
 namespace Sirius\Input\Element\Input;
 
 use Sirius\Input\Element\Input;
+use Sirius\Input\Specs;
 
 class CheckboxTest extends \PHPUnit_Framework_TestCase
 {
@@ -11,7 +12,7 @@ class CheckboxTest extends \PHPUnit_Framework_TestCase
     {
         $input = new Checkbox('agree');
 
-        $this->assertEquals('checkbox', $input[Input::WIDGET]);
+        $this->assertEquals('checkbox', $input[Specs::WIDGET]);
     }
 
     function testValues()

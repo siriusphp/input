@@ -7,6 +7,7 @@ use Sirius\Input\Element;
 use Sirius\Input\Traits\HasValidationRulesTrait;
 use Sirius\Input\Traits\HasHintTrait;
 use Sirius\Input\Traits\HasAttributesTrait;
+use Sirius\Input\Specs;
 
 class Input extends Element
 {
@@ -32,7 +33,7 @@ class Input extends Element
      * @param array $specs
      *            Specification for the element (attributes, parents, etc)
      */
-    function __construct($name, $specs = array())
+    public function __construct($name, $specs = array())
     {
         $specs = array_merge($this->getDefaultSpecs(), $specs);
         parent::__construct($name, $specs);
@@ -47,7 +48,7 @@ class Input extends Element
     protected function getDefaultSpecs()
     {
         return array(
-            static::WIDGET => 'text'
+            Specs::WIDGET => 'text'
         );
     }
 }

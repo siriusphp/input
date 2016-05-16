@@ -5,6 +5,7 @@ use Sirius\Input\Element\Input as BaseInput;
 use Sirius\Input\Traits\HasUploadTrait;
 use Sirius\Input\InputFilter;
 use Sirius\Upload\Handler;
+use Sirius\Input\Specs;
 
 /**
  * File element
@@ -18,7 +19,7 @@ class File extends BaseInput
     {
 
         return array(
-            BaseInput::WIDGET => 'file'
+            Specs::WIDGET => 'file'
         );
     }
 

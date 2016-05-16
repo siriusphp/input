@@ -13,7 +13,7 @@ trait HasFiltersTrait
      *
      * @return array
      */
-    function getFilters()
+    public function getFilters()
     {
         return isset($this[Specs::FILTERS]) ? $this[Specs::FILTERS] : array();
     }
@@ -25,7 +25,7 @@ trait HasFiltersTrait
      *
      * @return $this
      */
-    function setFilters($filters = array())
+    public function setFilters($filters = array())
     {
         $this[Specs::FILTERS] = $filters;
 

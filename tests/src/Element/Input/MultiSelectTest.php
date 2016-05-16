@@ -3,6 +3,7 @@
 namespace Sirius\Input\Element\Input;
 
 use Sirius\Input\Element\Input;
+use Sirius\Input\Specs;
 use Mockery as m;
 
 class MultiSelectTest extends \PHPUnit_Framework_TestCase
@@ -42,7 +43,7 @@ class MultiSelectTest extends \PHPUnit_Framework_TestCase
     function testDefaults()
     {
 
-        $this->assertEquals('multiselect', $this->input[Input::WIDGET]);
+        $this->assertEquals('multiselect', $this->input[Specs::WIDGET]);
     }
 
 

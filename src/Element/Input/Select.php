@@ -12,7 +12,7 @@ class Select extends BaseInput
     protected function getDefaultSpecs()
     {
         return array(
-            BaseInput::WIDGET => 'select'
+            Specs::WIDGET => 'select'
         );
     }
 
@@ -23,7 +23,7 @@ class Select extends BaseInput
      *
      * @return $this
      */
-    function setOptions($options = array())
+    public function setOptions($options = array())
     {
         $this[Specs::OPTIONS] = $options;
 
@@ -35,7 +35,7 @@ class Select extends BaseInput
      *
      * @return array
      */
-    function getOptions()
+    public function getOptions()
     {
         return isset($this[Specs::OPTIONS]) ? $this[Specs::OPTIONS] : array();
     }
@@ -47,7 +47,7 @@ class Select extends BaseInput
      *
      * @return $this
      */
-    function setFirstOption($firstOption = null)
+    public function setFirstOption($firstOption = null)
     {
         $this[Specs::FIRST_OPTION] = $firstOption;
 
@@ -58,7 +58,7 @@ class Select extends BaseInput
      * Retrieve the first option for SELECT widgets
      * @return null
      */
-    function getFirstOption()
+    public function getFirstOption()
     {
         return isset($this[Specs::FIRST_OPTION]) ? $this[Specs::FIRST_OPTION] : null;
     }
@@ -84,7 +84,7 @@ class Select extends BaseInput
      *
      * @return mixed
      */
-    function filterValue($value, $valueIdentifier = null)
+    public function filterValue($value, $valueIdentifier = null)
     {
         if (!$value) {
             return null;

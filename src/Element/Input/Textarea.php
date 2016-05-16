@@ -2,7 +2,7 @@
 namespace Sirius\Input\Element\Input;
 
 use Sirius\Input\Element\Input as BaseInput;
-use Sirius\Input\Element;
+use Sirius\Input\Specs;
 
 class Textarea extends BaseInput
 {
@@ -10,8 +10,8 @@ class Textarea extends BaseInput
     protected function getDefaultSpecs()
     {
         return array(
-            Element::WIDGET     => 'textarea',
-            Element::ATTRIBUTES => array(
+            Specs::WIDGET     => 'textarea',
+            Specs::ATTRIBUTES => array(
                 'rows' => '5',
                 'cols' => '100'
             )

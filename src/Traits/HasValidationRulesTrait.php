@@ -12,7 +12,7 @@ trait HasValidationRulesTrait
      *
      * @return array
      */
-    function getValidationRules()
+    public function getValidationRules()
     {
         return isset($this[Specs::VALIDATION_RULES]) ? $this[Specs::VALIDATION_RULES] : array();
     }
@@ -24,7 +24,7 @@ trait HasValidationRulesTrait
      *
      * @return $this
      */
-    function setValidationRules($rules = array())
+    public function setValidationRules($rules = array())
     {
         $this[Specs::VALIDATION_RULES] = $rules;
 

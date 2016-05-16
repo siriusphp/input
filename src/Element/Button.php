@@ -2,18 +2,19 @@
 namespace Sirius\Input\Element;
 
 use Sirius\Input\Element;
+use Sirius\Input\Specs;
 
 class Button extends Element
 {
 
-    function getLabel()
+    public function getLabel()
     {
-        return isset($this[Element::LABEL]) ? $this[Element::LABEL] : null;
+        return isset($this[Specs::LABEL]) ? $this[Specs::LABEL] : null;
     }
 
-    function setLabel($label)
+    public function setLabel($label)
     {
-        $this[Element::LABEL] = $label;
+        $this[Specs::LABEL] = $label;
 
         return $this;
     }
@@ -21,7 +22,7 @@ class Button extends Element
     protected function getDefaultSpecs()
     {
         return array(
-            Element::WIDGET => 'button'
+            Specs::WIDGET => 'button'
         );
     }
 }

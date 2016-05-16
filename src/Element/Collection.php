@@ -9,6 +9,7 @@ use Sirius\Input\Traits\HasValidationRulesTrait;
 use Sirius\Input\Element\Factory as ElementFactory;
 use Sirius\Input\Element\FactoryAwareInterface as ElementFactoryAwareInterface;
 use Sirius\Input\InputFilter;
+use Sirius\Input\Specs;
 
 class Collection extends Input implements ElementFactoryAwareInterface
 {
@@ -27,7 +28,7 @@ class Collection extends Input implements ElementFactoryAwareInterface
     protected function getDefaultSpecs()
     {
         return array(
-            InputFilter::WIDGET => 'fieldset'
+            Specs::WIDGET => 'fieldset'
         );
     }
 
@@ -49,7 +50,7 @@ class Collection extends Input implements ElementFactoryAwareInterface
         return $this->getName() . '[*][' . $name . ']';
     }
 
-    function setElementFactory(ElementFactory $elementFactory)
+    public function setElementFactory(ElementFactory $elementFactory)
     {
         $this->elementFactory = $elementFactory;
         $this->createChildren();
@@ -57,7 +58,7 @@ class Collection extends Input implements ElementFactoryAwareInterface
         return $this;
     }
 
-    function prepareInputFilter(InputFilter $inputFilter)
+    public function prepareInputFilter(InputFilter $inputFilter)
     {
         parent::prepareInputFilter($inputFilter);
         $this->cleanUpMissingGroups();

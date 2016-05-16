@@ -3,6 +3,7 @@ namespace Sirius\Input\Element;
 
 use Sirius\Input\Element\Input;
 use Sirius\Input\Element;
+use Sirius\Input\Specs;
 
 class Factory
 {
@@ -22,7 +23,7 @@ class Factory
         'fieldset'    => '\Sirius\Input\Element\Fieldset',
     );
 
-    function registerElementType($type, $classOrClosure)
+    public function registerElementType($type, $classOrClosure)
     {
         if ($classOrClosure instanceof \Closure) {
             $this->types[$type] = $classOrClosure;
@@ -54,12 +55,12 @@ class Factory
      * @return \Sirius\Input\Element
      * @throws \RuntimeException
      */
-    function createFromOptions($name, $options = array())
+    public function createFromOptions($name, $options = array())
     {
         $type = 'text';
-        if (isset($options[Input::TYPE]) && isset($this->types[$options[Input::TYPE]])) {
-            $type = $options[Input::TYPE];
-            unset($options[Input::TYPE]);
+        if (isset($options[Specs::TYPE]) && isset($this->types[$options[Specs::TYPE]])) {
+            $type = $options[Specs::TYPE];
+            unset($options[Specs::TYPE]);
         }
         /* @var $element \Sirius\Input\Element */
         if ($this->types[$type] instanceof \Closure) {

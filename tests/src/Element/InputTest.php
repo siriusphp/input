@@ -3,6 +3,7 @@ namespace Sirius\Input\Element;
 
 use Mockery as m;
 use Sirius\Input\InputFilter;
+use Sirius\Input\Specs;
 
 class InputTest extends \PHPUnit_Framework_TestCase
 {
@@ -108,16 +109,16 @@ class InputTest extends \PHPUnit_Framework_TestCase
         $this->form->addElement(
             'email',
             array(
-                InputFilter::TYPE             => 'text',
-                InputFilter::LABEL            => 'Email',
-                InputFilter::FILTERS          => array(
+                Specs::TYPE             => 'text',
+                Specs::LABEL            => 'Email',
+                Specs::FILTERS          => array(
                     'stringtrim',
                     array(
                         'truncate',
                         'limit=100'
                     )
                 ),
-                InputFilter::VALIDATION_RULES => array(
+                Specs::VALIDATION_RULES => array(
                     'required',
                     'email',
                     array(

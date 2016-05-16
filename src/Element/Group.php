@@ -1,6 +1,8 @@
 <?php
 namespace Sirius\Input\Element;
 
+use Sirius\Input\Specs;
+
 /**
  * A group is a container for other elements.
  * It doesn't occupy a namespace like a fieldset does and elements can be moved out of a group.
@@ -14,7 +16,7 @@ class Group extends Input
     protected function getDefaultSpecs()
     {
         return array(
-            Input::WIDGET => 'group'
+            Specs::WIDGET => 'group'
         );
     }
 }
