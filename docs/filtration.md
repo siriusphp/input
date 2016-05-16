@@ -31,11 +31,12 @@ In the example above the filters are specified at a field level. This means they
 
 ```php
 $form->setFilters(array(
-    // apply XSS prevention filters to all fields of the form
+    // first filter to be applied
     array(
-        'xss_prevention',
-        [],
-        true // this is a recursive filter, it will be applied to all elements
+        'xss_prevention',   // apply XSS prevention filter
+        [],                 // array of options for the filter
+        true,               // this is a recursive filter
+        100                 // priority of the filter
     )
 ));
 ```
@@ -57,4 +58,4 @@ $filters[] = 'xss_protection';
 $form->getElement('date')->setFilters($filters);
 ```
 
-**Important!** The `Sirius\Filtration` library allows you to send the filters using different formats (eg: a string instead of an array) so the code above may not work
+You may take advantage of  [`Sirius\Filtration\Filtrator::add()` syntactic-sugar ](http://www.sirius.ro/php/sirius/filtration/syntactic_sugar.html)

@@ -18,13 +18,17 @@ These are the parameters required by the `Sirius\Validation\Validator::add()` me
 $form->add('name', array(
     'label' => 'Name'
 	'validation_rules' => array(
-		// simple rule that uses the default error message
-		'required',
-		// validation rule with options and custom error message
-		// the {label} placeholder will be replaced with the label attribute
-		array('minlength', ['min' => 20], '{label} must have at least {min} characters'),
-		// validation rule with options provided as a URL QUERY string
-		array('maxlength', 'max=200', 'Field must have less than {max} characters')
+	    
+	    // provide the name of the rule
+		'required',         
+		
+		// provide the full configuration of the validation rule
+		array(
+		    'minlength',        // name of the rule
+		    ['min' => 20],      // options for the rule
+		    '{label} must have at least {min} characters'), // error message
+        )
+        
 	),
 ));
 
@@ -50,4 +54,4 @@ $rules[] = 'required';
 $form->getElement('date')->setValidationRules($rules);
 ```
 
-**Important!** The `Sirius\Validation` library allows you to send the validation rules using different formats (eg: a string instead of an array) so the code above may not work
+You may take advantage of  [`Sirius\Validation\Validator::add()` syntactic-sugar ](http://www.sirius.ro/php/sirius/validation/syntactic_sugar.html)
