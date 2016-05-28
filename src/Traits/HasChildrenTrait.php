@@ -4,7 +4,6 @@ namespace Sirius\Input\Traits;
 
 use Sirius\Input\Element;
 use Sirius\Input\Element\Factory as ElementFactory;
-use Sirius\Input\Element\FactoryAwareInterface;
 use Sirius\Input\Specs;
 
 trait HasChildrenTrait
@@ -89,6 +88,8 @@ trait HasChildrenTrait
 
         }
 
+        $this->ensureGroupExists($element);
+
         // add the index for sorting
         if (!isset($element['__index'])) {
 
@@ -99,6 +100,23 @@ trait HasChildrenTrait
         $this->elements[$name] = $element;
 
         return $this;
+    }
+
+    /**
+     * Make sure a Group type element is added to the children if the element has a group
+     *
+     * @param Element $element
+     */
+    protected function ensureGroupExists(Element $element) {
+
+        if (!$element->getGroup() || $this->hasElement($element->getGroup())) {
+            return;
+        }
+
+        $this->addElement($element->getGroup(), array(
+            Specs::TYPE => 'group',
+            Specs::POSITION => $element->getPosition()
+        ));
     }
 
     /**

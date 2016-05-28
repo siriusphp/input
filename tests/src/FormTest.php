@@ -244,6 +244,10 @@ class FormTest extends \PHPUnit_Framework_TestCase
             Specs::GROUP    => 'missing'
         ));
 
+        // the library creates the group if not previously declared
+        // we have to intentionally remove it for this scenario
+        $this->form->removeElement('missing');
+
         $this->form->prepare();
 
         $elements = $this->form->getElements();
