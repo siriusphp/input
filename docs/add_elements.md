@@ -35,6 +35,8 @@ $email = new Text('email', array(
 $form->add($email);
 ```
 
-**Warning!** By doing so you will loose the advantages offered by [element factory](Element_factory.md) which constructs the elements based on the `Specs::TYPE` value (this allows you to globally change the implementation of a particular type of input).
+<div class="warning">
+    <strong>Warning!</strong> Doing this you lose the advantages offered by the <a href="element_factory.html">ElementFactory</a> which constructs the elements based on the `type` value (this allows you to globally change the implementation of a particular type of input).
+</div>
 
 As you can see, the `Specs` class has a lot of constants that you can use when defining the element specifications. Just type `Specs::` and let your IDE do the rest!

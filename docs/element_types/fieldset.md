@@ -50,6 +50,6 @@ If an input named `email` belongs to a form the rendered element will have the `
 
 ## Fieldsets vs. groups
 
-A group is just a visual container for other elements and it doesn't affect the elements it contains while a fieldset affects the elements it contains. You cannot move around elements from a fielset into another fielset but you can move elements from group to group.
+A group is just a visual container for other elements and it doesn't affect the elements it contains while a fieldset affects the elements it contains. You cannot move around elements from a fieldset into another fieldset but you can move elements from group to group.
 
 A group can contain fieldsets and viceversa.

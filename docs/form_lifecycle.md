@@ -7,7 +7,7 @@ title: A form's lifecycle
 During its existence a form goes through a few stages.
 
 ### 1.Creation
-**Sirius\Input\InputFilter** forms have a few constructor dependencies (which have default values) but your application's forms might depend on other things.
+**Sirius\Input\InputFilter** forms have a few constructor dependencies (which have default values) but your application's forms might depend on other things. You may need to use setters to inject those dependencies. For this reason nothing exceptional happens to a form when you `new` it.
 
 ### 2. Initialization
 The `init()` method doesn't do anything by default but you can use it for your application form to define the form's properties and elements. 
@@ -22,7 +22,9 @@ The form's `prepare()` method is executed automatically before receiving data or
 
 You can extend this method to alter the form in whatever way you want (add new elements, change elements, add custom validation rules, trigger events etc).
 
-**Important!** While you can add/change/remove fields from a form after the preparation you must be aware that these changes will not propagate to the form's dependencies (filtrator/validator/upload handlers)
+<div class="warning">
+<strong>Important!</strong> While you can add/change/remove fields from a form after the preparation you must be aware that these changes will not propagate to the form's dependencies (filtrator/validator/upload handlers)
+</div>
 
 ### 4. Receiving data
 The `populate()` method is how the form gets data (`_POST` and `_FILES`). 
@@ -32,6 +34,6 @@ To process the data you need to call `isValid()` which will filter, validate and
 2. Access to the clean (filtered and validated) data that can be used by the system (to be persisted to a database or whatever).
 
 ### 5. Rendering
-When it comes to flexible forms (eg: forms that are modified by plugins/events) this is the hardest part that are supposed to change their shape . While there are a lot of libraries that can help you with data filtering and validation you'll have a hard time finding a library that allows you to render complex forms with one line (Drupal is the only project that I found that can do that).
+When it comes to flexible forms (eg: forms that can be modified by plugins/events) this is the hardest part. While there are a lot of libraries that can help you with data filtering and validation you'll have a hard time finding a library that allows you to render flexible forms without you touching a view file (Drupal is the only project that I found that can do that).
 
 Rendering is handled by [Sirius\FormsRenderer](http://github.com/siriusphp/formsrenderer) because the **Sirius\Input** library can be used for handling incoming data that might not come from forms (eg: API calls).

@@ -12,15 +12,20 @@ Let's consider a simple contact form that has the following field: `name`, `emai
 
 ```php
 use Sirius\Input\InputFilter;
+use Sirius\Input\Specs; // a collection of constants to help your IDE assist you
 
 $contactForm = new InputFilter();
 $contactForm->addElement('name', array(
+    
     // type of input element from Sirius\Input\Element
     Specs::TYPE => 'text',
+    
     // label of the input
     Specs::LABEL => 'Your name',
+    
     // attributes for the label
     Specs::LABEL_ATTRIBUTES => ['class' => 'emphasized'],
+    
     // how the input will be rendered, defaults to 'text'
     Specs::WIDGET => 'text',
     Specs::VALIDATION_RULES => ['required']
@@ -28,12 +33,14 @@ $contactForm->addElement('name', array(
 ));
 
 $contactForm->addElement('email', array(
-    Specs::TYPE => 'text',
-    // the class constants are here to help you but they are not mandatory
-    'label' => 'Your email',
+    
+    // you are not required to use the Specs constants 
+    'type' => 'text',
+    
+    Specs::LABEL => 'Your email',
     Specs::ATTRIBUTES => ['placeholder' => 'me@domain.com'],
     Specs::WIDGET => 'email',
-    Specs::VALIDATION_RULES => 'required | email', // this is accepted by Sirius\Validation library
+    Specs::VALIDATION_RULES => ['required', 'email'],
     Specs::FILTERS => ['trim']
 ));
 
@@ -47,7 +54,7 @@ $contactForm->addElement('message', array(
     Specs::TYPE => 'textarea',
     Specs::LABEL => 'Message',
     Specs::HINT => 'Please be as detailed as possible'
-    Specs::FILTERS => ['trim','strip_tags']
+    Specs::FILTERS => ['trim', 'strip_tags']
 ));
 
 $contactForm->addElement('source', array(

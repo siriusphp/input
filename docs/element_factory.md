@@ -60,7 +60,7 @@ $form->addElement('recipient', array(
 ));
 ```
 
-## But you are not forced to use the element factory
+## The use of the element factory is optional
 
 If you don't want to use the element factory to register your custom elements you can use the class as the `type` of the element
 

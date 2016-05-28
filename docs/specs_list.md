@@ -20,7 +20,7 @@ This is required only by the ElementFactory to determine the type of element to 
 
 #####  `attributes` | Specs::ATTRIBUTES | getAttributes()/setAttributes(), getAttribute()/setAttribute()
 
-The HTML attributes of the input field. Example:
+The view layer instructions for rendering the input element. In the case of a FORM this refers to the HTML attributes of the input element (INPUT, TEXTAREA, SELECT etc).
 
 ```php
 $email = $form->getElement('email');
@@ -45,7 +45,7 @@ $email->getLabel(); // Your email
 
 #####  `label_attributes` | Specs::LABEL_ATTRIBUTES | getLabelAttributes()/setLabelAttributes() , getLabelAttributes()/setLabelAttributes(), getLabelAttribute()/setLabelAttribute()
 
-The HTML attributes of the label element
+The view layer instructions for rendering the label. In the case of a FORM this refers to the HTML attributes of the LABEL element.
 
 #####  `hint` | Specs::HINT | getHint()/setHint()
 
