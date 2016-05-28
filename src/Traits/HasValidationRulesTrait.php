@@ -44,11 +44,12 @@ trait HasValidationRulesTrait
         if (!$validationRules || !is_array($validationRules)) {
             return;
         }
+
         $validator = $input->getValidator();
+
         foreach ($validationRules as $rule) {
-            $params = is_array($rule) ? $rule : array(
-                $rule
-            );
+            $params = (array) $rule;
+
             if (isset($params[0])) {
                 $validator->add($this->getName(), $params[0], @$params[1], @$params[2], $this->getLabel());
             }

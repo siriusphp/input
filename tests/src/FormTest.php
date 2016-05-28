@@ -23,6 +23,12 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->form->addElement(new \stdClass());
     }
 
+    function testExceptionThrownOnSettingTheElementFactory()
+    {
+        $this->setExpectedException('BadMethodCallException');
+        $this->form->setElementFactory(new Element\Factory());
+    }
+
     function testRemoveElements()
     {
         $this->assertFalse($this->form->hasElement('email'));
@@ -54,6 +60,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
             )
         ));
         $this->form->prepare();
+        $this->form->prepare(true); // force prepare
 
         $validator       = $this->form->getValidator();
         $validationRules = $validator->getRules();
@@ -171,7 +178,7 @@ class FormTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEquals(null, $errors['picture']);
     }
 
-    function testGetChildrenOrder()
+    function testChildrenOrder()
     {
         $this->form->addElement('email', array(
             Specs::TYPE     => 'text',

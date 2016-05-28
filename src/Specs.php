@@ -74,12 +74,12 @@ class Specs
     /**
      * The list of acceptable choices for "select" type of elements
      */
-    const OPTIONS = 'options';
+    const CHOICES = 'choices';
 
     /**
      * The first option (the label for NULL) for "select" type of elements
      */
-    const FIRST_OPTION = 'first_option';
+    const FIRST_CHOICE = 'first_choice';
 
     /**
      * The value to be sent by the client when a "checkbox" is not checked

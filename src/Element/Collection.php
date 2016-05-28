@@ -19,12 +19,6 @@ class Collection extends Input implements ElementFactoryAwareInterface
     use HasFiltersTrait;
     use HasValidationRulesTrait;
 
-    /**
-     *
-     * @var ElementFactory
-     */
-    protected $elementFactory;
-
     protected function getDefaultSpecs()
     {
         return array(
@@ -50,18 +44,11 @@ class Collection extends Input implements ElementFactoryAwareInterface
         return $this->getName() . '[*][' . $name . ']';
     }
 
-    public function setElementFactory(ElementFactory $elementFactory)
-    {
-        $this->elementFactory = $elementFactory;
-        $this->createChildren();
-
-        return $this;
-    }
-
     public function prepareInputFilter(InputFilter $inputFilter)
     {
         parent::prepareInputFilter($inputFilter);
         $this->cleanUpMissingGroups();
+
         foreach ($this->getElements() as $element) {
             $element->prepareInputFilter($inputFilter);
         }

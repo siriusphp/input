@@ -31,7 +31,7 @@ class SelectTest extends \PHPUnit_Framework_TestCase
         $this->filtrator = m::mock('\Sirius\Filtration\Filtrator');
         $this->form      = new \Sirius\Input\InputFilter(null, null, $this->filtrator);
         $this->input     = new Select('select');
-        $this->input->setOptions(array(
+        $this->input->setChoices(array(
             'a' => 'A',
             'b' => 'B'
         ));
@@ -49,8 +49,8 @@ class SelectTest extends \PHPUnit_Framework_TestCase
 
     function testFirstOption()
     {
-        $this->input->setFirstOption('select from list...');
-        $this->assertEquals('select from list...', $this->input->getFirstOption());
+        $this->input->setFirstChoice('select from list...');
+        $this->assertEquals('select from list...', $this->input->getFirstChoice());
     }
 
     function testPrepareFormFiltration()

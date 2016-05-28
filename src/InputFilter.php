@@ -40,13 +40,6 @@ class InputFilter extends \ArrayObject
     protected $isPrepared = false;
 
     /**
-     * Factory form creating form elements from specs
-     *
-     * @var ElementFactory
-     */
-    protected $elementFactory;
-
-    /**
      * Data validation object
      *
      * @var \Sirius\Validation\Validator
@@ -127,6 +120,11 @@ class InputFilter extends \ArrayObject
     public function getElementFactory()
     {
         return $this->elementFactory;
+    }
+
+    public function setElementFactory()
+    {
+        throw new \BadMethodCallException('You are not allowed to change the element factory of an \InputFilter object');
     }
 
     /**

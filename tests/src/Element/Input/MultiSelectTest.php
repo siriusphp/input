@@ -29,7 +29,7 @@ class MultiSelectTest extends \PHPUnit_Framework_TestCase
         $this->filtrator = m::mock('\Sirius\Filtration\Filtrator');
         $this->form      = new \Sirius\Input\InputFilter(null, null, $this->filtrator);
         $this->input     = new MultiSelect('multiselect');
-        $this->input->setOptions(array(
+        $this->input->setChoices(array(
             'a' => 'A',
             'b' => 'B'
         ));

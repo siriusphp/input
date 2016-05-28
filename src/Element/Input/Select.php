@@ -17,39 +17,39 @@ class Select extends BaseInput
     }
 
     /**
-     * Sets the options for elements like selects, radio buttons, checkboxes
+     * Sets the choices for elements like selects, radio buttons, checkboxes
      *
      * @param array $options
      *
      * @return $this
      */
-    public function setOptions($options = array())
+    public function setChoices($options = array())
     {
-        $this[Specs::OPTIONS] = $options;
+        $this[Specs::CHOICES] = $options;
 
         return $this;
     }
 
     /**
-     * Retrieves the options for selects, radio button, checkboxes
+     * Retrieves the choices for selects, radio button, checkboxes
      *
      * @return array
      */
-    public function getOptions()
+    public function getChoices()
     {
-        return isset($this[Specs::OPTIONS]) ? $this[Specs::OPTIONS] : array();
+        return isset($this[Specs::CHOICES]) ? $this[Specs::CHOICES] : array();
     }
 
     /**
-     * Sets the first option for SELECT widgets
+     * Sets the first choice for SELECT widgets
      *
-     * @param null $firstOption
+     * @param null $firstChoice
      *
      * @return $this
      */
-    public function setFirstOption($firstOption = null)
+    public function setFirstChoice($firstChoice = null)
     {
-        $this[Specs::FIRST_OPTION] = $firstOption;
+        $this[Specs::FIRST_CHOICE] = $firstChoice;
 
         return $this;
     }
@@ -58,9 +58,9 @@ class Select extends BaseInput
      * Retrieve the first option for SELECT widgets
      * @return null
      */
-    public function getFirstOption()
+    public function getFirstChoice()
     {
-        return isset($this[Specs::FIRST_OPTION]) ? $this[Specs::FIRST_OPTION] : null;
+        return isset($this[Specs::FIRST_CHOICE]) ? $this[Specs::FIRST_CHOICE] : null;
     }
 
     protected function prepareFiltrator(InputFilter $input)
@@ -89,7 +89,7 @@ class Select extends BaseInput
         if (!$value) {
             return null;
         }
-        $allowedValues = array_keys($this->getOptions());
+        $allowedValues = array_keys($this->getChoices());
         if (is_array($allowedValues) && in_array($value, $allowedValues)) {
             return $value;
         }

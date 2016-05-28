@@ -3,7 +3,6 @@ namespace Sirius\Input;
 
 use Sirius\Input\Traits\HasAttributesTrait;
 use Sirius\Input\Traits\HasDataTrait;
-use Sirius\Input\Specs;
 
 /**
  *
@@ -39,6 +38,9 @@ use Sirius\Input\Specs;
  * @method Element setUploadOptions(array $options) Set the upload options for the container
  * @method Element getUploadRules() Get the upload validation rules
  * @method Element setUploadRules(array $rules) Set the upload validation rules
+ * @method Element setChoices(array $choices) Set the list of choices for SELECT type elements
+ * @method Element getChoices() Get the list of choices for SELECT type elements
+ * @method Element getFirstChoice() Get the list of choices for SELECT type elements
  */
 abstract class Element extends \ArrayObject
 {

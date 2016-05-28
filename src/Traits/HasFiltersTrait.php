@@ -45,7 +45,9 @@ trait HasFiltersTrait
         if (!$filters || !is_array($filters)) {
             return;
         }
+
         $filtrator = $input->getFiltrator();
+
         foreach ($filters as $filter) {
             $params = is_array($filter) ? $filter : array($filter);
             if (isset($params[0])) {

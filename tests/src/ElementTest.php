@@ -101,4 +101,10 @@ class ElementTest extends \PHPUnit_Framework_TestCase
         $this->element->toggleClass('required');
         $this->assertEquals('', $this->element->getAttribute('class'));
     }
+
+    function testPosition() {
+        $position = 10;
+        $this->element->setPosition($position);
+        $this->assertEquals(10, $this->element->getPosition());
+    }
 }

@@ -92,11 +92,11 @@ Configuration options for the upload handler
 
 Validation rules for the file uploads
 
-##### `options` | Specs::OPTIONS | getOptions()/setOptions()
+##### `choices` | Specs::CHOICES | getChoices()/setChoices()
 
 A set of options to be used by SELECT and MULTISELECT type of elements (these can be rendered as dropdowns or sets of checkboxes/radio buttons)
 
-##### `first_option` | Specs::FIRST_OPTION | getFirstOption()/setFirstOption()
+##### `first_choice` | Specs::FIRST_CHOICE | getFirstChoice()/setFirstChoice()
 
 The empty option to be displayed in the dropdown (eg: 'select from list...')
 

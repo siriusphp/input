@@ -12,7 +12,7 @@ class ButtonTest extends \PHPUnit_Framework_TestCase
     {
         $button = new Button('submit');
 
-        $this->assertEquals('button', $button[Specs::WIDGET]);
+        $this->assertEquals('button', $button->getWidget());
     }
 
 

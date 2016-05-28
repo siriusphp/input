@@ -3,6 +3,7 @@
 namespace Sirius\Input\Traits;
 
 use Sirius\Input\Element;
+use Sirius\Input\Element\Factory as ElementFactory;
 use Sirius\Input\Element\FactoryAwareInterface;
 use Sirius\Input\Specs;
 
@@ -23,6 +24,11 @@ trait HasChildrenTrait
     protected $elementsIndex = PHP_INT_MAX;
 
     /**
+     * @var ElementFactory
+     */
+    protected $elementFactory;
+
+    /**
      * Generates the actual name that will be used to identify the element in the input object
      * For input objects the name of the child is the same as the name provided,
      * For field-sets the name of the child is prefixed/name-spaced with the name of the field-set
@@ -38,6 +44,22 @@ trait HasChildrenTrait
     }
 
     /**
+     * Sets the element factory.
+     * Objects that have children (eg: Fieldset, Collection) must be factory-aware
+     * This is passed down from form to fieldsets, collections or other elements that have children
+     *
+     * @param ElementFactory $elementFactory
+     * @return $this
+     */
+    public function setElementFactory(ElementFactory $elementFactory)
+    {
+        $this->elementFactory = $elementFactory;
+        $this->createChildren();
+
+        return $this;
+    }
+
+    /**
      * Add an element to the children list
      *
      * @param string|\Sirius\Input\Element $nameOrElement
@@ -49,36 +71,46 @@ trait HasChildrenTrait
     public function addElement($nameOrElement, $specs = array())
     {
         if (is_string($nameOrElement)) {
-            $name    = $nameOrElement;
+
+            $name = $nameOrElement;
             $element = $this->elementFactory->createFromOptions($this->getFullChildName($nameOrElement), $specs);
+
         } elseif ($nameOrElement instanceof Element) {
+
             $element = $nameOrElement;
             // for an element with the name 'address[street]' we get only the 'street'
             // because we assume the element has the name constructed using the rule in getFullChildName()
             $parts = explode('[', str_replace(']', '', $element->getName()));
-            $name  = array_pop($parts);
+            $name = array_pop($parts);
+
         } else {
+
             throw new \RuntimeException(sprintf('Variable $nameorElement must be a string or an instance of the Element class'));
+
         }
+
         // add the index for sorting
         if (!isset($element['__index'])) {
+
             $element['__index'] = ($this->elementsIndex--);
+
         }
+
         $this->elements[$name] = $element;
 
         return $this;
     }
 
     /**
-     *
+     * Create the children using the factory.
+     * This will be called by elements that are factory-aware (eg: Fieldsets)
      */
     protected function createChildren()
     {
-        if ($this instanceof FactoryAwareInterface) {
-            if (isset($this[Specs::CHILDREN])) {
-                foreach ($this[Specs::CHILDREN] as $name => $options) {
-                    $this->addElement($name, $options);
-                }
+        /* @var $this \ArrayObject */
+        if (isset($this[Specs::CHILDREN])) {
+            foreach ($this[Specs::CHILDREN] as $name => $options) {
+                $this->addElement($name, $options);
             }
         }
     }
@@ -105,7 +137,7 @@ trait HasChildrenTrait
      */
     public function removeElement($name)
     {
-        if (isset($this->elements[$name])) {
+        if (array_key_exists($name, $this->elements)) {
             unset($this->elements[$name]);
         }
 
@@ -136,21 +168,23 @@ trait HasChildrenTrait
     {
         $posA = isset($childA[Specs::POSITION]) ? $childA[Specs::POSITION] : 0;
         $posB = isset($childB[Specs::POSITION]) ? $childB[Specs::POSITION] : 0;
+
         if ($posA < $posB) {
-            return - 1;
+            return -1;
         }
         if ($posA > $posB) {
             return 1;
         }
+
         if ($childA['__index'] > $childB['__index']) {
-            return - 1;
+            return -1;
         }
         if ($childA['__index'] < $childB['__index']) {
             return 1;
         }
 
         // if the priority is the same, childB is first
-        return - 1;
+        return -1;
     }
 
     /**

@@ -66,7 +66,6 @@ trait HasAttributesTrait
     public function setAttribute($attr, $value = null)
     {
         $this->ensureAttributes();
-        $this->ensureAttributes();
         $this[Specs::ATTRIBUTES]->set($attr, $value);
 
         return $this;

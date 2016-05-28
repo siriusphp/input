@@ -25,12 +25,6 @@ class Fieldset extends Input implements ElementFactoryAwareInterface
     use HasFiltersTrait;
     use HasValidationRulesTrait;
 
-    /**
-     * @var \Sirius\Input\Element\Factory
-     */
-    protected $elementFactory;
-
-
     protected function getDefaultSpecs()
     {
         return array(
@@ -39,7 +33,7 @@ class Fieldset extends Input implements ElementFactoryAwareInterface
     }
 
     /**
-     * Generate the namespaced field name of an element inside the  fielset
+     * Generate the namespaced field name of an element inside the  fieldset
      *
      * @param string $name
      *
@@ -56,27 +50,11 @@ class Fieldset extends Input implements ElementFactoryAwareInterface
         return $this->getName() . '[' . $name . ']';
     }
 
-    /**
-     * Sets the element factory object.
-     * This is passed from the input to other objects that may have children
-     *
-     * @param ElementFactory $elementFactory
-     *
-     * @return $this
-     */
-    public function setElementFactory(ElementFactory $elementFactory)
-    {
-        $this->elementFactory = $elementFactory;
-        $this->createChildren();
-
-        return $this;
-    }
-
-
     public function prepareInputFilter(InputFilter $inputFilter)
     {
         parent::prepareInputFilter($inputFilter);
         $this->cleanUpMissingGroups();
+
         foreach ($this->getElements() as $element) {
             $element->prepareInputFilter($inputFilter);
         }

@@ -32,7 +32,7 @@ class MultiSelect extends Select
         if (!is_array($value)) {
             $value = (array) $value;
         }
-        $allowedValues = array_keys($this->getOptions());
+        $allowedValues = array_keys($this->getChoices());
 
         return array_intersect($value, $allowedValues);
     }

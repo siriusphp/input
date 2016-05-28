@@ -90,7 +90,6 @@ trait HasLabelTrait
     public function setLabelAttribute($attr, $value = null)
     {
         $this->ensureLabelAttributes();
-        $this->ensureLabelAttributes();
         $this[Specs::LABEL_ATTRIBUTES]->set($attr, $value);
 
         return $this;
