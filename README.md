@@ -13,5 +13,5 @@ Framework agnostic input library (think forms, APIs etc).
 ## Links
 
 - [Documentation](http://www.sirius.ro/php/sirius/input)
-- [FormsRenderer](http://www.sirius.ro/php/sirius/formsrenderer) - a solution for rendering `Sirius\Input` forms
-- [Examples](http://www.sirius.ro/php/sirius/formexamples/) - examples for solving various form-related problems (translation, client-side validation, layout)
+- [Form Renderer](http://www.sirius.ro/php/sirius/form-renderer) - a solution for rendering `Sirius\Input` forms
+- [Form Examples](https://github.com/siriusphp/form-examples) - examples for solving various form-related problems (translation, client-side validation, layout)
